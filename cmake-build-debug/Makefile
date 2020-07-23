@@ -177,6 +177,33 @@ GNL/get_next_line_utils.c.s:
 	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/GNL/get_next_line_utils.c.s
 .PHONY : GNL/get_next_line_utils.c.s
 
+helper.o: helper.c.o
+
+.PHONY : helper.o
+
+# target to build an object file
+helper.c.o:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/helper.c.o
+.PHONY : helper.c.o
+
+helper.i: helper.c.i
+
+.PHONY : helper.i
+
+# target to preprocess a source file
+helper.c.i:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/helper.c.i
+.PHONY : helper.c.i
+
+helper.s: helper.c.s
+
+.PHONY : helper.s
+
+# target to generate assembly for a file
+helper.c.s:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/helper.c.s
+.PHONY : helper.c.s
+
 libft/ft_strcmp.o: libft/ft_strcmp.c.o
 
 .PHONY : libft/ft_strcmp.o
@@ -203,6 +230,33 @@ libft/ft_strcmp.s: libft/ft_strcmp.c.s
 libft/ft_strcmp.c.s:
 	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/libft/ft_strcmp.c.s
 .PHONY : libft/ft_strcmp.c.s
+
+list_utils.o: list_utils.c.o
+
+.PHONY : list_utils.o
+
+# target to build an object file
+list_utils.c.o:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/list_utils.c.o
+.PHONY : list_utils.c.o
+
+list_utils.i: list_utils.c.i
+
+.PHONY : list_utils.i
+
+# target to preprocess a source file
+list_utils.c.i:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/list_utils.c.i
+.PHONY : list_utils.c.i
+
+list_utils.s: list_utils.c.s
+
+.PHONY : list_utils.s
+
+# target to generate assembly for a file
+list_utils.c.s:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/list_utils.c.s
+.PHONY : list_utils.c.s
 
 main.o: main.c.o
 
@@ -231,6 +285,33 @@ main.c.s:
 	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/main.c.s
 .PHONY : main.c.s
 
+parser.o: parser.c.o
+
+.PHONY : parser.o
+
+# target to build an object file
+parser.c.o:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/parser.c.o
+.PHONY : parser.c.o
+
+parser.i: parser.c.i
+
+.PHONY : parser.i
+
+# target to preprocess a source file
+parser.c.i:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/parser.c.i
+.PHONY : parser.c.i
+
+parser.s: parser.c.s
+
+.PHONY : parser.s
+
+# target to generate assembly for a file
+parser.c.s:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/parser.c.s
+.PHONY : parser.c.s
+
 shell_loop.o: shell_loop.c.o
 
 .PHONY : shell_loop.o
@@ -258,6 +339,33 @@ shell_loop.c.s:
 	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/shell_loop.c.s
 .PHONY : shell_loop.c.s
 
+str_utils.o: str_utils.c.o
+
+.PHONY : str_utils.o
+
+# target to build an object file
+str_utils.c.o:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/str_utils.c.o
+.PHONY : str_utils.c.o
+
+str_utils.i: str_utils.c.i
+
+.PHONY : str_utils.i
+
+# target to preprocess a source file
+str_utils.c.i:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/str_utils.c.i
+.PHONY : str_utils.c.i
+
+str_utils.s: str_utils.c.s
+
+.PHONY : str_utils.s
+
+# target to generate assembly for a file
+str_utils.c.s:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/str_utils.c.s
+.PHONY : str_utils.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -273,15 +381,27 @@ help:
 	@echo "... GNL/get_next_line_utils.o"
 	@echo "... GNL/get_next_line_utils.i"
 	@echo "... GNL/get_next_line_utils.s"
+	@echo "... helper.o"
+	@echo "... helper.i"
+	@echo "... helper.s"
 	@echo "... libft/ft_strcmp.o"
 	@echo "... libft/ft_strcmp.i"
 	@echo "... libft/ft_strcmp.s"
+	@echo "... list_utils.o"
+	@echo "... list_utils.i"
+	@echo "... list_utils.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... parser.o"
+	@echo "... parser.i"
+	@echo "... parser.s"
 	@echo "... shell_loop.o"
 	@echo "... shell_loop.i"
 	@echo "... shell_loop.s"
+	@echo "... str_utils.o"
+	@echo "... str_utils.i"
+	@echo "... str_utils.s"
 .PHONY : help
 
 

@@ -10,6 +10,13 @@
 # include <stdio.h>
 # include "GNL/get_next_line.h"
 # include <string.h>
+# include <sys/types.h>
+
+typedef struct 		s_args
+{
+	char 			*args;
+	struct s_args	*next;
+}					t_args;
 
 # define BUILTINS 7
 # define ECHO 0
@@ -22,6 +29,12 @@
 
 void    shell_loop();
 int     cd(char **argv);
+void	push(t_args **lst, t_args *new);
+t_args 	*new_node(char *s);
+void 	print_arg_list(t_args *lst);
+t_args		*create_list(char *line);
+int		str_endswith(char *s, char *set);
+int		ft_str_startswith(char *s, char *set);
 
 
 #endif //CUB_MINISHELL_H

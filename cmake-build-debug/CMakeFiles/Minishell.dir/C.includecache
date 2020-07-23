@@ -35,6 +35,8 @@ GNL/get_next_line.h
 /Users/ccarl/Desktop/Minishell/GNL/get_next_line.h
 string.h
 -
+sys/types.h
+-
 
 /Users/ccarl/Desktop/Minishell/shell_loop.c
 minishell.h

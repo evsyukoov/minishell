@@ -87,7 +87,13 @@
 		<Unit filename="/Users/ccarl/Desktop/Minishell/GNL/get_next_line_utils.c">
 			<Option target="minishell"/>
 		</Unit>
+		<Unit filename="/Users/ccarl/Desktop/Minishell/helper.c">
+			<Option target="minishell"/>
+		</Unit>
 		<Unit filename="/Users/ccarl/Desktop/Minishell/libft/ft_strcmp.c">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/ccarl/Desktop/Minishell/list_utils.c">
 			<Option target="minishell"/>
 		</Unit>
 		<Unit filename="/Users/ccarl/Desktop/Minishell/main.c">
@@ -96,7 +102,13 @@
 		<Unit filename="/Users/ccarl/Desktop/Minishell/minishell.h">
 			<Option target="minishell"/>
 		</Unit>
+		<Unit filename="/Users/ccarl/Desktop/Minishell/parser.c">
+			<Option target="minishell"/>
+		</Unit>
 		<Unit filename="/Users/ccarl/Desktop/Minishell/shell_loop.c">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/ccarl/Desktop/Minishell/str_utils.c">
 			<Option target="minishell"/>
 		</Unit>
 		<Unit filename="/Users/ccarl/Desktop/Minishell/CMakeLists.txt">
