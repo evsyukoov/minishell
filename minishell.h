@@ -27,7 +27,7 @@ typedef struct 		s_args
 # define ENV 5
 # define EXIT 6
 
-void    shell_loop();
+void    shell_loop(char *envp[]);
 int     cd(char **argv);
 void	push(t_args **lst, t_args *new);
 t_args 	*new_node(char *s);
@@ -35,6 +35,7 @@ void 	print_arg_list(t_args *lst);
 t_args		*create_list(char *line);
 int		str_endswith(char *s, char *set);
 int		ft_str_startswith(char *s, char *set);
+int execute(char **argv, char *envp[]);
 
 
 #endif //CUB_MINISHELL_H

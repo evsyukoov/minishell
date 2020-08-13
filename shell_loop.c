@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/07/23 18:53:55 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/13 20:15:03 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		launch(char **argv)
+int		launch(char **argv, char *envp[])
 {
 	pid_t child;
 	int  status;
@@ -22,7 +22,7 @@ int		launch(char **argv)
 		perror("minishell");
 	else if (child == 0)
 	{
-		if (execvp(argv[0], argv) == -1) {
+		if (execute(argv, envp) == -1) {
 			perror("command not found");
 			return (1);
 		}
@@ -54,7 +54,7 @@ void	free_arguments(char ***argv)
 	}
 }
 
-int    execution(char **argv)
+int    execution(char **argv, char *envp[])
 {
 	char wd[256];
 
@@ -66,14 +66,14 @@ int    execution(char **argv)
 	}
 	else if (ft_strcmp(argv[0], "exit") == 0)
 		exit(0);
-	return (launch(argv));
+	return (launch(argv, envp));
 }
 
 char    **get_argv()
 {
     char *line;
     char **argv;
-    t_list *lst;
+    t_args *lst;
 
     if (get_next_line(0, &line) < 0)
         return 0;
@@ -81,27 +81,26 @@ char    **get_argv()
     	return (0);
     lst = create_list(line);
     print_arg_list(lst);
-   // argv = ft_split(line, ' ');
+   	argv = ft_split(line, ' ');
     //free(line);
     return (argv);
 }
 
-void    shell_loop()
+void    shell_loop(char *envp[])
 {
 	int status;
     char **argv;
-    t_list *args;
 
     status = 1;
     while (1)
    	{
-       write(1, "minishell : ", 12);
-       argv = get_argv();
-      /* if (argv)
-       		status = execution(argv);
-       if (!status)
-          break ;*/
-       //free_arguments(&argv);
+		write(1, "minishell : ", 12);
+		argv = get_argv();
+		if (argv)
+			status = execution(argv, envp);
+		if (!status)
+			break ;
+		//free_arguments(&argv);
    }
 }
 
