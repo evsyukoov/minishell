@@ -42,7 +42,7 @@ int		str_startswith(char *s, char *set);
 t_args	*shell_split(char const *s, char del1, char del2);
 char 		**split_commands(char *line);
 t_args 		*create_new_node(char **s, int flag);
-char	*shell_join(char const *s1, char const *s2);
+char	*shell_join(char const *s1, char const *s2, char del);
 
 
 #endif //CUB_MINISHELL_H

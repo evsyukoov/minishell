@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 16:08:59 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/13 20:20:39 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/13 22:08:17 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,16 @@ char 		*concatination(char **argv, char *del, int *i)
 
 	line = NULL;
 	while (argv[*i]) {
-		if (!line)
-			line = ft_strdup(argv[*i]);
-		else {
 			tmp = line;
-			if (str_endswith(argv[*i], del)) {
-				line = ft_strjoin(line, argv[*i]);
-				(*i)++;
-				break;
-			} else
-				line = shell_join(line, argv[*i]);
+			line = shell_join(line, argv[*i], *del);
 			free(tmp);
-		}
+			if (str_endswith(argv[*i], del))
+			{
+				(*i)++;
+				break ;
+			}
 		(*i)++;
-	}
+		}
 	return (line);
 }
 
@@ -79,7 +75,7 @@ int 		argv_len(char **argv)
 	{
 		if (str_startswith(argv[i], "'") || str_startswith(argv[i], "\""))
 		{
-			while (!str_endswith(argv[i], "'") && !str_endswith(argv[i], "\""))
+			while (argv[i] && !str_endswith(argv[i], "'") && !str_endswith(argv[i], "\""))
 				i++;
 		}
 		len++;
@@ -97,7 +93,6 @@ t_args 		*init_node(int flag, char *arg)
 	int		j;
 
 	argv = ft_split(arg,  ' ');
-	//printf("argv_len = %d\n", argv_len(argv));
 	final_argv = (char**)malloc(sizeof(char*) * argv_len(argv));
 	i = 0;
 	j = 0;
@@ -112,7 +107,6 @@ t_args 		*init_node(int flag, char *arg)
 			free(argv[i]);
 			i++;
 		}
-		//printf("final argv = %s\n", final_argv[j]);
 		j++;
 	}
 	final_argv[j] = NULL;
