@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 16:58:31 by ccarl             #+#    #+#             */
-/*   Updated: 2020/07/23 19:31:01 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/13 16:46:37 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,29 @@ int 		find_del_position(int i, char *line)
 	return (i);
 }
 
-char 		**split_args(char *line)
+char 		**split_commands(char *line)
 {
-	char **args;
-	int	i;
-	char *tmp;
+	char **commands;
+	int i;
 
-	args = ft_split(line, ' ');
-	free(line);
 	i = 0;
-	while (args[i])
+	commands  = shell_split(line, ';', '|');
+	while (commands[i])
 	{
-		if (ft_str_startswith(args[i],"\"")){
-			while(!str_endswith(args[i], "\""))
+
+	}
+}
+
+/*t_args		*split_args(char *line)
+{
+	while (*line)
+	{
+		if (is_delimetr(*line))
+		{
+
 		}
 	}
-
-}
+}*/
 
 int			command_len(char *line)
 {
@@ -85,7 +91,7 @@ t_args		*create_list(char *line)
 		arg = ft_substr(line, begin, end - begin);
 		printf("arg = %s$\n", arg);
 		begin = end + 1;
-		push(&lst, new_node(arg));
+		//push(&lst, new_node(arg));
 		if (!line[end])
 			break;
 	}

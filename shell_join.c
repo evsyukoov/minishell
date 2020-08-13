@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper.c                                           :+:      :+:    :+:   */
+/*   shell_join.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/23 18:04:08 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/13 19:28:52 by ccarl            ###   ########.fr       */
+/*   Created: 2020/08/13 20:08:04 by ccarl             #+#    #+#             */
+/*   Updated: 2020/08/13 20:08:04 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//функции-помощники для отладки
-
 #include "minishell.h"
 
-void 	print_arg_list(t_args *lst)
+char	*shell_join(char const *s1, char const *s2)
 {
-	int i;
-	int j;
+	char	*res;
+	int		len;
+	int		i;
 
-	j = 0;
-	while (lst)
-	{
-		i = 0;
-		printf("Node number = %d Node info = %s\n", j, lst->flag == 0 ? "Command" : "Pipe");
-   		while ((lst->args)[i])
-   			printf("%s\n", (lst->args)[i++]);
-   		lst = lst->next;
-   		j++;
-	}
+	if (!s1 || !s2)
+		return (0);
+	len = ft_strlen(s1) + ft_strlen(s2) + 1;
+	i = 0;
+	res = (char*)malloc(sizeof(char) * (len + 1));
+	if (!res)
+		return (0);
+	while (*s1)
+		res[i++] = *s1++;
+	res[i++] = ' ';
+	while (*s2)
+		res[i++] = *s2++;
+	res[i] = '\0';
+	return (res);
 }
 

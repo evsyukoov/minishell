@@ -5,7 +5,11 @@ NAME = lsh
 SRCS =  main.c \
 		shell_loop.c \
 		GNL/get_next_line.c \
-		GNL/get_next_line_utils.c 
+		GNL/get_next_line_utils.c \
+		str_utils.c \
+		list_utils.c \
+		helper.c \
+		parser.c
 
 OBJS = $(SRCS:.c=.o)
 

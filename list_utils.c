@@ -6,18 +6,19 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 18:01:17 by ccarl             #+#    #+#             */
-/*   Updated: 2020/07/23 18:52:41 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/13 16:46:37 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_args 		*new_node(char *s)
+t_args 		*create_new_node(char **s, int flag)
 {
 	t_args *node;
 
 	node = (t_args*)malloc(sizeof(t_args));
 	node->args = s;
+	node->flag = flag;
 	node->next = NULL;
 	return (node);
 }

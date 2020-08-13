@@ -105,7 +105,13 @@
 		<Unit filename="/Users/ccarl/Desktop/Minishell/parser.c">
 			<Option target="minishell"/>
 		</Unit>
+		<Unit filename="/Users/ccarl/Desktop/Minishell/shell_join.c">
+			<Option target="minishell"/>
+		</Unit>
 		<Unit filename="/Users/ccarl/Desktop/Minishell/shell_loop.c">
+			<Option target="minishell"/>
+		</Unit>
+		<Unit filename="/Users/ccarl/Desktop/Minishell/shell_split.c">
 			<Option target="minishell"/>
 		</Unit>
 		<Unit filename="/Users/ccarl/Desktop/Minishell/str_utils.c">

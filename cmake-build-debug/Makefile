@@ -312,6 +312,33 @@ parser.c.s:
 	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/parser.c.s
 .PHONY : parser.c.s
 
+shell_join.o: shell_join.c.o
+
+.PHONY : shell_join.o
+
+# target to build an object file
+shell_join.c.o:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/shell_join.c.o
+.PHONY : shell_join.c.o
+
+shell_join.i: shell_join.c.i
+
+.PHONY : shell_join.i
+
+# target to preprocess a source file
+shell_join.c.i:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/shell_join.c.i
+.PHONY : shell_join.c.i
+
+shell_join.s: shell_join.c.s
+
+.PHONY : shell_join.s
+
+# target to generate assembly for a file
+shell_join.c.s:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/shell_join.c.s
+.PHONY : shell_join.c.s
+
 shell_loop.o: shell_loop.c.o
 
 .PHONY : shell_loop.o
@@ -338,6 +365,33 @@ shell_loop.s: shell_loop.c.s
 shell_loop.c.s:
 	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/shell_loop.c.s
 .PHONY : shell_loop.c.s
+
+shell_split.o: shell_split.c.o
+
+.PHONY : shell_split.o
+
+# target to build an object file
+shell_split.c.o:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/shell_split.c.o
+.PHONY : shell_split.c.o
+
+shell_split.i: shell_split.c.i
+
+.PHONY : shell_split.i
+
+# target to preprocess a source file
+shell_split.c.i:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/shell_split.c.i
+.PHONY : shell_split.c.i
+
+shell_split.s: shell_split.c.s
+
+.PHONY : shell_split.s
+
+# target to generate assembly for a file
+shell_split.c.s:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/shell_split.c.s
+.PHONY : shell_split.c.s
 
 str_utils.o: str_utils.c.o
 
@@ -396,9 +450,15 @@ help:
 	@echo "... parser.o"
 	@echo "... parser.i"
 	@echo "... parser.s"
+	@echo "... shell_join.o"
+	@echo "... shell_join.i"
+	@echo "... shell_join.s"
 	@echo "... shell_loop.o"
 	@echo "... shell_loop.i"
 	@echo "... shell_loop.s"
+	@echo "... shell_split.o"
+	@echo "... shell_split.i"
+	@echo "... shell_split.s"
 	@echo "... str_utils.o"
 	@echo "... str_utils.i"
 	@echo "... str_utils.s"

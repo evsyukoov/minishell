@@ -29,7 +29,7 @@ int		str_endswith(char *s, char *set)
 	return (0);
 }
 
-int		ft_str_startswith(char *s, char *set)
+int		str_startswith(char *s, char *set)
 {
 	while (*s && *set)
 	{

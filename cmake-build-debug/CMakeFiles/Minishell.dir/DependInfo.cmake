@@ -11,7 +11,9 @@ set(CMAKE_DEPENDS_CHECK_C
   "/Users/ccarl/Desktop/Minishell/list_utils.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/list_utils.c.o"
   "/Users/ccarl/Desktop/Minishell/main.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/main.c.o"
   "/Users/ccarl/Desktop/Minishell/parser.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/parser.c.o"
+  "/Users/ccarl/Desktop/Minishell/shell_join.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/shell_join.c.o"
   "/Users/ccarl/Desktop/Minishell/shell_loop.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/shell_loop.c.o"
+  "/Users/ccarl/Desktop/Minishell/shell_split.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/shell_split.c.o"
   "/Users/ccarl/Desktop/Minishell/str_utils.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/str_utils.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")

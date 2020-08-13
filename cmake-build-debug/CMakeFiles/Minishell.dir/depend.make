@@ -31,8 +31,23 @@ CMakeFiles/minishell.dir/parser.c.o: ../libft/libft.h
 CMakeFiles/minishell.dir/parser.c.o: ../minishell.h
 CMakeFiles/minishell.dir/parser.c.o: ../parser.c
 
+CMakeFiles/minishell.dir/shell_join.c.o: ../GNL/get_next_line.h
+CMakeFiles/minishell.dir/shell_join.c.o: ../libft/libft.h
+CMakeFiles/minishell.dir/shell_join.c.o: ../minishell.h
+CMakeFiles/minishell.dir/shell_join.c.o: ../shell_join.c
+
 CMakeFiles/minishell.dir/shell_loop.c.o: ../GNL/get_next_line.h
 CMakeFiles/minishell.dir/shell_loop.c.o: ../libft/libft.h
 CMakeFiles/minishell.dir/shell_loop.c.o: ../minishell.h
 CMakeFiles/minishell.dir/shell_loop.c.o: ../shell_loop.c
+
+CMakeFiles/minishell.dir/shell_split.c.o: ../GNL/get_next_line.h
+CMakeFiles/minishell.dir/shell_split.c.o: ../libft/libft.h
+CMakeFiles/minishell.dir/shell_split.c.o: ../minishell.h
+CMakeFiles/minishell.dir/shell_split.c.o: ../shell_split.c
+
+CMakeFiles/minishell.dir/str_utils.c.o: ../GNL/get_next_line.h
+CMakeFiles/minishell.dir/str_utils.c.o: ../libft/libft.h
+CMakeFiles/minishell.dir/str_utils.c.o: ../minishell.h
+CMakeFiles/minishell.dir/str_utils.c.o: ../str_utils.c
 
