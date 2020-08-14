@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 20:08:04 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/13 21:44:15 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/14 16:38:29 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ char	*shell_strdup(const char *str, char del)
 	if (!res)
 		return (0);
 	while (str[i])
+	{
+		if (str[i] == del)
+			break ;
 		res[j++] = str[i++];
+	}
 	res[j] = '\0';
 	return (res);
 }

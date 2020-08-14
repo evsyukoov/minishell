@@ -12,16 +12,31 @@
 # include <string.h>
 # include <sys/types.h>
 
+//flag - отвечает за то, что идет после ноды(; - COMMAND, | - PIPE)
+//file_option - отвечает за тип редирекшна (> - REWRITE >> - WRITE)
+
 typedef struct 		s_args
 {
 	char 			**args;
 	int 			flag;
-	char 			*redirection_path;
+	char 			*file_path;
+	int				file_option;
 	struct s_args	*next;
 }					t_args;
 
+
+typedef struct 		s_split
+{
+	int 			args;
+	int 			i;
+	int 			j;
+	char 			q_type;
+	int 			arg_len;
+}					t_split;
 # define COMMAND 0
 # define PIPE 1
+# define REWRITE 0
+# define WRITE 1
 
 # define BUILTINS 7
 # define ECHO 0
@@ -39,10 +54,13 @@ void 	print_arg_list(t_args *lst);
 t_args		*create_list(char *line);
 int		str_endswith(char *s, char *set);
 int		str_startswith(char *s, char *set);
-t_args	*shell_split(char const *s, char del1, char del2);
+char	**shell_split(char *arg);
 char 		**split_commands(char *line);
 t_args 		*create_new_node(char **s, int flag);
 char	*shell_join(char const *s1, char const *s2, char del);
+void	free_arguments(char ***argv);
+void 	print_argv(char **argv);
+t_args 	*create_list(char *arg);
 
 
 #endif //CUB_MINISHELL_H

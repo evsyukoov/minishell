@@ -14,18 +14,24 @@
 
 #include "minishell.h"
 
-void 	print_arg_list(t_args *lst)
+void 	print_argv(char **argv)
 {
 	int i;
+
+	i = 0;
+	while (argv[i])
+		printf("%s\n", argv[i++]);
+}
+
+void 	print_arg_list(t_args *lst)
+{
 	int j;
 
 	j = 0;
 	while (lst)
 	{
-		i = 0;
 		printf("Node number = %d Node info = %s\n", j, lst->flag == 0 ? "Command" : "Pipe");
-   		while ((lst->args)[i])
-   			printf("%s\n", (lst->args)[i++]);
+   		print_argv(lst->args);
    		lst = lst->next;
    		j++;
 	}

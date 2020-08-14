@@ -6,156 +6,163 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 16:08:59 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/13 22:08:17 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/14 22:18:52 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		skip(char const **s, char del1, char del2)
+static void		skip(char **s, char del)
 {
-	while ((**s == del1 || **s == del2) && **s)
+	while (**s == del && **s)
 		(*s)++;
 }
 
-static int		word_len(char const *s, char del1, char del2)
+static int		argument_len(char *s, char quote)
 {
 	int len;
+	int flag;
 
 	len = 0;
-	while (s[len] != del1 && s[len] != del2 && s[len])
-		len++;
+	while (*s && *s != ' ')
+	{
+		if (*s == quote)
+		{
+			while(*s && *s == quote)
+				s++;
+			while (*s && *s != quote)
+			{
+				s++;
+				len++;
+			}
+			if (*s == quote)
+				break ;
+		}
+		else
+		{
+			s++;
+			len++;
+		}
+	}
 	return (len);
 }
 
-static int		word_counter(char const *s, char del1, char del2)
+static int     find_close_quote(char **s, char quote, int *args)
 {
-	int words;
+	while (**s && **s == quote)
+		(*s)++;
+	while (**s && **s != quote)
+		(*s)++;
+	(*args)++;
+	return (1);
+}
 
-	words = 0;
-	skip(&s, del1, del2);
+static int		arguments_counter(char *s)
+{
+	int args;
+	int flag;
+
+	args = 0;
+	flag = 0;
+	skip(&s, ' ');
 	while (*s)
 	{
-		while (*s != del1 && *s != del2 && *s)
+		if (*s == '\'')
+			flag = find_close_quote(&s, '\'', &args);
+		else if (*s == '\"')
+			flag = find_close_quote(&s, '\"', &args);
+		while (*s && *s != ' ')
 			s++;
-		words++;
-		skip(&s, del1, del2);
+		if (!flag)
+			args++;
+		skip(&s, ' ');
+		flag = 0;
 	}
-	return (words);
+	return (args);
 }
 
-char 		*concatination(char **argv, char *del, int *i)
+char	quote_type(char *arg)
 {
-	char *line;
-	char *tmp;
-
-	line = NULL;
-	while (argv[*i]) {
-			tmp = line;
-			line = shell_join(line, argv[*i], *del);
-			free(tmp);
-			if (str_endswith(argv[*i], del))
-			{
-				(*i)++;
-				break ;
-			}
-		(*i)++;
-		}
-	return (line);
+	if (*arg == '\"')
+		return ('\"');
+	else if (*arg == '\'')
+		return('\'');
+	else
+		return ('\0');
 }
 
-int 		argv_len(char **argv)
+char	**shell_split(char *arg)
 {
-	int i;
-	int len;
+	t_split var;
+	char **res;
 
-	len = 0;
-	i = 0;
-	while(argv[i])
-	{
-		if (str_startswith(argv[i], "'") || str_startswith(argv[i], "\""))
-		{
-			while (argv[i] && !str_endswith(argv[i], "'") && !str_endswith(argv[i], "\""))
-				i++;
-		}
-		len++;
-		i++;
-	}
-	return (len + 1);
-}
-
-t_args 		*init_node(int flag, char *arg)
-{
-	t_args *node;
-	int		i;
-	char	**final_argv;
-	char 	**argv;
-	int		j;
-
-	argv = ft_split(arg,  ' ');
-	final_argv = (char**)malloc(sizeof(char*) * argv_len(argv));
-	i = 0;
-	j = 0;
-	while (argv[i])
-	{
-		if (str_startswith(argv[i], "'"))
-			final_argv[j] = concatination(argv, "'", &i);
-		else if (str_startswith(argv[i], "\""))
-			final_argv[j] = concatination(argv, "\"", &i);
-		else {
-			final_argv[j] = ft_strdup(argv[i]);
-			free(argv[i]);
-			i++;
-		}
-		j++;
-	}
-	final_argv[j] = NULL;
-	node = create_new_node(final_argv, flag);
-	return (node);
-}
-
-t_args			*shell_split(char const *s, char del1, char del2)
-{
-	int		words;
-	int		i;
-	int		j;
-	char	**res;
-	t_args 	*lst_args;
-	int 	flag;
-
-	if (!s)
+	var.args = arguments_counter(arg);
+	var.i = 0;
+	if (!(res = (char**)malloc(sizeof(char*) * (var.args + 1))))
 		return (0);
-	lst_args = NULL;
-	words = word_counter(s, del1, del2);
-	if (!(res = (char**)malloc(sizeof(char*) * (words + 1))))
-		return (NULL);
-	i = 0;
-	skip(&s, del1, del2);
-	while (i < words)
+	skip(&arg, ' ');
+	while (var.i < var.args)
 	{
-		if (!(res[i] = (char*)malloc(sizeof(char) * (word_len(s, del1, del2) + 1))))
-			return (0);
-		j = 0;
-		while (*s)
+		var.q_type = quote_type(arg);
+		var.arg_len = argument_len(arg, var.q_type);
+		res[var.i] = (char*)malloc(var.arg_len + 1);
+		var.j = 0;
+		while (var.j < var.arg_len && *arg)
 		{
-			flag = COMMAND;
-			if (*s == del1 || *s == del2)
-			{
-				if (*s == del1)
-					flag = COMMAND;
-				else
-					flag = PIPE;
-				break ;
-			}
-			res[i][j++] = *s++;
+			skip(&arg, var.q_type);
+			res[var.i][var.j++] = *arg++;
 		}
-		res[i][j] = '\0';
-		t_args *node = init_node(flag, res[i]);
-		push(&lst_args, node);
-		i++;
-		skip(&s, del1, del2);
+		res[var.i++][var.j] = '\0';
+		skip(&arg, var.q_type);
+		skip(&arg, ' ');
 	}
-	res[i] = NULL;
-	return (lst_args);
+	res[var.i] = NULL;
+	return (res);
+}
+
+int 	number_of_arguments(char **argv)
+{
+	int j;
+
+	j = 0;
+	while (argv[j])
+		j++;
+	return (j);
+}
+
+t_args 	*create_list(char *arg)
+{
+	t_args *lst;
+	char **argv1;
+	char **argv2;
+	int i;
+	int j;
+
+	i = 0;
+	lst = NULL;
+	argv1 = ft_split(arg, ';');
+	while(argv1[i])
+	{
+		if (ft_strchr(argv1[i], '|'))
+		{
+			argv2 = ft_split(argv1[i], '|');
+			j = 0;
+			while (argv2[j])
+			{
+				if (j < number_of_arguments(argv2) - 1)
+					push(&lst, create_new_node(shell_split(argv2[j]), PIPE));
+				else
+					push(&lst, create_new_node(shell_split(argv2[j]), COMMAND));
+				j++;
+			}
+		}
+		else
+			push(&lst, create_new_node(shell_split(argv1[i]), COMMAND));
+		i++;
+	}
+	//НАДО РАЗОБРАТЬСЯ С free!!!!!!!!!
+	//free_arguments(argv1);
+	//free_arguments(argv2);
+	return (lst);
 }
 

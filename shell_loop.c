@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/13 18:24:41 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/14 22:03:53 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,7 @@ t_args *get_argv()
         return 0;
     if (*line == '\0')
     	return (0);
-    //lst = create_list(line);
-    //print_arg_list(lst);
-   	lst = shell_split(line, ';', '|');
+   	lst = create_list(line);
 	print_arg_list(lst);
     return (lst);
 }

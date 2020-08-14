@@ -16,10 +16,6 @@ stdlib.h
 ../libft/libft.h
 /Users/ccarl/Desktop/Minishell/libft/libft.h
 
-/Users/ccarl/Desktop/Minishell/helper.c
-minishell.h
-/Users/ccarl/Desktop/Minishell/minishell.h
-
 /Users/ccarl/Desktop/Minishell/libft/libft.h
 string.h
 -
@@ -27,14 +23,6 @@ stdlib.h
 -
 unistd.h
 -
-
-/Users/ccarl/Desktop/Minishell/list_utils.c
-minishell.h
-/Users/ccarl/Desktop/Minishell/minishell.h
-
-/Users/ccarl/Desktop/Minishell/main.c
-minishell.h
-/Users/ccarl/Desktop/Minishell/minishell.h
 
 /Users/ccarl/Desktop/Minishell/minishell.h
 libft/libft.h
@@ -50,23 +38,7 @@ string.h
 sys/types.h
 -
 
-/Users/ccarl/Desktop/Minishell/parser.c
-minishell.h
-/Users/ccarl/Desktop/Minishell/minishell.h
-
-/Users/ccarl/Desktop/Minishell/shell_join.c
-minishell.h
-/Users/ccarl/Desktop/Minishell/minishell.h
-
-/Users/ccarl/Desktop/Minishell/shell_loop.c
-minishell.h
-/Users/ccarl/Desktop/Minishell/minishell.h
-
 /Users/ccarl/Desktop/Minishell/shell_split.c
-minishell.h
-/Users/ccarl/Desktop/Minishell/minishell.h
-
-/Users/ccarl/Desktop/Minishell/str_utils.c
 minishell.h
 /Users/ccarl/Desktop/Minishell/minishell.h
 
