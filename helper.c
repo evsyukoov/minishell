@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 18:04:08 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/15 15:41:44 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/15 19:21:16 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void 	print_arg_list(t_args *lst)
 	j = 0;
 	while (lst)
 	{
-		printf("Node number = %d Node info = %s\n", j, lst->flag == 0 ? "Command" : "Pipe");
+		printf("Node number = %d, Node info = %s, File path : %s, File option : %s\n", j, lst->flag == 0 ? "Command" : "Pipe", lst->file_path, lst->file_option == 0 ? "> (REWRITE)" : ">> (WRITE)");
    		print_argv(lst->args);
    		lst = lst->next;
    		j++;

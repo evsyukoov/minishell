@@ -35,6 +35,8 @@ typedef struct 		s_split
 }					t_split;
 # define COMMAND 0
 # define PIPE 1
+# define NONE -1
+
 # define REWRITE 0
 # define WRITE 1
 
@@ -53,11 +55,13 @@ void	push(t_args **lst, t_args *new);
 void 	print_arg_list(t_args *lst);
 t_args		*create_list(char *line);
 char	**shell_split(char *arg);
-t_args 		*create_new_node(char **s, int flag);
+t_args 		*create_new_node(char **s, int flag, char *file_path, int file_option);
 void	free_arguments(char ***argv);
 void 	print_argv(char **argv);
 t_args 	*create_list(char *arg);
 int execute(char **argv, char *envp[]);
+int		str_endswith(char *s, char *set);
+t_args 	*parse_redirections(t_args *lst);
 
 
 #endif //CUB_MINISHELL_H

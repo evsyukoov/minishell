@@ -16,10 +16,6 @@ stdlib.h
 ../libft/libft.h
 /Users/ccarl/Desktop/Minishell/libft/libft.h
 
-/Users/ccarl/Desktop/Minishell/helper.c
-minishell.h
-/Users/ccarl/Desktop/Minishell/minishell.h
-
 /Users/ccarl/Desktop/Minishell/libft/libft.h
 string.h
 -
@@ -41,4 +37,8 @@ string.h
 -
 sys/types.h
 -
+
+/Users/ccarl/Desktop/Minishell/shell_loop.c
+minishell.h
+/Users/ccarl/Desktop/Minishell/minishell.h
 
