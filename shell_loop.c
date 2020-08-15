@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/14 22:03:53 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/15 15:10:35 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,42 +72,25 @@ int    execution(char **argv, char *envp[])
 t_args *get_argv()
 {
     char *line;
-<<<<<<< HEAD
-=======
-    char **argv;
->>>>>>> 709f16b35aacc37326db6beef68d3f5e9636c42d
     t_args *lst;
 
     if (get_next_line(0, &line) < 0)
         return 0;
     if (*line == '\0')
     	return (0);
-<<<<<<< HEAD
    	lst = create_list(line);
 	print_arg_list(lst);
     return (lst);
-=======
-    lst = create_list(line);
-    print_arg_list(lst);
-   	argv = ft_split(line, ' ');
-    //free(line);
-    return (argv);
->>>>>>> 709f16b35aacc37326db6beef68d3f5e9636c42d
 }
 
 void    shell_loop(char *envp[])
 {
 	int status;
-<<<<<<< HEAD
     t_args *args_lst;
-=======
-    char **argv;
->>>>>>> 709f16b35aacc37326db6beef68d3f5e9636c42d
 
     status = 1;
     while (1)
    	{
-<<<<<<< HEAD
 		//for(int i = 0; envp[i]; i++)
 		//	printf("%s\n", envp[i]);
 		write(1, "minishell : ", 12);
@@ -116,15 +99,6 @@ void    shell_loop(char *envp[])
 			status = execution(argv, envp);
 		if (!status)
 			break ;*/
-=======
-		write(1, "minishell : ", 12);
-		argv = get_argv();
-		if (argv)
-			status = execution(argv, envp);
-		if (!status)
-			break ;
->>>>>>> 709f16b35aacc37326db6beef68d3f5e9636c42d
-		//free_arguments(&argv);
    }
 }
 
