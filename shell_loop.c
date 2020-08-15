@@ -79,7 +79,7 @@ t_args *get_argv()
     if (*line == '\0')
     	return (0);
    	lst = create_list(line);
-	//print_arg_list(lst);
+	// print_arg_list(lst);
     return (lst);
 }
 
