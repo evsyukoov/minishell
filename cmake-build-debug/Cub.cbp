@@ -87,6 +87,9 @@
 		<Unit filename="/Users/ccarl/Desktop/Minishell/GNL/get_next_line_utils.c">
 			<Option target="minishell"/>
 		</Unit>
+		<Unit filename="/Users/ccarl/Desktop/Minishell/execute.c">
+			<Option target="minishell"/>
+		</Unit>
 		<Unit filename="/Users/ccarl/Desktop/Minishell/helper.c">
 			<Option target="minishell"/>
 		</Unit>
@@ -100,12 +103,6 @@
 			<Option target="minishell"/>
 		</Unit>
 		<Unit filename="/Users/ccarl/Desktop/Minishell/minishell.h">
-			<Option target="minishell"/>
-		</Unit>
-		<Unit filename="/Users/ccarl/Desktop/Minishell/parser.c">
-			<Option target="minishell"/>
-		</Unit>
-		<Unit filename="/Users/ccarl/Desktop/Minishell/shell_join.c">
 			<Option target="minishell"/>
 		</Unit>
 		<Unit filename="/Users/ccarl/Desktop/Minishell/shell_loop.c">

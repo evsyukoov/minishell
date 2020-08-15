@@ -25,7 +25,6 @@ void 	print_argv(char **argv)
 
 void 	print_arg_list(t_args *lst)
 {
-<<<<<<< HEAD
 	int j;
 
 	j = 0;
@@ -35,13 +34,6 @@ void 	print_arg_list(t_args *lst)
    		print_argv(lst->args);
    		lst = lst->next;
    		j++;
-=======
-//	printf("_________________________________ARGS LIST________________________________________\n");
-	while (lst)
-	{
-		// printf("%s\n", lst->args);
-		lst = lst->next;
->>>>>>> 709f16b35aacc37326db6beef68d3f5e9636c42d
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 16:08:59 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/15 13:38:00 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/15 15:48:20 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,4 +172,48 @@ t_args 	*create_list(char *arg)
 	free(arg);
 	return (lst);
 }
+
+/*t_args 	*modify_node(char **argv, int index)
+{
+	int i;
+	t_args *new_node;
+	char 	**new_argv;
+
+	i = 0;
+	new_argv = (char**)malloc(sizeof(char*) * (number_of_arguments(argv)));
+	while (argv[i])
+	{
+		if (i != index)
+		{
+			new_argv[i] = ft_strdup(argv[i]);
+		}
+		i++;
+	}
+
+}
+
+t_args 	*find_redirections(t_args *lst)
+{
+	int i;
+	int j;
+	char **argv;
+
+	while(lst)
+	{
+		argv = (lst->args);
+		j = 0;
+		while (argv[i])
+		{
+			if (argv[i][0] == '<' && argv[i][1] != '<')
+			{
+
+			}
+			else if (argv[i][0] == '<' && argv[i][1] == '<' && argv[i][2] != '<')
+			{
+
+			}
+		}
+		lst = lst->next;
+	}
+}*/
 

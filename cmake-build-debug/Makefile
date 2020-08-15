@@ -177,6 +177,33 @@ GNL/get_next_line_utils.c.s:
 	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/GNL/get_next_line_utils.c.s
 .PHONY : GNL/get_next_line_utils.c.s
 
+execute.o: execute.c.o
+
+.PHONY : execute.o
+
+# target to build an object file
+execute.c.o:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/execute.c.o
+.PHONY : execute.c.o
+
+execute.i: execute.c.i
+
+.PHONY : execute.i
+
+# target to preprocess a source file
+execute.c.i:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/execute.c.i
+.PHONY : execute.c.i
+
+execute.s: execute.c.s
+
+.PHONY : execute.s
+
+# target to generate assembly for a file
+execute.c.s:
+	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/execute.c.s
+.PHONY : execute.c.s
+
 helper.o: helper.c.o
 
 .PHONY : helper.o
@@ -285,60 +312,6 @@ main.c.s:
 	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/main.c.s
 .PHONY : main.c.s
 
-parser.o: parser.c.o
-
-.PHONY : parser.o
-
-# target to build an object file
-parser.c.o:
-	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/parser.c.o
-.PHONY : parser.c.o
-
-parser.i: parser.c.i
-
-.PHONY : parser.i
-
-# target to preprocess a source file
-parser.c.i:
-	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/parser.c.i
-.PHONY : parser.c.i
-
-parser.s: parser.c.s
-
-.PHONY : parser.s
-
-# target to generate assembly for a file
-parser.c.s:
-	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/parser.c.s
-.PHONY : parser.c.s
-
-shell_join.o: shell_join.c.o
-
-.PHONY : shell_join.o
-
-# target to build an object file
-shell_join.c.o:
-	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/shell_join.c.o
-.PHONY : shell_join.c.o
-
-shell_join.i: shell_join.c.i
-
-.PHONY : shell_join.i
-
-# target to preprocess a source file
-shell_join.c.i:
-	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/shell_join.c.i
-.PHONY : shell_join.c.i
-
-shell_join.s: shell_join.c.s
-
-.PHONY : shell_join.s
-
-# target to generate assembly for a file
-shell_join.c.s:
-	$(MAKE) -f CMakeFiles/minishell.dir/build.make CMakeFiles/minishell.dir/shell_join.c.s
-.PHONY : shell_join.c.s
-
 shell_loop.o: shell_loop.c.o
 
 .PHONY : shell_loop.o
@@ -435,6 +408,9 @@ help:
 	@echo "... GNL/get_next_line_utils.o"
 	@echo "... GNL/get_next_line_utils.i"
 	@echo "... GNL/get_next_line_utils.s"
+	@echo "... execute.o"
+	@echo "... execute.i"
+	@echo "... execute.s"
 	@echo "... helper.o"
 	@echo "... helper.i"
 	@echo "... helper.s"
@@ -447,12 +423,6 @@ help:
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... parser.o"
-	@echo "... parser.i"
-	@echo "... parser.s"
-	@echo "... shell_join.o"
-	@echo "... shell_join.i"
-	@echo "... shell_join.s"
 	@echo "... shell_loop.o"
 	@echo "... shell_loop.i"
 	@echo "... shell_loop.s"

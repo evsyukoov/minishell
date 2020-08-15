@@ -6,12 +6,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_C
   "/Users/ccarl/Desktop/Minishell/GNL/get_next_line.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/GNL/get_next_line.c.o"
   "/Users/ccarl/Desktop/Minishell/GNL/get_next_line_utils.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/GNL/get_next_line_utils.c.o"
+  "/Users/ccarl/Desktop/Minishell/execute.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/execute.c.o"
   "/Users/ccarl/Desktop/Minishell/helper.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/helper.c.o"
   "/Users/ccarl/Desktop/Minishell/libft/ft_strcmp.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/libft/ft_strcmp.c.o"
   "/Users/ccarl/Desktop/Minishell/list_utils.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/list_utils.c.o"
   "/Users/ccarl/Desktop/Minishell/main.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/main.c.o"
-  "/Users/ccarl/Desktop/Minishell/parser.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/parser.c.o"
-  "/Users/ccarl/Desktop/Minishell/shell_join.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/shell_join.c.o"
   "/Users/ccarl/Desktop/Minishell/shell_loop.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/shell_loop.c.o"
   "/Users/ccarl/Desktop/Minishell/shell_split.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/shell_split.c.o"
   "/Users/ccarl/Desktop/Minishell/str_utils.c" "/Users/ccarl/Desktop/Minishell/cmake-build-debug/CMakeFiles/minishell.dir/str_utils.c.o"
