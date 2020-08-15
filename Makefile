@@ -3,14 +3,15 @@ CFLAGS = -Wall -Wextra -Werror
 NAME = lsh
 
 SRCS =  main.c \
-		shell_loop.c \
 		GNL/get_next_line.c \
 		GNL/get_next_line_utils.c \
 		str_utils.c \
 		list_utils.c \
+		shell_loop.c \
 		helper.c \
-		shell_split.c \
-		execute.c
+		execute.c \
+		shell_split.c
+
 OBJS = $(SRCS:.c=.o)
 
 LIB = -Llibft -lft
