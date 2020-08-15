@@ -52,15 +52,12 @@ int     cd(char **argv);
 void	push(t_args **lst, t_args *new);
 void 	print_arg_list(t_args *lst);
 t_args		*create_list(char *line);
-int		str_endswith(char *s, char *set);
-int		str_startswith(char *s, char *set);
 char	**shell_split(char *arg);
-char 		**split_commands(char *line);
 t_args 		*create_new_node(char **s, int flag);
-char	*shell_join(char const *s1, char const *s2, char del);
 void	free_arguments(char ***argv);
 void 	print_argv(char **argv);
 t_args 	*create_list(char *arg);
+int execute(char **argv, char *envp[]);
 
 
 #endif //CUB_MINISHELL_H

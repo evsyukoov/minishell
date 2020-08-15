@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/14 22:03:53 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/15 15:10:35 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		launch(char **argv, char *envp[])
 		perror("minishell");
 	else if (child == 0)
 	{
-		if (execvp(argv[0], argv) == -1) {
+		if (execute(argv, envp) == -1) {
 			perror("command not found");
 			return (1);
 		}
@@ -99,7 +99,6 @@ void    shell_loop(char *envp[])
 			status = execution(argv, envp);
 		if (!status)
 			break ;*/
-		//free_arguments(&argv);
    }
 }
 
