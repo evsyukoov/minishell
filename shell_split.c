@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 16:08:59 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/15 20:49:23 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/15 22:50:33 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,29 +290,31 @@ t_args 	*parse_redirections(t_args *lst)
 	char **argv;
 	t_args *new_node;	//new_node - нода в которой будет хранится инфа об имени файла и типе перенаправления
 	t_args *head;
-	t_args *tmp;
+	int flag;
 
 	head = NULL;
 	while(lst)
 	{
 		argv = (lst->args);
 		i = 0;
+		flag = 0;
 		while (argv[i])
 		{
 			if (ft_strchr(argv[i], '>'))
 			{
-				tmp = lst;
+				flag = 1;
 				new_node = analize_redirection(argv, argv[i], i, lst);
 				push(&head, new_node);
-				free(tmp);
+				break ;
 			}
 			i++;
 		}
-		push(&head, lst);
+		if (!flag)
+			push(&head, create_new_node(lst->args, lst->flag, lst->file_path, lst->file_option));
 		lst = lst->next;
-		free_arguments(&argv);
+		//разобраться с утечками тут пизда по-видимости
+		//free_arguments(&argv);
 	}
-	head->next = NULL;
 	return (head);
 }
 
