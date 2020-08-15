@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 18:50:16 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/13 20:07:57 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/15 19:24:08 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,12 @@ int execute(char **argv, char *envp[])
 		{
 			while(all_path[i])
 			{
-				if((path = joinpath(all_path[i] , argv[0])))
+				if (argv[0][0] == '/')
+				{
+					if (execve(argv[0], &argv[0], envp) != -1)
+						return (free_all(all_path, path));
+				}
+				else if((path = joinpath(all_path[i] , argv[0])))
 				{
 					if (execve(path, &argv[0], envp) != -1)
 						return (free_all(all_path, path));

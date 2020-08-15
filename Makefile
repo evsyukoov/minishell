@@ -9,7 +9,7 @@ SRCS =  main.c \
 		str_utils.c \
 		list_utils.c \
 		helper.c \
-		parser.c \
+		shell_split.c \
 		execute.c
 OBJS = $(SRCS:.c=.o)
 
