@@ -9,8 +9,8 @@ SRCS =  main.c \
 		str_utils.c \
 		list_utils.c \
 		helper.c \
-		parser.c
-
+		parser.c \
+		execute.c
 OBJS = $(SRCS:.c=.o)
 
 LIB = -Llibft -lft
