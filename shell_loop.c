@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/15 15:10:35 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/15 15:37:55 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,19 @@ t_args *get_argv()
     return (lst);
 }
 
+int parse_str(t_args *args_lst, char *envp[])
+{
+	int status;
+	
+	while(args_lst)
+	{
+		if((status = execution(args_lst->args, envp)))
+			return (status);
+		args_lst = args_lst->next;
+	}
+	return(1);
+}
+
 void    shell_loop(char *envp[])
 {
 	int status;
@@ -91,14 +104,12 @@ void    shell_loop(char *envp[])
     status = 1;
     while (1)
    	{
-		//for(int i = 0; envp[i]; i++)
-		//	printf("%s\n", envp[i]);
 		write(1, "minishell : ", 12);
 		args_lst = get_argv();
-		/*if (args_lst)
-			status = execution(argv, envp);
+		if (args_lst)
+			status = parse_str(args_lst, envp);
 		if (!status)
-			break ;*/
+			break ;
    }
 }
 
