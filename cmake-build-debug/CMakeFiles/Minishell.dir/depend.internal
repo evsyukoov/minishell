@@ -9,6 +9,11 @@ CMakeFiles/minishell.dir/GNL/get_next_line_utils.c.o
  /Users/ccarl/Desktop/Minishell/GNL/get_next_line.h
  /Users/ccarl/Desktop/Minishell/GNL/get_next_line_utils.c
  /Users/ccarl/Desktop/Minishell/libft/libft.h
+CMakeFiles/minishell.dir/execute.c.o
+ /Users/ccarl/Desktop/Minishell/GNL/get_next_line.h
+ /Users/ccarl/Desktop/Minishell/execute.c
+ /Users/ccarl/Desktop/Minishell/libft/libft.h
+ /Users/ccarl/Desktop/Minishell/minishell.h
 CMakeFiles/minishell.dir/helper.c.o
  /Users/ccarl/Desktop/Minishell/GNL/get_next_line.h
  /Users/ccarl/Desktop/Minishell/helper.c
@@ -26,16 +31,6 @@ CMakeFiles/minishell.dir/main.c.o
  /Users/ccarl/Desktop/Minishell/libft/libft.h
  /Users/ccarl/Desktop/Minishell/main.c
  /Users/ccarl/Desktop/Minishell/minishell.h
-CMakeFiles/minishell.dir/parser.c.o
- /Users/ccarl/Desktop/Minishell/GNL/get_next_line.h
- /Users/ccarl/Desktop/Minishell/libft/libft.h
- /Users/ccarl/Desktop/Minishell/minishell.h
- /Users/ccarl/Desktop/Minishell/parser.c
-CMakeFiles/minishell.dir/shell_join.c.o
- /Users/ccarl/Desktop/Minishell/GNL/get_next_line.h
- /Users/ccarl/Desktop/Minishell/libft/libft.h
- /Users/ccarl/Desktop/Minishell/minishell.h
- /Users/ccarl/Desktop/Minishell/shell_join.c
 CMakeFiles/minishell.dir/shell_loop.c.o
  /Users/ccarl/Desktop/Minishell/GNL/get_next_line.h
  /Users/ccarl/Desktop/Minishell/libft/libft.h
