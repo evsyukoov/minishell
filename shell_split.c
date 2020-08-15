@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 16:08:59 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/14 22:18:52 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/15 13:38:00 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void		skip(char **s, char del)
 static int		argument_len(char *s, char quote)
 {
 	int len;
-	int flag;
 
 	len = 0;
 	while (*s && *s != ' ')
@@ -130,13 +129,33 @@ int 	number_of_arguments(char **argv)
 	return (j);
 }
 
+void 	split_pipes(t_args **lst, char *arg_pipe)
+{
+	int j;
+	char **argv_pipes;
+	int num_of_args;
+
+	j = 0;
+	argv_pipes = ft_split(arg_pipe, '|');
+	num_of_args = number_of_arguments(argv_pipes);
+	while (argv_pipes[j])
+	{
+		{
+			if (j < num_of_args - 1)
+				push(lst, create_new_node(shell_split(argv_pipes[j]), PIPE));
+			else
+				push(lst, create_new_node(shell_split(argv_pipes[j]), COMMAND));
+			j++;
+		}
+	}
+	free_arguments(&argv_pipes);
+}
+
 t_args 	*create_list(char *arg)
 {
 	t_args *lst;
 	char **argv1;
-	char **argv2;
 	int i;
-	int j;
 
 	i = 0;
 	lst = NULL;
@@ -144,25 +163,13 @@ t_args 	*create_list(char *arg)
 	while(argv1[i])
 	{
 		if (ft_strchr(argv1[i], '|'))
-		{
-			argv2 = ft_split(argv1[i], '|');
-			j = 0;
-			while (argv2[j])
-			{
-				if (j < number_of_arguments(argv2) - 1)
-					push(&lst, create_new_node(shell_split(argv2[j]), PIPE));
-				else
-					push(&lst, create_new_node(shell_split(argv2[j]), COMMAND));
-				j++;
-			}
-		}
+			split_pipes(&lst, argv1[i]);
 		else
 			push(&lst, create_new_node(shell_split(argv1[i]), COMMAND));
 		i++;
 	}
-	//НАДО РАЗОБРАТЬСЯ С free!!!!!!!!!
-	//free_arguments(argv1);
-	//free_arguments(argv2);
+	free_arguments(&argv1);
+	free(arg);
 	return (lst);
 }
 
