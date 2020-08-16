@@ -62,6 +62,14 @@ t_args 	*create_list(char *arg);
 int execute(char **argv, char *envp[]);
 int		str_endswith(char *s, char *set);
 t_args 	*parse_redirections(t_args *lst);
-
+char *get_env_var(char *name, char *envp[]);
+char **realloc_env(char *envp[]);
+int env_len(char *envp[]);
+int env_strcmp(char *name, char *env_var);
+int print_env(char *envp[]);
+char **realloc_env(char *envp[]);
+int export(char *arg, char **envp[]);
+char *joinenv(char *name, char *value);
+int unset(char *name, char *envp[]);
 
 #endif //CUB_MINISHELL_H

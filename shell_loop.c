@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/15 22:54:00 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/16 18:37:20 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ int    execution(char **argv, char *envp[])
 		ft_putendl_fd(getwd(wd), 1);
 		return (1);
 	}
+	else if (ft_strcmp(argv[0], "unset") == 0)
+		return(unset(argv[1], envp));
+	else if (ft_strcmp(argv[0], "env") == 0)
+		return(print_env(envp));
+	else if (ft_strcmp(argv[0], "export") == 0)
+		return(export(argv[1], &envp));
 	else if (ft_strcmp(argv[0], "exit") == 0)
 		exit(0);
 	return (launch(argv, envp));

@@ -10,7 +10,10 @@ SRCS =  main.c \
 		shell_loop.c \
 		helper.c \
 		execute.c \
-		shell_split.c
+		shell_split.c \
+		export.c \
+		unset.c \
+		enviroment_utils.c
 
 OBJS = $(SRCS:.c=.o)
 
