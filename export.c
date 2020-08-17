@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 18:02:47 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/16 18:38:09 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/17 16:34:57 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ char **insert_var(char *name, char *value, char *envp[])
 		new_env[i] = envp[i];
 		i++;
 	}
-	new_env[len + 1] = 0;
+	// free(envp);
+	new_env[i + 2] = 0;
 	return(new_env);
 }
 
@@ -81,12 +82,9 @@ int rewrite_var(char *name, char *value, char *envp[])
 		if(!(env_strcmp(name, envp[i])))
 		{
 			buf = joinenv(name, value);
-
 			if(!buf)
 				return(0);
-			free(envp[i]);
 			envp[i] = buf;
-
 			return(1);
 		}
 		i++;
@@ -99,6 +97,8 @@ int export(char *arg, char **envp[])
 	char *name;
 	char *value;
 	char **buf;
+		
+		
 	
 	if(!arg)
 	{

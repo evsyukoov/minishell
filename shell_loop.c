@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/17 19:11:03 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/17 23:09:58 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int		launch(char **argv, char *envp[])
 {
 	pid_t child;
 	int  status;
-	(void)envp;
+	
 	child = fork();
 	if (child < 0)
 		perror("minishell");
@@ -26,7 +26,8 @@ int		launch(char **argv, char *envp[])
 			perror("command not found");
 			return (1);
 		}
-	} else
+	} 
+	else
 	{
 		waitpid(child, &status, WUNTRACED);
 		while (WIFEXITED(status) == 0)
@@ -54,7 +55,7 @@ void	free_arguments(char ***argv)
 	}
 }
 
-int    execution(char **argv, char *envp[])
+int    execution(char **argv, char **envp[])
 {
 	char wd[256];
 
@@ -65,14 +66,14 @@ int    execution(char **argv, char *envp[])
 		return (1);
 	}
 	else if (ft_strcmp(argv[0], "unset") == 0)
-		return(unset(argv[1], envp));
+		return(unset(argv[1], *envp));
 	else if (ft_strcmp(argv[0], "env") == 0)
-		return(print_env(envp));
+		return(print_env(*envp));
 	else if (ft_strcmp(argv[0], "export") == 0)
-		return(export(argv[1], &envp));
+		return(export(argv[1], envp));
 	else if (ft_strcmp(argv[0], "exit") == 0)
 		exit(0);
-	return (launch(argv, envp));
+	return (launch(argv, *envp));
 }
 
 t_args *get_argv(char **env)
@@ -89,15 +90,43 @@ t_args *get_argv(char **env)
     return (lst);
 }
 
-int parse_str(t_args *args_lst, char *envp[])
+int parse_str(t_args *args_lst, char **envp[])
 {
-	int status;
+	int fd_out;
+	int fd_in;
+	int fd;
 	
+	fd_out = dup(1);
+	fd_in = dup(0);
 	while(args_lst)
 	{
-		if((status = execution(args_lst->args, envp)))
-			return (status);
-		args_lst = args_lst->next;
+		if( args_lst->flag == COMMAND)
+		{
+			if(args_lst->file_option == NONE)
+				execution(args_lst->args, envp);
+			else if (args_lst->file_option == 2)
+			{
+				if ((fd = open(args_lst->file_path, O_RDONLY)) > 0)
+				{
+					dup2(fd, 0);				
+					execution(args_lst->args, envp);
+					close(fd);	
+					dup2(fd_in, 0);
+				}
+			}
+			else
+			{
+				if(args_lst->file_option == REWRITE)
+					fd = open(args_lst->file_path, O_RDWR | O_TRUNC | O_CREAT, 00644);
+				else if	(args_lst->file_option == WRITE)
+					fd = open(args_lst->file_path, O_RDWR | O_APPEND | O_CREAT, 00644);
+				dup2(fd, 1);
+				execution(args_lst->args, envp);
+				close(fd);
+				dup2(fd_out, 1);
+			}
+			args_lst = args_lst->next;
+		}
 	}
 	return(1);
 }
@@ -113,7 +142,7 @@ void    shell_loop(char *envp[])
 		write(1, "minishell : ", 12);
 		args_lst = get_argv(envp);
 		if (args_lst)
-			status = parse_str(args_lst, envp);
+			status = parse_str(args_lst, &envp);
 		if (!status)
 			break ;
    }

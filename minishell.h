@@ -11,6 +11,9 @@
 # include "GNL/get_next_line.h"
 # include <string.h>
 # include <sys/types.h>
+#include <fcntl.h>
+#include <sys/types.h>
+#include <sys/uio.h>
 
 //flag - отвечает за то, что идет после ноды(; - COMMAND, | - PIPE)
 //file_option - отвечает за тип редирекшна (> - REWRITE >> - WRITE)
@@ -35,19 +38,10 @@ typedef struct 		s_split
 }					t_split;
 # define COMMAND 0
 # define PIPE 1
-# define NONE -1
 
+# define NONE -1
 # define REWRITE 0
 # define WRITE 1
-
-# define BUILTINS 7
-# define ECHO 0
-# define CD 1
-# define PWD 2
-# define EXPORT 3
-# define UNSET 4
-# define ENV 5
-# define EXIT 6
 
 void    shell_loop(char *envp[]);
 int     cd(char **argv);
@@ -70,6 +64,7 @@ char **realloc_env(char *envp[]);
 int export(char *arg, char **envp[]);
 char *joinenv(char *name, char *value);
 int unset(char *name, char *envp[]);
-char *get_env_var(char *name, char *envp[]);
+char *read_fd(int fd);
+char **rewrite_args(char **argv, char *new_arg);
 
 #endif //CUB_MINISHELL_H
