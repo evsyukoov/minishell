@@ -14,7 +14,8 @@ SRCS =  main.c \
 		export.c \
 		unset.c \
 		enviroment_utils.c \
-		utils.c
+		utils.c \
+		parse_function.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 18:02:47 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/17 16:34:57 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/17 23:23:07 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,6 @@ int export(char *arg, char **envp[])
 	char *name;
 	char *value;
 	char **buf;
-		
-		
 	
 	if(!arg)
 	{

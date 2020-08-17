@@ -66,5 +66,6 @@ char *joinenv(char *name, char *value);
 int unset(char *name, char *envp[]);
 char *read_fd(int fd);
 char **rewrite_args(char **argv, char *new_arg);
+int    execution(char **argv, char **envp[]);
 
 #endif //CUB_MINISHELL_H
