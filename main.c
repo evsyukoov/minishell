@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:49:32 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/16 18:35:04 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/17 17:27:03 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char **realloc_env(char *envp[])
 	while(envp[i])
 	{
 
-		buf = malloc(ft_strlen(envp[i] + 1));
+		buf = malloc(ft_strlen(envp[i]) + 1);
 		if(!buf)
 			return (NULL);
 		ft_strlcpy(buf, envp[i], 1 + ft_strlen(envp[i]));

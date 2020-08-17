@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 16:08:59 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/15 22:50:33 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/17 22:53:25 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,167 @@ char	quote_type(char *arg)
 		return ('\0');
 }
 
-char	**shell_split(char *arg)
+void 	skip_env(char **arg)
+{
+	while (**arg && **arg != ' ')
+		(*arg)++;
+	skip(arg, ' ');
+}
+
+int 	env_len2(char *arg)
+{
+	int i;
+
+	i = 0;
+	while (arg[i] && arg[i] != ' ' && arg[i] != '\'' && arg[i] != '\"') {
+		i++;
+	}
+	return (i);
+}
+
+char	*init_env_name(char *arg)
+{
+	char	*name;
+	int		i;
+
+	name = (char*)malloc(sizeof(char) * (env_len2(arg) + 1));
+	arg += 1;
+	i = 0;
+	while (*arg && *arg != ' ' && *arg != '\"' && *arg != '$' && *arg != '\'')
+		name[i++] = *arg++;
+	name[i] = '\0';
+	return (name);
+}
+
+char 	*get_begin_string(char *current_ptr, int len)
+{
+	int i;
+	char *res;
+
+	i = 0;
+	current_ptr -= len;
+	if (!(res = malloc(len + 1)))
+		return (0);
+	while (i < len)
+		res[i++] = *current_ptr++;
+	res[i] = '\0';
+	return (res);
+}
+
+char 	*get_environment_string(char *arg, char **env, int begin_len)
+{
+	char *env_name;
+	char *res;
+	char *begin;
+
+	begin = NULL;
+	env_name = init_env_name(arg);
+	if (!(get_env_var(env_name, env)))
+		res = ft_strdup("\0");
+	else
+		res = ft_strdup(get_env_var(env_name, env));
+	begin = get_begin_string(arg, begin_len);
+	if (begin)
+		res = ft_strjoin(begin, res);
+	free(begin);
+	return (res);
+}
+
+int 	quotes_size(char *arg)
+{
+	int len;
+
+	len = 0;
+	while (arg[len] && arg[len] != '\"')
+		len++;
+	return (len);
+}
+
+char 	*join_char(char *arg, char c)
+{
+	char *res;
+	int i;
+
+	i = 0;
+	if (!(res = (char*)malloc(ft_strlen(arg) + 2)))
+		return (0);
+	while (*arg)
+		res[i++] = *arg++;
+	res[i++] = c;
+	res[i] = '\0';
+	return (res);
+}
+
+char 	*get_environment_with_quotes(char *arg, char **env, int begin_len)
+{
+	char *res;
+	char *tmp;
+
+	res = get_environment_string(arg, env, begin_len);
+	arg += env_len2(arg);
+	while (*arg && *arg != '\"')
+	{
+		tmp = res;
+		if (*arg != '$')
+			res = join_char(res, *arg);
+		else
+		{
+			res = ft_strjoin(res, get_environment_string(arg, env, 0));
+			arg += env_len2(arg);
+			if (*arg == '\'')
+				res = join_char(res, *arg);
+		}
+		free(tmp);
+		arg++;
+	}
+	return (res);
+}
+
+char 	*analize_env(char **arg, char **env)
+{
+	int i;
+	char *res;
+	int flag;
+	int len;
+
+	i = 0;
+	flag = 0;
+	len = 0;
+
+	//баги - $HOME$PWD, $HOME>f, "$HOME">f
+	res = NULL;
+	//  '$HOME' - оставляем все как было
+	if ((*arg)[i] == '\'')
+		return (0);
+	// "$HOME" ----> env_var
+	if ((*arg)[i] == '\"' && --len)
+		flag = 1;
+	while ((*arg)[i] && (*arg)[i] != ' ') {
+		if ((*arg)[i] == '$')
+		{
+			if (!flag)
+			{
+				res = get_environment_string(*arg + i, env, len);
+				(*arg) += i + env_len2(*arg + i);
+			}
+			else
+				{
+				res = get_environment_with_quotes(*arg + i, env, len);
+				(*arg) += i + quotes_size(*arg + i);
+			}
+			break ;
+		}
+		i++;
+		len++;
+	}
+	return (res);
+}
+
+char	**shell_split(char *arg, char **env)
 {
 	t_split var;
 	char **res;
+	char *tmp;
 
 	var.args = arguments_counter(arg);
 	var.i = 0;
@@ -104,18 +261,25 @@ char	**shell_split(char *arg)
 	skip(&arg, ' ');
 	while (var.i < var.args)
 	{
-		var.q_type = quote_type(arg);
-		var.arg_len = argument_len(arg, var.q_type);
-		res[var.i] = (char*)malloc(var.arg_len + 1);
-		var.j = 0;
-		while (var.j < var.arg_len && *arg)
-		{
-			skip(&arg, var.q_type);
-			res[var.i][var.j++] = *arg++;
-		}
-		res[var.i++][var.j] = '\0';
-		skip(&arg, var.q_type);
-		skip(&arg, ' ');
+			if((tmp = analize_env(&arg, env)))
+			{
+				res[var.i] = tmp;
+				skip_env(&arg);
+			}
+			else {
+				var.q_type = quote_type(arg);
+				var.arg_len = argument_len(arg, var.q_type);
+				res[var.i] = (char *) malloc(var.arg_len + 1);
+				var.j = 0;
+				skip(&arg, var.q_type);
+				while (var.j < var.arg_len && *arg)
+					res[var.i][var.j++] = *arg++;
+				res[var.i][var.j] = '\0';
+
+				skip(&arg, var.q_type);
+				skip(&arg, ' ');
+			}
+		var.i++;
 	}
 	res[var.i] = NULL;
 	return (res);
@@ -131,7 +295,7 @@ int 	number_of_arguments(char **argv)
 	return (j);
 }
 
-void 	split_pipes(t_args **lst, char *arg_pipe)
+void 	split_pipes(t_args **lst, char *arg_pipe, char **env)
 {
 	int j;
 	char **argv_pipes;
@@ -144,16 +308,16 @@ void 	split_pipes(t_args **lst, char *arg_pipe)
 	{
 		{
 			if (j < num_of_args - 1)
-				push(lst, create_new_node(shell_split(argv_pipes[j]), PIPE, NULL, NONE));
+				push(lst, create_new_node(shell_split(argv_pipes[j], env), PIPE, NULL, NONE));
 			else
-				push(lst, create_new_node(shell_split(argv_pipes[j]), COMMAND, NULL, NONE));
+				push(lst, create_new_node(shell_split(argv_pipes[j], env), COMMAND, NULL, NONE));
 			j++;
 		}
 	}
 	free_arguments(&argv_pipes);
 }
 
-t_args 	*create_list(char *arg)
+t_args 	*create_list(char *arg, char **env)
 {
 	t_args *lst;
 	char **argv1;
@@ -165,9 +329,9 @@ t_args 	*create_list(char *arg)
 	while(argv1[i])
 	{
 		if (ft_strchr(argv1[i], '|'))
-			split_pipes(&lst, argv1[i]);
+			split_pipes(&lst, argv1[i], env);
 		else
-			push(&lst, create_new_node(shell_split(argv1[i]), COMMAND, NULL, NONE));
+			push(&lst, create_new_node(shell_split(argv1[i], env), COMMAND, NULL, NONE));
 		i++;
 	}
 	free_arguments(&argv1);
@@ -305,6 +469,7 @@ t_args 	*parse_redirections(t_args *lst)
 				flag = 1;
 				new_node = analize_redirection(argv, argv[i], i, lst);
 				push(&head, new_node);
+				free_arguments(&argv);
 				break ;
 			}
 			i++;

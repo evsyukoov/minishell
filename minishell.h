@@ -53,12 +53,11 @@ void    shell_loop(char *envp[]);
 int     cd(char **argv);
 void	push(t_args **lst, t_args *new);
 void 	print_arg_list(t_args *lst);
-t_args		*create_list(char *line);
-char	**shell_split(char *arg);
+char	**shell_split(char *arg, char **env);
 t_args 		*create_new_node(char **s, int flag, char *file_path, int file_option);
 void	free_arguments(char ***argv);
 void 	print_argv(char **argv);
-t_args 	*create_list(char *arg);
+t_args 	*create_list(char *arg, char **env);
 int execute(char **argv, char *envp[]);
 int		str_endswith(char *s, char *set);
 t_args 	*parse_redirections(t_args *lst);
@@ -71,5 +70,6 @@ char **realloc_env(char *envp[]);
 int export(char *arg, char **envp[]);
 char *joinenv(char *name, char *value);
 int unset(char *name, char *envp[]);
+char *get_env_var(char *name, char *envp[]);
 
 #endif //CUB_MINISHELL_H

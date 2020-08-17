@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/16 18:37:20 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/17 19:11:03 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int    execution(char **argv, char *envp[])
 	return (launch(argv, envp));
 }
 
-t_args *get_argv()
+t_args *get_argv(char **env)
 {
     char *line;
     t_args *lst;
@@ -84,7 +84,7 @@ t_args *get_argv()
         return 0;
     if (*line == '\0')
     	return (0);
-   	lst = create_list(line);
+   	lst = create_list(line, env);
 	// print_arg_list(lst);
     return (lst);
 }
@@ -111,7 +111,7 @@ void    shell_loop(char *envp[])
     while (1)
    	{
 		write(1, "minishell : ", 12);
-		args_lst = get_argv();
+		args_lst = get_argv(envp);
 		if (args_lst)
 			status = parse_str(args_lst, envp);
 		if (!status)

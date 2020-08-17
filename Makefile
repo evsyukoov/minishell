@@ -13,7 +13,7 @@ SRCS =  main.c \
 		shell_split.c \
 		export.c \
 		unset.c \
-		enviroment_utils.c
+		enviroment_utils.c \
 
 OBJS = $(SRCS:.c=.o)
 
