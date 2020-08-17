@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/17 16:47:49 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/17 23:02:28 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,9 @@ int parse_str(t_args *args_lst, char **envp[])
 			else
 			{
 				if(args_lst->file_option == REWRITE)
-					fd = open(args_lst->file_path, O_WRONLY | O_TRUNC | O_CREAT);
+					fd = open(args_lst->file_path, O_RDWR | O_TRUNC | O_CREAT, 00644);
 				else if	(args_lst->file_option == WRITE)
-					fd = open(args_lst->file_path, O_WRONLY | O_APPEND | O_CREAT);
+					fd = open(args_lst->file_path, O_RDWR | O_APPEND | O_CREAT, 00644);
 				dup2(fd, 1);
 				execution(args_lst->args, envp);
 				close(fd);
