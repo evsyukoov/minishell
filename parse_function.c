@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 23:24:33 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/17 23:25:11 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/19 00:14:10 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ int		launch(char **argv, char *envp[])
 	
 	child = fork();
 	if (child < 0)
+	{
 		perror("minishell");
+	}
 	else if (child == 0)
 	{
 		if (execute(argv, envp) == -1) {

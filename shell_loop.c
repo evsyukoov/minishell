@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/18 00:13:59 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/19 01:15:50 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,24 @@ int exe_one_command(t_args *args_lst, char **envp[])
 	int fd_out;
 	int fd_in;
 	int fd;
-
+	char buf[10];
+	int n;
+	
 	fd_out = dup(1);
 	fd_in = dup(0);
 	if(args_lst->file_option == NONE)
 		execution(args_lst->args, envp);
 	else if (args_lst->file_option == 2)
 	{
+			
 		if ((fd = open(args_lst->file_path, O_RDONLY)) > 0)
 		{
-			dup2(fd, 0);				
-			execution(args_lst->args, envp);
+			dup2(fd, 0);
+			if (args_lst->args[0][0])
+				execution(args_lst->args, envp);
+			else
+				while((n = read(0, buf, 10)) > 0)
+					write(1, buf, n);
 			close(fd);	
 			dup2(fd_in, 0);
 		}
@@ -66,30 +73,34 @@ int parse_str(t_args *args_lst, char **envp[])
 
 	int fd_buf[2];
 	pid_t child;
+	int fd_in;
 	int status;
 	
+	fd_in = dup(0);
+
 	while(args_lst)
 	{
+		pipe(fd_buf);
 		if( args_lst->flag == COMMAND)
 		{
 			exe_one_command(args_lst, envp);
 			args_lst = args_lst->next;
+			dup2(fd_in, 0);
 		}
 		else if (args_lst->flag == PIPE)
 		{
 
-			if ((child = fork())){
+			if (!(child = fork())){
 				dup2 (fd_buf[1], 1);
-				close (fd_buf[0]);
+				close(fd_buf[0]);
 				exe_one_command(args_lst, envp);
 				exit(0);
 			}
 			else{
 				waitpid(child, &status, WUNTRACED);
 				args_lst = args_lst->next;
-				exe_one_command(args_lst, envp);
 				dup2 (fd_buf[0], 0);
-				close (fd_buf[1]);
+				close(fd_buf[1]);
    			}
 		}
 	}
