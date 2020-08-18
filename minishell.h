@@ -11,12 +11,16 @@
 # include "GNL/get_next_line.h"
 # include <string.h>
 # include <sys/types.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/uio.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <signal.h>
+# include <errno.h>
 
 //flag - отвечает за то, что идет после ноды(; - COMMAND, | - PIPE)
 //file_option - отвечает за тип редирекшна (> - REWRITE >> - WRITE)
+
+int 	reset;
 
 typedef struct 		s_args
 {
@@ -42,6 +46,7 @@ typedef struct 		s_split
 # define NONE -1
 # define REWRITE 0
 # define WRITE 1
+# define REVERSE 2 //  <
 
 void    shell_loop(char *envp[]);
 int     cd(char **argv);

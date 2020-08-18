@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 16:08:59 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/17 22:53:25 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/18 21:24:48 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,7 @@ char 	*analize_env(char **arg, char **env)
 	return (res);
 }
 
+
 char	**shell_split(char *arg, char **env)
 {
 	t_split var;
@@ -265,6 +266,10 @@ char	**shell_split(char *arg, char **env)
 			{
 				res[var.i] = tmp;
 				skip_env(&arg);
+			}
+			else if (*arg == '~' && ++arg) {
+				res[var.i] = ft_strdup(get_env_var("HOME", env));
+				skip(&arg, ' ');
 			}
 			else {
 				var.q_type = quote_type(arg);
@@ -382,12 +387,12 @@ char 	**case2(char **argv, int arg_index, size_t len)
 	return (res);
 }
 
-int 	last_arg_len(char *arg)
+int 	last_arg_len(char *arg, char redirection_type)
 {
 	int len;
 
 	len = 0;
-	while (arg[len] != '>')
+	while (arg[len] != redirection_type)
 		len++;
 	return (len);
 }
@@ -424,9 +429,19 @@ t_args 	*analize_redirection(char **argv, char *arg, int arg_index, t_args *old_
 	t_args *node;
 
 	node = NULL;
+	//printf("str = %c\n");
 	// command > file
-	if (ft_strlen(arg) == 1)
+	if (ft_strlen(arg) == 1 && *arg == '>')
 		node = create_new_node(case1(argv, arg_index), old_node->flag, argv[arg_index + 1], REWRITE);
+	//command < file
+	else if (ft_strlen(arg) == 1 && *arg == '<')
+		node = create_new_node(case1(argv, arg_index), old_node->flag, argv[arg_index + 1], REVERSE);
+	//command< file
+	else if (str_endswith(arg, "<"))
+		node = create_new_node(case2(argv, arg_index, ft_strlen(argv[arg_index]) - 1), old_node->flag, argv[arg_index + 1], REVERSE);
+	//command<file or <file
+	else if (ft_strchr(arg, '<'))
+		node = create_new_node(case2(argv, arg_index, last_arg_len(arg, '<')), old_node->flag, ft_strdup(ft_strchr(arg,'<') + 1), REVERSE);
 	//command >> file
 	else if (ft_strlen(arg) == 2 && str_endswith(arg, ">"))
 		node = create_new_node(case1(argv, arg_index), old_node->flag, argv[arg_index + 1], WRITE);
@@ -438,10 +453,10 @@ t_args 	*analize_redirection(char **argv, char *arg, int arg_index, t_args *old_
 		node = create_new_node(case2(argv, arg_index, ft_strlen(argv[arg_index]) - 2), old_node->flag, argv[arg_index + 1], WRITE);
 	//command>file
 	else if (*(ft_strchr(arg, '>') + 1) != '>' && *(ft_strchr(arg, '>') - 1) != '>')
-		node = create_new_node(case2(argv, arg_index, last_arg_len(arg)), old_node->flag, find_file_name(arg), WRITE);
+		node = create_new_node(case2(argv, arg_index, last_arg_len(arg, '>')), old_node->flag, find_file_name(arg), WRITE);
 	//command>>file
 	else
-		node = create_new_node(case2(argv, arg_index, last_arg_len(arg)), old_node->flag, find_file_name(arg), REWRITE);
+		node = create_new_node(case2(argv, arg_index, last_arg_len(arg, '>')), old_node->flag, find_file_name(arg), REWRITE);
 	//free_arguments(&argv);
 	return (node);
 }
@@ -464,7 +479,7 @@ t_args 	*parse_redirections(t_args *lst)
 		flag = 0;
 		while (argv[i])
 		{
-			if (ft_strchr(argv[i], '>'))
+			if (ft_strchr(argv[i], '>') || ft_strchr(argv[i], '<'))
 			{
 				flag = 1;
 				new_node = analize_redirection(argv, argv[i], i, lst);
