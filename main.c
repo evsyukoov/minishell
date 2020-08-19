@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:49:32 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/19 20:20:03 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/19 20:25:08 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ int main(int argc, char *argv[], char *envp[])
 	else
 		{
 		signal(SIGINT, &listener_ctrl_c);
-		//signal(SIGQUIT, &listener_ctrl_d);
-		//masignal(SIGKILL, &signal_listener);
+		signal(SIGQUIT, &listener_ctrl_d);
 		while (wait(&status) > 0)
 			NULL;
 	}

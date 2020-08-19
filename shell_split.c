@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 16:08:59 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/18 21:24:48 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/19 23:09:46 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -248,6 +248,20 @@ char 	*analize_env(char **arg, char **env)
 	return (res);
 }
 
+char 	*analize_exception(char *arg)
+{
+	char *res;
+
+	res = NULL;
+	printf("arg = %s\n", arg);
+	//printf("last code = %d\n", last_code);
+	if (*arg == '$' && *(arg + 1) == '?') {
+		printf("yes");
+		res = ft_itoa(last_code);
+	}
+	//printf("res = %s\n", res);
+	return (res);
+}
 
 char	**shell_split(char *arg, char **env)
 {
@@ -262,7 +276,12 @@ char	**shell_split(char *arg, char **env)
 	skip(&arg, ' ');
 	while (var.i < var.args)
 	{
-			if((tmp = analize_env(&arg, env)))
+			if (*arg == '$' && *(arg + 1) == '?') {
+				res[var.i] = ft_itoa(last_code);
+				arg += 2;
+				skip(&arg, ' ');
+			}
+			else if((tmp = analize_env(&arg, env)))
 			{
 				res[var.i] = tmp;
 				skip_env(&arg);
@@ -340,7 +359,6 @@ t_args 	*create_list(char *arg, char **env)
 		i++;
 	}
 	free_arguments(&argv1);
-	free(arg);
 	return (parse_redirections(lst));
 	//return lst;
 }

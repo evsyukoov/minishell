@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/19 19:27:46 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/19 22:31:23 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,11 @@
 int		launch(char **argv, char *envp[])
 {
 	int  status;
-	
+	pid_t child;
+	int a;
+
+	status = 0;
+	a = 0;
 	child = fork();
 	if (child < 0)
 		perror("minishell");
@@ -25,8 +29,10 @@ int		launch(char **argv, char *envp[])
 	{
 		//signal(SIGQUIT, &listener_ctrl_d);
 		if (execute(argv, envp) == -1) {
-			perror("command not found");
-			return (1);
+			write(2, strerror(errno), ft_strlen(strerror(errno)));
+			write(1, "\n", 1);
+			//printf("errno  = %d\n", errno);
+			exit (127);
 		}
 	} 
 	else
@@ -39,7 +45,7 @@ int		launch(char **argv, char *envp[])
 		while (WIFEXITED(status) == 0)
 			waitpid(child, &status, WUNTRACED);
 	}
-	return (1);
+	return (WEXITSTATUS(status));		//возвращает код последнего return или exit
 }
 
 //SIGQUIT - ctrl - \
@@ -48,9 +54,11 @@ int		launch(char **argv, char *envp[])
 
 int     cd(char **argv)
 {
-	if (chdir(argv[1]) != 0)
-    	perror(argv[1]);
-    return (1);
+	if (chdir(argv[1]) != 0) {
+		perror(argv[1]);
+		return (1);
+	}
+    return (0);
 }
 
 void	free_arguments(char ***argv)
@@ -74,7 +82,7 @@ int    execution(char **argv, char **envp[])
 		return (cd(argv));
 	else if(ft_strcmp(argv[0], "pwd") == 0) {
 		ft_putendl_fd(getwd(wd), 1);
-		return (1);
+		return (0);
 	}
 	else if (ft_strcmp(argv[0], "unset") == 0)
 		return(unset(argv[1], *envp));
@@ -84,7 +92,10 @@ int    execution(char **argv, char **envp[])
 		return(export(argv[1], envp));
 	else if (ft_strcmp(argv[0], "exit") == 0)
 		exit(0);
-	return (launch(argv, *envp));
+	int st = launch(argv, *envp);
+	//ft_putnbr_fd(st, 1);
+	//write(1, "\n", 1);
+	return (st);
 }
 
 t_args *get_argv(char **env)
@@ -112,7 +123,8 @@ int parse_str(t_args *args_lst, char **envp[])
 	int fd_out;
 	int fd_in;
 	int fd;
-	
+	int return_code;
+
 	fd_out = dup(1);
 	fd_in = dup(0);
 	while(args_lst)
@@ -120,13 +132,13 @@ int parse_str(t_args *args_lst, char **envp[])
 		if( args_lst->flag == COMMAND)
 		{
 			if(args_lst->file_option == NONE)
-				execution(args_lst->args, envp);
+				return_code = execution(args_lst->args, envp);
 			else if (args_lst->file_option == 2)
 			{
 				if ((fd = open(args_lst->file_path, O_RDONLY)) > 0)
 				{
 					dup2(fd, 0);				
-					execution(args_lst->args, envp);
+					return_code = execution(args_lst->args, envp);
 					close(fd);	
 					dup2(fd_in, 0);
 				}
@@ -138,14 +150,14 @@ int parse_str(t_args *args_lst, char **envp[])
 				else if	(args_lst->file_option == WRITE)
 					fd = open(args_lst->file_path, O_RDWR | O_APPEND | O_CREAT, 00644);
 				dup2(fd, 1);
-				execution(args_lst->args, envp);
+				return_code = execution(args_lst->args, envp);
 				close(fd);
 				dup2(fd_out, 1);
 			}
 			args_lst = args_lst->next;
 		}
 	}
-	return(1);
+	return(return_code);
 }
 
 void    shell_loop(char *envp[])
@@ -157,11 +169,14 @@ void    shell_loop(char *envp[])
     while (1)
    	{
 		write(1, "minishell : ", 12);
+		//ft_putnbr_fd(last_code, 1);
 		args_lst = get_argv(envp);
 		if (args_lst)
 			status = parse_str(args_lst, &envp);
-		if (!status)
-			break ;
+		last_code = status;
+		//write(1, "\n", 1);
+		//if (!status)
+		//	break ;
    }
 }
 

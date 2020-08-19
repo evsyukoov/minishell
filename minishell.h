@@ -44,6 +44,7 @@ typedef struct 		s_split
 int 	shell_pid;
 char 	**env_copy;
 pid_t	child;
+int 	last_code;
 
 # define COMMAND 0
 # define PIPE 1

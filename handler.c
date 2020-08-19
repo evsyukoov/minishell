@@ -6,17 +6,17 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 15:01:18 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/19 19:38:31 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/19 20:20:03 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*void 	listener_ctrl_d(int signal_num)
+void 	listener_ctrl_d(int signal_num)
 {
 	if (child == 0 && signal_num == SIGQUIT)
 		kill(child, SIGKILL);
-}*/
+}
 
 void 	listener_ctrl_c(int signal_num)
 {
