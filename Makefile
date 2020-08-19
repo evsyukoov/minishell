@@ -16,6 +16,7 @@ SRCS =  main.c \
 		enviroment_utils.c \
 		utils.c \
 		parse_function.c
+		handler.c
 
 OBJS = $(SRCS:.c=.o)
 

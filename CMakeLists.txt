@@ -7,7 +7,7 @@ link_directories( ~/Desktop/minishell/libft/)
 add_executable(minishell main.c
         GNL/get_next_line.c
         GNL/get_next_line_utils.c shell_loop.c minishell.h libft/ft_strcmp.c list_utils.c helper.c str_utils.c shell_split.c execute.c
-        unset.c export.c enviroment_utils.c)
+        unset.c export.c enviroment_utils.c handler.c)
 target_link_libraries(minishell ft)
 
 

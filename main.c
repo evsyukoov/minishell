@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:49:32 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/17 17:27:03 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/19 20:25:08 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,20 @@ char **realloc_env(char *envp[])
 
 int main(int argc, char *argv[], char *envp[])
 {
-	char **new_env;
+	int status;
+
 	argc = 0;
 	argv = 0;
-	if(!(new_env = realloc_env(envp)))
+	if(!(env_copy = realloc_env(envp)))
 		return (0);
-    shell_loop(new_env);
-    return 0;
+	if ((shell_pid = fork()) == 0)
+		shell_loop(env_copy);
+	else
+		{
+		signal(SIGINT, &listener_ctrl_c);
+		signal(SIGQUIT, &listener_ctrl_d);
+		while (wait(&status) > 0)
+			NULL;
+	}
+	return 0;
 }

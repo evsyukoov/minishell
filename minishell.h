@@ -11,12 +11,16 @@
 # include "GNL/get_next_line.h"
 # include <string.h>
 # include <sys/types.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/uio.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <signal.h>
+# include <errno.h>
 
 //flag - отвечает за то, что идет после ноды(; - COMMAND, | - PIPE)
 //file_option - отвечает за тип редирекшна (> - REWRITE >> - WRITE)
+
+int 	reset;
 
 typedef struct 		s_args
 {
@@ -36,12 +40,19 @@ typedef struct 		s_split
 	char 			q_type;
 	int 			arg_len;
 }					t_split;
+
+int 	shell_pid;
+char 	**env_copy;
+pid_t	child;
+int 	last_code;
+
 # define COMMAND 0
 # define PIPE 1
 
 # define NONE -1
 # define REWRITE 0
 # define WRITE 1
+# define REVERSE 2 //  <
 
 void    shell_loop(char *envp[]);
 int     cd(char **argv);
@@ -67,5 +78,9 @@ int unset(char *name, char *envp[]);
 char *read_fd(int fd);
 char **rewrite_args(char **argv, char *new_arg);
 int    execution(char **argv, char **envp[]);
+void 	signal_listener(int signal_num);
+void 	listener_ctrl_c(int signal_num);
+void 	listener_ctrl_d(int signal_num);
+
 
 #endif //CUB_MINISHELL_H
