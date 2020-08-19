@@ -3,18 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/17 23:09:58 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/19 19:27:46 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <sys/wait.h>
+#include <sys/types.h>
 
 int		launch(char **argv, char *envp[])
 {
-	pid_t child;
 	int  status;
 	
 	child = fork();
@@ -22,6 +23,7 @@ int		launch(char **argv, char *envp[])
 		perror("minishell");
 	else if (child == 0)
 	{
+		//signal(SIGQUIT, &listener_ctrl_d);
 		if (execute(argv, envp) == -1) {
 			perror("command not found");
 			return (1);
@@ -29,12 +31,20 @@ int		launch(char **argv, char *envp[])
 	} 
 	else
 	{
+		//wait(&status);
+		//if (WIFSIGNALED(status))
+		//	return WTERMSIG(status) + 256;  //пытался достать код ошибки,безрезультатно
+		//return WEXITSTATUS(status);
 		waitpid(child, &status, WUNTRACED);
 		while (WIFEXITED(status) == 0)
 			waitpid(child, &status, WUNTRACED);
 	}
 	return (1);
 }
+
+//SIGQUIT - ctrl - \
+//SIGINT  - ctrl - C
+
 
 int     cd(char **argv)
 {
@@ -59,6 +69,7 @@ int    execution(char **argv, char **envp[])
 {
 	char wd[256];
 
+	//printf("errno = %d\n", errno);
 	if (ft_strcmp(argv[0], "cd") == 0)
 		return (cd(argv));
 	else if(ft_strcmp(argv[0], "pwd") == 0) {
@@ -78,16 +89,22 @@ int    execution(char **argv, char **envp[])
 
 t_args *get_argv(char **env)
 {
-    char *line;
-    t_args *lst;
+	char *line;
+	t_args *lst;
 
-    if (get_next_line(0, &line) < 0)
-        return 0;
-    if (*line == '\0')
-    	return (0);
-   	lst = create_list(line, env);
+	int ret = get_next_line(0, &line);
+	if (ret < 0)
+		return (0);
+	if (ret == 0)
+	{
+		kill(shell_pid, SIGTERM);
+		exit(0);
+	}
+	if (*line == '\0')
+		return (0);
+	lst = create_list(line, env);
 	// print_arg_list(lst);
-    return (lst);
+	return (lst);
 }
 
 int parse_str(t_args *args_lst, char **envp[])

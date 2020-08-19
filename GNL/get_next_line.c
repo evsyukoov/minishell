@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: denis <denis@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 19:00:30 by denis             #+#    #+#             */
-/*   Updated: 2020/05/15 16:00:52 by denis            ###   ########.fr       */
+/*   Updated: 2020/08/19 16:54:01 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		get_next_line(int fd, char **line)
 	}
 	balance = NULL;
 	if (!(*line))
-		*line = allocate_empty_line(*line);
+		*line = allocate_empty_line("\0");
 	if (count < 0)
 		return (-1);
 	return (0);

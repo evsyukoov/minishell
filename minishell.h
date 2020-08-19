@@ -40,6 +40,11 @@ typedef struct 		s_split
 	char 			q_type;
 	int 			arg_len;
 }					t_split;
+
+int 	shell_pid;
+char 	**env_copy;
+pid_t	child;
+
 # define COMMAND 0
 # define PIPE 1
 
@@ -71,5 +76,9 @@ char *joinenv(char *name, char *value);
 int unset(char *name, char *envp[]);
 char *read_fd(int fd);
 char **rewrite_args(char **argv, char *new_arg);
+void 	signal_listener(int signal_num);
+void 	listener_ctrl_c(int signal_num);
+void 	listener_ctrl_d(int signal_num);
+
 
 #endif //CUB_MINISHELL_H
