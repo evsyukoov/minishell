@@ -49,8 +49,10 @@ int 	print_error_log(char *lsh, char *command, char *argument, char *msg)
 		write(2, "lsh: ", 5);
 	if (command)
 		write(2, command, ft_strlen(command));
-	write(2, argument, ft_strlen(argument));
-	write(2, ": ", 2);
+	if (argument) {
+		write(2, argument, ft_strlen(argument));
+		write(2, ": ", 2);
+	}
 	write(2, msg, ft_strlen(msg));
 	write(2, "\n", 1);
 	return (1);

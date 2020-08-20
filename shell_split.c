@@ -72,6 +72,8 @@ static int		arguments_counter(char *s)
 			flag = find_close_quote(&s, '\'', &args);
 		else if (*s == '\"')
 			flag = find_close_quote(&s, '\"', &args);
+		if ((*s == '\'' || *s == '\"') && *(s + 1) != ' ')
+			args++;
 		while (*s && *s != ' ')
 			s++;
 		if (!flag)
@@ -253,7 +255,7 @@ char 	*analize_exception(char *arg)
 	char *res;
 
 	res = NULL;
-	printf("arg = %s\n", arg);
+	//printf("arg = %s\n", arg);
 	//printf("last code = %d\n", last_code);
 	if (*arg == '$' && *(arg + 1) == '?') {
 		printf("yes");
@@ -270,6 +272,7 @@ char	**shell_split(char *arg, char **env)
 	char *tmp;
 
 	var.args = arguments_counter(arg);
+	//printf("args = %d", var.args);
 	var.i = 0;
 	if (!(res = (char**)malloc(sizeof(char*) * (var.args + 1))))
 		return (0);
@@ -405,11 +408,14 @@ char 	**case2(char **argv, int arg_index, size_t len)
 	return (res);
 }
 
+
 int 	last_arg_len(char *arg, char redirection_type)
 {
 	int len;
 
 	len = 0;
+	while (*arg == redirection_type)
+		arg++;
 	while (arg[len] != redirection_type)
 		len++;
 	return (len);
@@ -447,7 +453,6 @@ t_args 	*analize_redirection(char **argv, char *arg, int arg_index, t_args *old_
 	t_args *node;
 
 	node = NULL;
-	//printf("str = %c\n");
 	// command > file
 	if (ft_strlen(arg) == 1 && *arg == '>')
 		node = create_new_node(case1(argv, arg_index), old_node->flag, argv[arg_index + 1], REWRITE);
@@ -465,21 +470,57 @@ t_args 	*analize_redirection(char **argv, char *arg, int arg_index, t_args *old_
 		node = create_new_node(case1(argv, arg_index), old_node->flag, argv[arg_index + 1], WRITE);
 	//command> file
 	else if (str_endswith(arg, ">") && arg[ft_strlen(arg) - 2] != '>')
-		node = create_new_node(case2(argv, arg_index, ft_strlen(argv[arg_index]) - 1), old_node->flag, argv[arg_index + 1], REWRITE);
+		node = create_new_node(case2(argv, arg_index, ft_strlen(argv[arg_index]) - 1), old_node->flag,
+							   argv[arg_index + 1], REWRITE);
 	//command>> file
 	else if (arg[ft_strlen(arg) - 1] == '>' && arg[ft_strlen(arg) - 2] == '>' && arg[ft_strlen(arg) - 3] != '>')
-		node = create_new_node(case2(argv, arg_index, ft_strlen(argv[arg_index]) - 2), old_node->flag, argv[arg_index + 1], WRITE);
+		node = create_new_node(case2(argv, arg_index, ft_strlen(argv[arg_index]) - 2), old_node->flag,
+							   argv[arg_index + 1], WRITE);
+	//command >file
+	else if (str_startswith(arg, ">") && *(arg + 1) != '>')
+		node = create_new_node(case1(argv, arg_index), old_node->flag, arg + 1, REWRITE);
+	//command >>file
+	else if (str_startswith(arg, ">") && *(arg + 1) == '>')
+		node = create_new_node(case1(argv, arg_index), old_node->flag, arg + 2, WRITE);
 	//command>file
 	else if (*(ft_strchr(arg, '>') + 1) != '>' && *(ft_strchr(arg, '>') - 1) != '>')
-		node = create_new_node(case2(argv, arg_index, last_arg_len(arg, '>')), old_node->flag, find_file_name(arg), WRITE);
+		node = create_new_node(case2(argv, arg_index, last_arg_len(arg, '>')), old_node->flag, find_file_name(arg),
+							   REWRITE);
 	//command>>file
 	else
-		node = create_new_node(case2(argv, arg_index, last_arg_len(arg, '>')), old_node->flag, find_file_name(arg), REWRITE);
+		node = create_new_node(case2(argv, arg_index, last_arg_len(arg, '>')), old_node->flag, find_file_name(arg),
+							   WRITE);
 	//free_arguments(&argv);
 	return (node);
 }
 
+int 	check_error_redirections(char **argv)
+{
+	int i;
+	int j;
+	int count1;
 
+	i = 0;
+	while (argv[i])
+	{
+		j = 0;
+		count1 = 0;
+
+		if (argv[i + 1] && !ft_strcmp(argv[i], ">") &&
+		(!ft_strcmp(argv[i + 1], ">") || !ft_strcmp(argv[i + 1], ">>")))
+			return (1);
+		while (argv[i][j])
+		{
+			if (argv[i][j] == '>' || argv[i][j] == '<')
+				count1++;
+			if (count1 > 2)
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
 
 t_args 	*parse_redirections(t_args *lst)
 {
@@ -493,8 +534,15 @@ t_args 	*parse_redirections(t_args *lst)
 	while(lst)
 	{
 		argv = (lst->args);
+		//print_argv(argv);
 		i = 0;
 		flag = 0;
+		if (check_error_redirections(argv))
+		{
+			print_error_log("lsh: ", NULL, NULL, "syntax error near unexpected token '>'");
+			last_code = 258;
+			return (NULL);
+		}
 		while (argv[i])
 		{
 			if (ft_strchr(argv[i], '>') || ft_strchr(argv[i], '<'))

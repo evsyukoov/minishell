@@ -30,7 +30,8 @@ void 	print_arg_list(t_args *lst)
 	j = 0;
 	while (lst)
 	{
-		printf("Node number = %d, Node info = %s, File path : %s, File option : %s\n", j, lst->flag == 0 ? "Command" : "Pipe", lst->file_path, lst->file_option == 2 ? "> (REVERSE)" : ">> (WRITE)");
+		printf("Node number = %d, Node info = %s, File path : %s, File option : %d\n",
+				j, lst->flag == 0 ? "Command" : "Pipe", lst->file_path, lst->file_option);
    		print_argv(lst->args);
    		lst = lst->next;
    		j++;
