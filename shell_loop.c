@@ -25,6 +25,7 @@ int		launch(char **argv, char *envp[])
 		perror("minishell");
 	else if (lsh_child == 0)
 	{
+		//signal(SIGQUIT, listener_ctrl_d);
 		if (execute(argv, envp) == -1) {
 			print_error_log("lsh: ", NULL, argv[0], "command not found");
 			exit(127);
@@ -152,7 +153,7 @@ t_args *get_argv(char **env)
 	if (*line == '\0')
 		return (0);
 	lst = create_list(line, env);
-	// print_arg_list(lst);
+	 //print_arg_list(lst);
 	return (lst);
 }
 
@@ -241,7 +242,7 @@ int parse_str(t_args *args_lst, char **envp[])
 
 void    shell_loop(char *envp[])
 {
-	int status;
+	//int status;
     t_args *args_lst;
 
     while (1)
@@ -249,9 +250,9 @@ void    shell_loop(char *envp[])
 		write(1, "minishell : ", 12);
 		//ft_putnbr_fd(last_code, 1);
 		args_lst = get_argv(envp);
-		if (args_lst)
-			status = parse_str(args_lst, &envp);
-		last_code = status;
+		//if (args_lst)
+	//		status = parse_str(args_lst, &envp);
+		//last_code = status;
 		//write(1, "\n", 1);
 		//if (!status)
 		//	break ;

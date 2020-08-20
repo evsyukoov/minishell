@@ -36,24 +36,54 @@ char **realloc_env(char *envp[])
 	return(new_env);
 }
 
+void 	free_args_list(t_args **lst)
+{
+	t_args *tmp;
+	t_args *head;
+
+	head = *lst;
+	while (head)
+	{
+		int i;
+
+		i = 0;
+		tmp = *lst;
+		while ((head->args)[i])
+			free(head->args[i++]);
+		free(head->args);
+		head = head->next;
+		free(tmp);
+	}
+}
+
 int main(int argc, char *argv[], char *envp[])
 {
-	int status;
+	t_args *lst;
+
+	env_copy = realloc_env(envp);
+	lst = create_list("echo w w we  w wew we w $PATH $PWD $? $? $HOME \"$PATH             $PWD   \"  $? ", env_copy);
+	print_arg_list(lst);
+	free_args_list(&lst);
+	lst = create_list("echo w w we  w wew we w $PATH $PWD $? $? $HOME", env_copy);
+	print_arg_list(lst);
+	free_args_list(&lst);
+	free_arguments(&env_copy);
+	//int status;
 
 	argc = 0;
 	argv = 0;
-	if(!(env_copy = realloc_env(envp)))
+	/*if(!(env_copy = realloc_env(envp)))
 		return (0);
 	if ((shell_pid = fork()) == 0) {
 		shell_loop(env_copy);
 	}
 	else
 		{
+		//signal(SIGQUIT, &nothing);
 		signal(SIGINT, &listener_ctrl_c);
-		//signal(SIGQUIT, &listener_ctrl_d);
 		while (wait(&status) > 0)
 			continue ;
 
-	}
+	}*/
 	return (last_code);
 }

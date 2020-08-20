@@ -144,19 +144,22 @@ char 	*get_begin_string(char *current_ptr, int len)
 char 	*get_environment_string(char *arg, char **env, int begin_len)
 {
 	char *env_name;
+	char *env_var;
 	char *res;
 	char *begin;
 
 	begin = NULL;
 	env_name = init_env_name(arg);
-	if (!(get_env_var(env_name, env)))
+	env_var = get_env_var(env_name, env);
+	if (!env_var)
 		res = ft_strdup("\0");
 	else
-		res = ft_strdup(get_env_var(env_name, env));
+		res = get_env_var(env_name, env);
 	begin = get_begin_string(arg, begin_len);
 	if (begin)
 		res = ft_strjoin(begin, res);
 	free(begin);
+	free(env_name);
 	return (res);
 }
 
@@ -362,8 +365,8 @@ t_args 	*create_list(char *arg, char **env)
 		i++;
 	}
 	free_arguments(&argv1);
-	return (parse_redirections(lst));
-	//return lst;
+	//return (parse_redirections(lst));
+	return lst;
 }
 
 char 	**case1(char **argv, int arg_index)
@@ -521,6 +524,17 @@ int 	check_error_redirections(char **argv)
 	}
 	return (0);
 }
+
+/*void 	free_lst(t_args **lst)
+{
+	int i;
+
+	i = 0;
+	while (*lst)
+	{
+		while ((*lst)->args)
+	}
+}*/
 
 t_args 	*parse_redirections(t_args *lst)
 {
