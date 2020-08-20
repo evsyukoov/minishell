@@ -92,6 +92,8 @@ int rewrite_var(char *name, char *value, char *envp[])
 	return(0);
 }
 
+//обнаружил что export работает в случае "export var1=5 var2=6", но я думаю нах для первой проверки
+
 int export(char *arg, char **envp[])
 {
 	char *name;
@@ -100,7 +102,7 @@ int export(char *arg, char **envp[])
 	
 	if(!arg)
 	{
-		print_env(*envp);
+		print_env(*envp, NULL);
 		return (0);
 	}
 	if((name = get_name(arg)) && (value = get_value(&arg[ft_strlen(name) + 1])))

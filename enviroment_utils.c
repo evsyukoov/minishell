@@ -12,11 +12,17 @@
 
 #include "minishell.h"
 
-int print_env(char *envp[])
+int print_env(char *envp[], char **argv)
 {
 	int i;
 
 	i = 0;
+	//добавил проверку на то, что после env нет аргументов
+	if (argv && argv[1])
+	{
+		print_error_log(NULL, "env: ", argv[1], "No such file or directory");
+		return (127);
+	}
 	while(envp[i])
 	{
 		write(1, envp[i], ft_strlen(envp[i]));

@@ -44,14 +44,16 @@ int main(int argc, char *argv[], char *envp[])
 	argv = 0;
 	if(!(env_copy = realloc_env(envp)))
 		return (0);
-	if ((shell_pid = fork()) == 0)
+	if ((shell_pid = fork()) == 0) {
 		shell_loop(env_copy);
+	}
 	else
 		{
 		signal(SIGINT, &listener_ctrl_c);
-		signal(SIGQUIT, &listener_ctrl_d);
+		//signal(SIGQUIT, &listener_ctrl_d);
 		while (wait(&status) > 0)
-			NULL;
+			continue ;
+
 	}
-	return 0;
+	return (last_code);
 }

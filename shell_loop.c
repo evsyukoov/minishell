@@ -17,33 +17,25 @@
 int		launch(char **argv, char *envp[])
 {
 	int  status;
-	pid_t child;
-	int a;
 
 	status = 0;
-	a = 0;
-	child = fork();
-	if (child < 0)
+	lsh_child = fork();
+	//signal(SIGQUIT, &listener_ctrl_d);
+	if (lsh_child < 0)
 		perror("minishell");
-	else if (child == 0)
+	else if (lsh_child == 0)
 	{
-		//signal(SIGQUIT, &listener_ctrl_d);
 		if (execute(argv, envp) == -1) {
-			write(2, strerror(errno), ft_strlen(strerror(errno)));
-			write(1, "\n", 1);
-			//printf("errno  = %d\n", errno);
-			exit (127);
+			print_error_log("lsh: ", NULL, argv[0], "command not found");
+			exit(127);
 		}
 	} 
 	else
 	{
-		//wait(&status);
-		//if (WIFSIGNALED(status))
-		//	return WTERMSIG(status) + 256;  //пытался достать код ошибки,безрезультатно
-		//return WEXITSTATUS(status);
-		waitpid(child, &status, WUNTRACED);
+		waitpid(lsh_child, &status, WUNTRACED);
+
 		while (WIFEXITED(status) == 0)
-			waitpid(child, &status, WUNTRACED);
+			waitpid(lsh_child, &status, WUNTRACED);
 	}
 	return (WEXITSTATUS(status));		//возвращает код последнего return или exit
 }
@@ -51,11 +43,23 @@ int		launch(char **argv, char *envp[])
 //SIGQUIT - ctrl - \
 //SIGINT  - ctrl - C
 
+int 	print_error_log(char *lsh, char *command, char *argument, char *msg)
+{
+	if (lsh)
+		write(2, "lsh: ", 5);
+	if (command)
+		write(2, command, ft_strlen(command));
+	write(2, argument, ft_strlen(argument));
+	write(2, ": ", 2);
+	write(2, msg, ft_strlen(msg));
+	write(2, "\n", 1);
+	return (1);
+}
 
 int     cd(char **argv)
 {
 	if (chdir(argv[1]) != 0) {
-		perror(argv[1]);
+		print_error_log("lsh: ", "cd: ", argv[1], strerror(errno));
 		return (1);
 	}
     return (0);
@@ -73,6 +77,41 @@ void	free_arguments(char ***argv)
 	}
 }
 
+int 	is_contains_alpha(char *arg)
+{
+	while (*arg)
+	{
+		if (ft_isalpha(*arg))
+			return (1);
+		arg++;
+	}
+	return (0);
+}
+
+int 	exit_program(char *arg)
+{
+	write(1, "exit\n", 5);
+	if (arg)
+	{
+		if (is_contains_alpha(arg))
+		{
+			print_error_log("lsh: ", "exit: ", arg, "numeric argument required");
+			last_code = 255;
+			exit(255);
+		}
+		else
+		{
+			last_code = ft_atoi(arg);
+			if (last_code > 255)
+				exit(0);
+			else
+				exit(0);
+		}
+	}
+	else
+		exit(0);
+}
+
 int    execution(char **argv, char **envp[])
 {
 	char wd[256];
@@ -87,14 +126,12 @@ int    execution(char **argv, char **envp[])
 	else if (ft_strcmp(argv[0], "unset") == 0)
 		return(unset(argv[1], *envp));
 	else if (ft_strcmp(argv[0], "env") == 0)
-		return(print_env(*envp));
+		return(print_env(*envp, argv));
 	else if (ft_strcmp(argv[0], "export") == 0)
 		return(export(argv[1], envp));
 	else if (ft_strcmp(argv[0], "exit") == 0)
-		exit(0);
-	int st = launch(argv, *envp);
-
-	return (st);
+		exit_program(argv[1]);
+	return (launch(argv, *envp));
 }
 
 t_args *get_argv(char **env)
@@ -119,16 +156,18 @@ t_args *get_argv(char **env)
 
 int exe_one_command(t_args *args_lst, char **envp[])
 {
+	int status; // код
 	int fd_out;
 	int fd_in;
 	int fd;
 	char buf[10];
 	int n;
 
+	status = 0;
 	fd_out = dup(1);
 	fd_in = dup(0);
 	if(args_lst->file_option == NONE)
-		execution(args_lst->args, envp);
+		status = execution(args_lst->args, envp);
 	else if (args_lst->file_option == 2)
 	{
 
@@ -136,13 +175,14 @@ int exe_one_command(t_args *args_lst, char **envp[])
 		{
 			dup2(fd, 0);
 			if (args_lst->args[0][0])
-				execution(args_lst->args, envp);
+				status = execution(args_lst->args, envp);
 			else
-				while((n = read(0, buf, 10)) > 0)
+				while ((n = read(0, buf, 10)) > 0)
 					write(1, buf, n);
 			close(fd);
 			dup2(fd_in, 0);
-		}
+		} else
+			return (print_error_log("lsh: ", NULL, args_lst->file_path, "No such file or directory"));
 	}
 	else
 	{
@@ -151,11 +191,11 @@ int exe_one_command(t_args *args_lst, char **envp[])
 		else
 			fd = open(args_lst->file_path, O_RDWR | O_TRUNC | O_CREAT, 00644);
 		dup2(fd, 1);
-		execution(args_lst->args, envp);
+		status = execution(args_lst->args, envp);
 		close(fd);
 		dup2(fd_out, 1);
 	}
-	return(0);
+	return(status);
 }
 
 int parse_str(t_args *args_lst, char **envp[])
@@ -167,13 +207,13 @@ int parse_str(t_args *args_lst, char **envp[])
 	int status;
 
 	fd_in = dup(0);
-
+	status = 0;
 	while(args_lst)
 	{
 		pipe(fd_buf);
 		if( args_lst->flag == COMMAND)
 		{
-			exe_one_command(args_lst, envp);
+			status = exe_one_command(args_lst, envp);
 			args_lst = args_lst->next;
 			dup2(fd_in, 0);
 		}
@@ -183,7 +223,7 @@ int parse_str(t_args *args_lst, char **envp[])
 			if (!(child = fork())){
 				dup2 (fd_buf[1], 1);
 				close(fd_buf[0]);
-				exe_one_command(args_lst, envp);
+				status = exe_one_command(args_lst, envp);
 				exit(0);
 			}
 			else{
@@ -194,7 +234,7 @@ int parse_str(t_args *args_lst, char **envp[])
 			}
 		}
 	}
-	return(1);
+	return(status);
 }
 
 void    shell_loop(char *envp[])
@@ -202,7 +242,6 @@ void    shell_loop(char *envp[])
 	int status;
     t_args *args_lst;
 
-    status = 1;
     while (1)
    	{
 		write(1, "minishell : ", 12);

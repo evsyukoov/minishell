@@ -36,5 +36,5 @@ int unset(char *name, char *envp[])
 			return(delete_env(i, envp));
 		i++;
 	}
-	return(1);
+	return(0);
 }

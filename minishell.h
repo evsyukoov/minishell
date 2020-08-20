@@ -43,8 +43,8 @@ typedef struct 		s_split
 
 int 	shell_pid;
 char 	**env_copy;
-pid_t	child;
-int 	last_code;
+pid_t  lsh_child;
+volatile int 	last_code;
 
 # define COMMAND 0
 # define PIPE 1
@@ -54,7 +54,7 @@ int 	last_code;
 # define WRITE 1
 # define REVERSE 2 //  <
 
-void    shell_loop(char *envp[]);
+void   shell_loop(char *envp[]);
 int     cd(char **argv);
 void	push(t_args **lst, t_args *new);
 void 	print_arg_list(t_args *lst);
@@ -70,9 +70,8 @@ char *get_env_var(char *name, char *envp[]);
 char **realloc_env(char *envp[]);
 int env_len(char *envp[]);
 int env_strcmp(char *name, char *env_var);
-int print_env(char *envp[]);
+int print_env(char *envp[], char **argv);
 char **realloc_env(char *envp[]);
-int export(char *arg, char **envp[]);
 char *joinenv(char *name, char *value);
 int unset(char *name, char *envp[]);
 char *read_fd(int fd);
@@ -81,6 +80,8 @@ int    execution(char **argv, char **envp[]);
 void 	signal_listener(int signal_num);
 void 	listener_ctrl_c(int signal_num);
 void 	listener_ctrl_d(int signal_num);
+int 	print_error_log(char *lsh, char *command, char *argument, char *msg);
+int 	export(char *arg, char **envp[]);
 
 
 #endif //CUB_MINISHELL_H

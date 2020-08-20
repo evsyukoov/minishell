@@ -3,7 +3,7 @@ project(Cub C)
 
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-link_directories( ~/Desktop/minishell/libft/)
+link_directories( ~/Denis/21School/Minishell/libft/)
 add_executable(minishell main.c
         GNL/get_next_line.c
         GNL/get_next_line_utils.c shell_loop.c minishell.h libft/ft_strcmp.c list_utils.c helper.c str_utils.c shell_split.c execute.c
