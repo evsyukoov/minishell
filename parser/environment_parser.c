@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:45:04 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/21 23:44:55 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/21 23:47:12 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ char 	*replace_bash_symbols(char ***arg, char **env)
 		return (0);
 	if (***arg == '$' && *(**arg + 1) == '?')
 	{
-		printf("zashli!\n");
 		res = ft_itoa(last_code);
 		**arg += 2;
 		skip(*arg, ' ');
