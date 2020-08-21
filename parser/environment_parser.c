@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:45:04 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/21 23:47:12 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/21 23:48:36 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,14 +111,14 @@ char 	*replace_bash_symbols(char ***arg, char **env)
 	char *res;
 
 	res = NULL;
-	if (is_dollar_symbol(**arg))
-		return (0);
 	if (***arg == '$' && *(**arg + 1) == '?')
 	{
 		res = ft_itoa(last_code);
 		**arg += 2;
 		skip(*arg, ' ');
 	}
+	else if (is_dollar_symbol(**arg))
+		return (0);
 	else if((res = analize_env(*arg, env)))
 		skip_env(*arg);
 	else if (***arg == '~' && ++(**arg))
