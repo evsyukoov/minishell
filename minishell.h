@@ -84,6 +84,7 @@ int 	print_error_log(char *lsh, char *command, char *argument, char *msg);
 int 	export(char *arg, char **envp[]);
 int		str_startswith(char *s, char *set);
 void 	nothing(int signal_num);
+void 	free_args_list(t_args **lst);
 
 
 #endif //CUB_MINISHELL_H

@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:49:32 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/21 14:13:33 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/21 17:22:19 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char **realloc_env(char *envp[])
 	char *buf;
 	int i;
 
-	new_env = malloc(sizeof(char *) * (env_len(envp)+ 1));
+	new_env = malloc(sizeof(char *) * (env_len(envp) + 1));
 	i = 0;
 	if(!new_env)
 		return (NULL);		
@@ -47,10 +47,11 @@ void 	free_args_list(t_args **lst)
 		int i;
 
 		i = 0;
-		tmp = *lst;
+		tmp = head;
 		while ((head->args)[i])
 			free(head->args[i++]);
 		free(head->args);
+		free(head->file_path);
 		head = head->next;
 		free(tmp);
 	}
@@ -58,31 +59,15 @@ void 	free_args_list(t_args **lst)
 
 int main(int argc, char *argv[], char *envp[])
 {
-	t_args *lst;
-
-	env_copy = realloc_env(envp);
-	lst = create_list("echo w w we  w wew we w $PATH $PWD $? $? $HOME \"$PATH             $PWD   \"  $? ", env_copy);
-	print_arg_list(lst);
-	free_args_list(&lst);
-	lst = create_list("echo w w we  w wew we w $PATH $PWD $? $?        $HOME", env_copy);
-	print_arg_list(lst);
-	free_args_list(&lst);
-	//free_arguments(&env_copy);
-	lst = create_list("echo w w we  w wew we w $PATH $PWD $? $? $HOME \"$PATH             $PWD   \"  $? ", env_copy);
-	print_arg_list(lst);
-	free_args_list(&lst);
-	lst = create_list("echo w w we  w wew we w $PATH $PWD $? $? $HOME", env_copy);
-	print_arg_list(lst);
-	free_args_list(&lst);
-	free_arguments(&env_copy);
-	//int status;
+	char **env_copy;			//системные лики, если форкнуть процессы с мейнике, так
+	int status;
 
 	argc = 0;
 	argv = 0;
-	/*if(!(env_copy = realloc_env(envp)))
+	if(!(env_copy = realloc_env(envp)))
 		return (0);
 	if ((shell_pid = fork()) == 0) {
-		shell_loop(env_copy);
+	shell_loop(env_copy);
 	}
 	else
 		{
@@ -91,6 +76,7 @@ int main(int argc, char *argv[], char *envp[])
 		while (wait(&status) > 0)
 			continue ;
 
-	}*/
+	}
+	free_arguments(&env_copy);
 	return (last_code);
 }

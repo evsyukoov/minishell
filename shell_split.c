@@ -6,9 +6,11 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 16:08:59 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/19 23:09:46 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/21 16:00:53 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 #include "minishell.h"
 
@@ -192,6 +194,7 @@ char 	*get_environment_with_quotes(char *arg, char **env, int begin_len)
 {
 	char *res;
 	char *tmp;
+	char *s2;
 
 	res = get_environment_string(arg, env, begin_len);
 	arg += env_len2(arg);
@@ -202,7 +205,9 @@ char 	*get_environment_with_quotes(char *arg, char **env, int begin_len)
 			res = join_char(res, *arg);
 		else
 		{
-			res = ft_strjoin(res, get_environment_string(arg, env, 0));
+			s2 = get_environment_string(arg, env, 0);
+			res = ft_strjoin(res, s2);
+			free(s2);
 			arg += env_len2(arg);
 			if (*arg == '\'')
 				res = join_char(res, *arg);
@@ -241,7 +246,7 @@ char 	*analize_env(char **arg, char **env)
 				(*arg) += i + env_len2(*arg + i);
 			}
 			else
-				{
+			{
 				res = get_environment_with_quotes(*arg + i, env, len);
 				(*arg) += i + quotes_size(*arg + i);
 			}
@@ -282,33 +287,33 @@ char	**shell_split(char *arg, char **env)
 	skip(&arg, ' ');
 	while (var.i < var.args)
 	{
-			if (*arg == '$' && *(arg + 1) == '?') {
-				res[var.i] = ft_itoa(last_code);
-				arg += 2;
-				skip(&arg, ' ');
-			}
-			else if((tmp = analize_env(&arg, env)))
-			{
-				res[var.i] = tmp;
-				skip_env(&arg);
-			}
-			else if (*arg == '~' && ++arg) {
-				res[var.i] = ft_strdup(get_env_var("HOME", env));
-				skip(&arg, ' ');
-			}
-			else {
-				var.q_type = quote_type(arg);
-				var.arg_len = argument_len(arg, var.q_type);
-				res[var.i] = (char *) malloc(var.arg_len + 1);
-				var.j = 0;
-				skip(&arg, var.q_type);
-				while (var.j < var.arg_len && *arg)
-					res[var.i][var.j++] = *arg++;
-				res[var.i][var.j] = '\0';
+		if (*arg == '$' && *(arg + 1) == '?') {
+			res[var.i] = ft_itoa(last_code);
+			arg += 2;
+			skip(&arg, ' ');
+		}
+		else if((tmp = analize_env(&arg, env)))
+		{
+			res[var.i] = tmp;
+			skip_env(&arg);
+		}
+		else if (*arg == '~' && ++arg) {
+			res[var.i] = ft_strdup(get_env_var("HOME", env));
+			skip(&arg, ' ');
+		}
+		else {
+			var.q_type = quote_type(arg);
+			var.arg_len = argument_len(arg, var.q_type);
+			res[var.i] = (char *) malloc(var.arg_len + 1);
+			var.j = 0;
+			skip(&arg, var.q_type);
+			while (var.j < var.arg_len && *arg)
+				res[var.i][var.j++] = *arg++;
+			res[var.i][var.j] = '\0';
 
-				skip(&arg, var.q_type);
-				skip(&arg, ' ');
-			}
+			skip(&arg, var.q_type);
+			skip(&arg, ' ');
+		}
 		var.i++;
 	}
 	res[var.i] = NULL;
@@ -365,8 +370,8 @@ t_args 	*create_list(char *arg, char **env)
 		i++;
 	}
 	free_arguments(&argv1);
-	//return (parse_redirections(lst));
-	return lst;
+	return (parse_redirections(lst));
+	//return lst;
 }
 
 char 	**case1(char **argv, int arg_index)
@@ -426,7 +431,7 @@ int 	last_arg_len(char *arg, char redirection_type)
 
 char 	*find_file_name(char *arg)
 {
-	char *name;
+	//char *name;
 
 	while (*arg)
 	{
@@ -442,8 +447,8 @@ char 	*find_file_name(char *arg)
 	}
 	skip(&arg, '\'');
 	skip(&arg, '\"');
-	name = ft_strdup(arg);
-	return (name);
+	//name = ft_strdup(arg);
+	return (arg);
 }
 
 
@@ -459,37 +464,37 @@ t_args 	*analize_redirection(char **argv, char *arg, int arg_index, t_args *old_
 	// command > file
 	if (ft_strlen(arg) == 1 && *arg == '>')
 		node = create_new_node(case1(argv, arg_index), old_node->flag, argv[arg_index + 1], REWRITE);
-	//command < file
+		//command < file
 	else if (ft_strlen(arg) == 1 && *arg == '<')
 		node = create_new_node(case1(argv, arg_index), old_node->flag, argv[arg_index + 1], REVERSE);
-	//command< file
+		//command< file
 	else if (str_endswith(arg, "<"))
 		node = create_new_node(case2(argv, arg_index, ft_strlen(argv[arg_index]) - 1), old_node->flag, argv[arg_index + 1], REVERSE);
-	//command<file or <file
+		//command<file or <file
 	else if (ft_strchr(arg, '<'))
-		node = create_new_node(case2(argv, arg_index, last_arg_len(arg, '<')), old_node->flag, ft_strdup(ft_strchr(arg,'<') + 1), REVERSE);
-	//command >> file
+		node = create_new_node(case2(argv, arg_index, last_arg_len(arg, '<')), old_node->flag, ft_strchr(arg,'<') + 1, REVERSE);
+		//command >> file
 	else if (ft_strlen(arg) == 2 && str_endswith(arg, ">"))
 		node = create_new_node(case1(argv, arg_index), old_node->flag, argv[arg_index + 1], WRITE);
-	//command> file
+		//command> file
 	else if (str_endswith(arg, ">") && arg[ft_strlen(arg) - 2] != '>')
 		node = create_new_node(case2(argv, arg_index, ft_strlen(argv[arg_index]) - 1), old_node->flag,
 							   argv[arg_index + 1], REWRITE);
-	//command>> file
+		//command>> file
 	else if (arg[ft_strlen(arg) - 1] == '>' && arg[ft_strlen(arg) - 2] == '>' && arg[ft_strlen(arg) - 3] != '>')
 		node = create_new_node(case2(argv, arg_index, ft_strlen(argv[arg_index]) - 2), old_node->flag,
 							   argv[arg_index + 1], WRITE);
-	//command >file
+		//command >file
 	else if (str_startswith(arg, ">") && *(arg + 1) != '>')
 		node = create_new_node(case1(argv, arg_index), old_node->flag, arg + 1, REWRITE);
-	//command >>file
+		//command >>file
 	else if (str_startswith(arg, ">") && *(arg + 1) == '>')
 		node = create_new_node(case1(argv, arg_index), old_node->flag, arg + 2, WRITE);
-	//command>file
+		//command>file
 	else if (*(ft_strchr(arg, '>') + 1) != '>' && *(ft_strchr(arg, '>') - 1) != '>')
 		node = create_new_node(case2(argv, arg_index, last_arg_len(arg, '>')), old_node->flag, find_file_name(arg),
 							   REWRITE);
-	//command>>file
+		//command>>file
 	else
 		node = create_new_node(case2(argv, arg_index, last_arg_len(arg, '>')), old_node->flag, find_file_name(arg),
 							   WRITE);
@@ -510,7 +515,7 @@ int 	check_error_redirections(char **argv)
 		count1 = 0;
 
 		if (argv[i + 1] && !ft_strcmp(argv[i], ">") &&
-		(!ft_strcmp(argv[i + 1], ">") || !ft_strcmp(argv[i + 1], ">>")))
+			(!ft_strcmp(argv[i + 1], ">") || !ft_strcmp(argv[i + 1], ">>")))
 			return (1);
 		while (argv[i][j])
 		{
@@ -525,20 +530,26 @@ int 	check_error_redirections(char **argv)
 	return (0);
 }
 
-/*void 	free_lst(t_args **lst)
+/*char 	**argv_dup(char **argv)
 {
 	int i;
+	char **res;
 
 	i = 0;
-	while (*lst)
+	res = (char**)malloc(sizeof(char*) * (number_of_arguments(argv) + 1));
+	while (argv[i])
 	{
-		while ((*lst)->args)
+		res[i] = ft_strdup(argv[i]);
+		i++;
 	}
+	res[i] = NULL;
+	return (res);
 }*/
 
 t_args 	*parse_redirections(t_args *lst)
 {
 	int i;
+	t_args *tmp;
 	char **argv;
 	t_args *new_node;	//new_node - нода в которой будет хранится инфа об имени файла и типе перенаправления
 	t_args *head;
@@ -548,6 +559,7 @@ t_args 	*parse_redirections(t_args *lst)
 	while(lst)
 	{
 		argv = (lst->args);
+		tmp = lst;
 		//print_argv(argv);
 		i = 0;
 		flag = 0;
@@ -572,6 +584,7 @@ t_args 	*parse_redirections(t_args *lst)
 		if (!flag)
 			push(&head, create_new_node(lst->args, lst->flag, lst->file_path, lst->file_option));
 		lst = lst->next;
+		free(tmp);
 		//разобраться с утечками тут пизда по-видимости
 		//free_arguments(&argv);
 	}

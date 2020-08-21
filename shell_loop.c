@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/19 23:35:02 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/21 15:36:12 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ t_args *get_argv(char **env)
 	if (*line == '\0')
 		return (0);
 	lst = create_list(line, env);
+	free(line);
 	 //print_arg_list(lst);
 	return (lst);
 }
@@ -242,7 +243,7 @@ int parse_str(t_args *args_lst, char **envp[])
 
 void    shell_loop(char *envp[])
 {
-	//int status;
+	int status;
     t_args *args_lst;
 
     while (1)
@@ -250,9 +251,10 @@ void    shell_loop(char *envp[])
 		write(1, "minishell : ", 12);
 		//ft_putnbr_fd(last_code, 1);
 		args_lst = get_argv(envp);
-		//if (args_lst)
-	//		status = parse_str(args_lst, &envp);
-		//last_code = status;
+		if (args_lst)
+			status = parse_str(args_lst, &envp);
+		last_code = status;
+		free_args_list(&args_lst);
 		//write(1, "\n", 1);
 		//if (!status)
 		//	break ;
