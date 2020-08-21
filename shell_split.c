@@ -362,8 +362,8 @@ t_args 	*create_list(char *arg, char **env)
 		i++;
 	}
 	free_arguments(&argv1);
-	return (parse_redirections(lst));
-	//return lst;
+	//return (parse_redirections(lst));
+	return lst;
 }
 
 char 	**case1(char **argv, int arg_index)
