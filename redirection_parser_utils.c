@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_redirection_utils.c                         :+:      :+:    :+:   */
+/*   redirection_parser_utils.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ccarl <ccarl@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 18:14:16 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/21 18:14:36 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/21 19:57:03 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char 	**case1(char **argv, int arg_index)
+char	**case1(char **argv, int arg_index)
 {
-	int i;
-	char **res;
+	int		i;
+	char	**res;
 
 	i = 0;
 	res = (char**)malloc(sizeof(char*) * (arg_index + 1));
@@ -28,11 +28,11 @@ char 	**case1(char **argv, int arg_index)
 	return (res);
 }
 
-char 	**case2(char **argv, int arg_index, size_t len)
+char	**case2(char **argv, int arg_index, size_t len)
 {
-	int i;
-	char **res;
-	int j;
+	int		i;
+	char	**res;
+	int		j;
 
 	i = 0;
 	j = 0;
@@ -54,8 +54,7 @@ char 	**case2(char **argv, int arg_index, size_t len)
 	return (res);
 }
 
-
-int 	last_arg_len(char *arg, char redirection_type)
+int		last_arg_len(char *arg, char redirection_type)
 {
 	int len;
 
@@ -67,7 +66,7 @@ int 	last_arg_len(char *arg, char redirection_type)
 	return (len);
 }
 
-char 	*find_file_name(char *arg)
+char	*find_file_name(char *arg)
 {
 	while (*arg)
 	{
@@ -77,7 +76,7 @@ char 	*find_file_name(char *arg)
 				arg += 2;
 			else if (*(arg + 1) != '>')
 				arg += 1;
-			break;
+			break ;
 		}
 		arg++;
 	}
@@ -85,4 +84,3 @@ char 	*find_file_name(char *arg)
 	skip(&arg, '\"');
 	return (arg);
 }
-
