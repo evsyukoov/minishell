@@ -61,13 +61,20 @@ int main(int argc, char *argv[], char *envp[])
 	t_args *lst;
 
 	env_copy = realloc_env(envp);
-	//lst = create_list("echo w w we  w wew we w $PATH $PWD $? $? $HOME \"$PATH             $PWD   \"  $? ", env_copy);
-	//print_arg_list(lst);
-	//free_args_list(&lst);
+	lst = create_list("echo w w we  w wew we w $PATH $PWD $? $? $HOME \"$PATH             $PWD   \"  $? ", env_copy);
+	print_arg_list(lst);
+	free_args_list(&lst);
 	lst = create_list("echo w w we  w wew we w $PATH $PWD $? $?        $HOME", env_copy);
 	print_arg_list(lst);
 	free_args_list(&lst);
 	//free_arguments(&env_copy);
+	lst = create_list("echo w w we  w wew we w $PATH $PWD $? $? $HOME \"$PATH             $PWD   \"  $? ", env_copy);
+	print_arg_list(lst);
+	free_args_list(&lst);
+	lst = create_list("echo w w we  w wew we w $PATH $PWD $? $? $HOME", env_copy);
+	print_arg_list(lst);
+	free_args_list(&lst);
+	free_arguments(&env_copy);
 	//int status;
 
 	argc = 0;
@@ -83,6 +90,7 @@ int main(int argc, char *argv[], char *envp[])
 		signal(SIGINT, &listener_ctrl_c);
 		while (wait(&status) > 0)
 			continue ;
+
 	}*/
 	return (last_code);
 }

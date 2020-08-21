@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+void 	nothing(int signal_num)
+{
+	(void)signal_num;
+	//write(1, "\b\b  \n", 5);
+}
+
 void 	listener_ctrl_d(int signal_num)
 {
 	signal_num = 0;
