@@ -45,7 +45,7 @@ int 	shell_pid;
 char 	**env_copy;
 pid_t  lsh_child;
 volatile int 	last_code;
-
+int	flag;
 # define COMMAND 0
 # define PIPE 1
 
@@ -83,6 +83,6 @@ void 	listener_ctrl_d(int signal_num);
 int 	print_error_log(char *lsh, char *command, char *argument, char *msg);
 int 	export(char *arg, char **envp[]);
 int		str_startswith(char *s, char *set);
-
+void	sighandler(int sig_num);
 
 #endif //CUB_MINISHELL_H
