@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 t_args	*condition2(char **argv, char *arg, int i, t_args *old_node)
 {

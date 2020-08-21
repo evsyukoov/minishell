@@ -85,6 +85,24 @@ int 	export(char *arg, char **envp[]);
 int		str_startswith(char *s, char *set);
 void 	nothing(int signal_num);
 void 	free_args_list(t_args **lst);
+void 	*parse_syntax_error();
+void	skip(char **s, char del);
+char 	**case1(char **argv, int arg_index);
+char 	**case2(char **argv, int arg_index, size_t len);
+int 	last_arg_len(char *arg, char redirection_type);
+char 	*find_file_name(char *arg);
+char 	*replace_bash_symbols(char ***arg, char **env);
+int 	env_len2(char *arg);
+char	*init_env_name(char *arg);
+char 	*get_begin_string(char *current_ptr, int len);
+int 	quotes_size(char *arg);
+char 	*join_char(char *arg, char c);
+int 	is_dollar_symbol(char *arg);
+void 	skip_env(char **arg);
+char	*init_arg(char **arg, char **env, t_split var);
+int		arguments_counter(char *s);
+char	quote_type(char *arg);
+int		argument_len(char *s, char quote);
 
 
 #endif //CUB_MINISHELL_H
