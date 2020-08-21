@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:49:32 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/21 17:22:19 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/21 17:29:37 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void 	free_args_list(t_args **lst)
 
 int main(int argc, char *argv[], char *envp[])
 {
-	char **env_copy;			//системные лики, если форкнуть процессы с мейнике, так
+	//системные лики, если форкнуть процессы с мейнике, так все ок вроде, не знаю можно ли их пофиксить
 	int status;
 
 	argc = 0;
@@ -67,7 +67,7 @@ int main(int argc, char *argv[], char *envp[])
 	if(!(env_copy = realloc_env(envp)))
 		return (0);
 	if ((shell_pid = fork()) == 0) {
-	shell_loop(env_copy);
+		shell_loop(env_copy);
 	}
 	else
 		{
