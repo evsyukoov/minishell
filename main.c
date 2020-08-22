@@ -59,7 +59,6 @@ void 	free_args_list(t_args **lst)
 
 int main(int argc, char *argv[], char *envp[])
 {
-	//системные лики, если форкнуть процессы с мейнике, так все ок вроде, не знаю можно ли их пофиксить
 	int status;
 
 	argc = 0;
