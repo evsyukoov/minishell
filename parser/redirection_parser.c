@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_parser.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <ccarl@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 18:10:41 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/21 19:20:44 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/22 13:59:48 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 t_args	*condition2(char **argv, char *arg, int i, t_args *old_node)
 {

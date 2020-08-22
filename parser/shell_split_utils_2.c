@@ -3,28 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   shell_split_utils_2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 22:48:58 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/21 22:50:42 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/22 21:28:03 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-void 	skip_env(char **arg)
+void	skip_env(char **arg)
 {
 	while (**arg && **arg != ' ')
 		(*arg)++;
 	skip(arg, ' ');
 }
 
-int 	env_len2(char *arg)
+int		env_len2(char *arg)
 {
 	int i;
 
 	i = 0;
-	while (arg[i] && arg[i] != ' ' && arg[i] != '\'' && arg[i] != '\"') {
+	while (arg[i] && arg[i] != ' ' && arg[i] != '\'' && arg[i] != '\"')
+	{
 		i++;
 	}
 	return (i);
@@ -44,10 +45,10 @@ char	*init_env_name(char *arg)
 	return (name);
 }
 
-char 	*get_begin_string(char *current_ptr, int len)
+char	*get_begin_string(char *current_ptr, int len)
 {
-	int i;
-	char *res;
+	int		i;
+	char	*res;
 
 	i = 0;
 	current_ptr -= len;
@@ -59,7 +60,7 @@ char 	*get_begin_string(char *current_ptr, int len)
 	return (res);
 }
 
-int 	quotes_size(char *arg)
+int		quotes_size(char *arg)
 {
 	int len;
 
@@ -68,4 +69,3 @@ int 	quotes_size(char *arg)
 		len++;
 	return (len);
 }
-

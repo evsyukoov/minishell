@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   environment_parser.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:45:04 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/21 23:48:36 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/22 21:21:16 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
-char 	*get_environment_string(char *arg, char **env, int begin_len)
+char	*get_environment_string(char *arg, char **env, int begin_len)
 {
 	char *env_name;
 	char *env_var;
@@ -34,7 +34,7 @@ char 	*get_environment_string(char *arg, char **env, int begin_len)
 	return (res);
 }
 
-char 	*get_environment_with_quotes(char *arg, char **env, int begin_len)
+char	*get_environment_with_quotes(char *arg, char **env, int begin_len)
 {
 	char *res;
 	char *tmp;
@@ -62,16 +62,17 @@ char 	*get_environment_with_quotes(char *arg, char **env, int begin_len)
 	return (res);
 }
 
-char 	*get_environment(char ***arg, char **env, int flag)
+char	*get_environment(char ***arg, char **env, int flag)
 {
-	int i;
-	char *res;
+	int		i;
+	char	*res;
 
 	i = 0;
 	res = NULL;
 	if (flag)
 		i++;
-	while ((**arg)[i] && (((**arg)[i] != ' ' && flag == 0) || ((**arg)[i] != '\"' && flag == 1)))
+	while ((**arg)[i] && (((**arg)[i] != ' ' && flag == 0)
+	|| ((**arg)[i] != '\"' && flag == 1)))
 	{
 		if (!flag && (**arg)[i] == '$')
 		{
@@ -81,7 +82,7 @@ char 	*get_environment(char ***arg, char **env, int flag)
 		}
 		else if (flag && (**arg)[i] == '$')
 		{
-			res = get_environment_with_quotes(**arg + i , env, i - 1);
+			res = get_environment_with_quotes(**arg + i, env, i - 1);
 			**arg += i + quotes_size(**arg + i);
 			break ;
 		}
@@ -90,10 +91,10 @@ char 	*get_environment(char ***arg, char **env, int flag)
 	return (res);
 }
 
-char 	*analize_env(char **arg, char **env)
+char	*analize_env(char **arg, char **env)
 {
-	char *res;
-	int flag;
+	char	*res;
+	int		flag;
 
 	flag = 0;
 	res = NULL;
@@ -106,7 +107,7 @@ char 	*analize_env(char **arg, char **env)
 	return (res);
 }
 
-char 	*replace_bash_symbols(char ***arg, char **env)
+char	*replace_bash_symbols(char ***arg, char **env)
 {
 	char *res;
 
@@ -119,7 +120,7 @@ char 	*replace_bash_symbols(char ***arg, char **env)
 	}
 	else if (is_dollar_symbol(**arg))
 		return (0);
-	else if((res = analize_env(*arg, env)))
+	else if ((res = analize_env(*arg, env)))
 		skip_env(*arg);
 	else if (***arg == '~' && ++(**arg))
 	{
@@ -128,6 +129,3 @@ char 	*replace_bash_symbols(char ***arg, char **env)
 	}
 	return (res);
 }
-
-
-

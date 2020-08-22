@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_parser_utils.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <ccarl@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 18:14:16 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/21 19:57:03 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/22 13:59:45 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "minishell.h"
 
 char	**case1(char **argv, int arg_index)
 {

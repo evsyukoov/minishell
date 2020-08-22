@@ -6,16 +6,18 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 18:50:16 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/17 23:23:53 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/22 19:36:22 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *pathfinder(char **envp)
+char	*pathfinder(char **envp)
 {
-	int i = 0;
-	while(envp[i])
+	int i;
+
+	i = 0;
+	while (envp[i])
 	{
 		if ((ft_strncmp("PATH=", envp[i], 5)) == 0)
 			return (envp[i]);
@@ -24,7 +26,7 @@ char *pathfinder(char **envp)
 	return (0);
 }
 
-char *joinpath(char *path, char *exe)
+char	*joinpath(char *path, char *exe)
 {
 	char	*res;
 	int		len;
@@ -46,51 +48,39 @@ char *joinpath(char *path, char *exe)
 	return (res);
 }
 
-int free_list(char **all_path)
+int		norminette_path(char **argv, char *envp[], char *path)
 {
-	int i;
+	int		i;
+	char	**all_path;
 
 	i = 0;
-	while(all_path[i])
-		free(all_path[i++]);
-	free(all_path);
-	return(0);
-}
-
-int free_all(char **all_path, char *path)
-{
-	free(path);
-	free_list(all_path);
-	return(1);
-}
-
-int execute(char **argv, char *envp[])
-{
-	char *path;
-	char **all_path;
-	int i = 0;
-
-	if((path = pathfinder(envp)))
+	if ((all_path = ft_split(&path[4], ':')))
 	{
-		if((all_path = ft_split(&path[4], ':')))
+		while (all_path[i])
 		{
-			while(all_path[i])
+			if (argv[0][0] == '/')
 			{
-				if (argv[0][0] == '/')
-				{
-					if (execve(argv[0], &argv[0], envp) != -1)
-						return (free_all(all_path, path));
-				}
-				else if((path = joinpath(all_path[i] , argv[0])))
-				{
-					if (execve(path, &argv[0], envp) != -1)
-						return (free_all(all_path, path));
-					free(path);
-				}
-				i++;
+				if (execve(argv[0], &argv[0], envp) != -1)
+					return (free_all(all_path, path));
 			}
-			free_list(all_path);
+			else if ((path = joinpath(all_path[i], argv[0])))
+			{
+				if (execve(path, &argv[0], envp) != -1)
+					return (free_all(all_path, path));
+				free(path);
+			}
+			i++;
 		}
+		free_list(all_path);
 	}
-	return(-1);
+	return (-1);
+}
+
+int		execute(char **argv, char *envp[])
+{
+	char	*path;
+
+	if ((path = pathfinder(envp)))
+		return (norminette_path(argv, envp, path));
+	return (-1);
 }

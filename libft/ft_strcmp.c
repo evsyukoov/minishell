@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 20:05:40 by ccarl             #+#    #+#             */
-/*   Updated: 2020/07/21 20:07:46 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/22 21:28:35 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int 	ft_strcmp(char *s1, char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
 	while (*s1 == *s2 && *s1 && *s2)
 	{
@@ -21,4 +21,3 @@ int 	ft_strcmp(char *s1, char *s2)
 	}
 	return (*s1 - *s2);
 }
-

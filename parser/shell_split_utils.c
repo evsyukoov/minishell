@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   shell_split_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 22:44:33 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/21 23:18:25 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/22 21:19:45 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void		skip(char **s, char del)
+void	skip(char **s, char del)
 {
 	while (**s == del && **s)
 		(*s)++;
@@ -25,7 +25,7 @@ int		argument_len(char *s, char quote)
 	{
 		if (*s == quote)
 		{
-			while(*s && *s == quote)
+			while (*s && *s == quote)
 				s++;
 			while (*s && *s != quote)
 			{
@@ -44,7 +44,7 @@ int		argument_len(char *s, char quote)
 	return (len);
 }
 
-int     find_close_quote(char **s, char quote, int *args)
+int		find_close_quote(char **s, char quote, int *args)
 {
 	while (**s && **s == quote)
 		(*s)++;
@@ -85,8 +85,7 @@ char	quote_type(char *arg)
 	if (*arg == '\"')
 		return ('\"');
 	else if (*arg == '\'')
-		return('\'');
+		return ('\'');
 	else
 		return ('\0');
 }
-

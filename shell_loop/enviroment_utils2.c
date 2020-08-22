@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   unset.c                                            :+:      :+:    :+:   */
+/*   enviroment_utils2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/16 17:54:23 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/16 18:33:43 by mcaptain         ###   ########.fr       */
+/*   Created: 2020/08/22 19:32:03 by mcaptain          #+#    #+#             */
+/*   Updated: 2020/08/22 19:34:50 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int delete_env(int position, char *envp[])
-{
-	free(envp[position]);
-	envp[position] = envp[position + 1];
-	position++;
-	while(envp[position])
-	{
-		envp[position] = envp[position + 1];
-		position++;
-	}
-	return (0);
-}
-
-int unset(char *name, char *envp[])
+int		free_list(char **all_path)
 {
 	int i;
 
 	i = 0;
-	while(envp[i])
-	{
-		if(!(env_strcmp(name, envp[i])))
-			return(delete_env(i, envp));
-		i++;
-	}
-	return(0);
+	while (all_path[i])
+		free(all_path[i++]);
+	free(all_path);
+	return (0);
+}
+
+int		free_all(char **all_path, char *path)
+{
+	free(path);
+	free_list(all_path);
+	return (1);
 }
