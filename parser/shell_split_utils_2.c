@@ -14,7 +14,7 @@
 
 void	skip_env(char **arg)
 {
-	while (**arg && **arg != ' ')
+	while (**arg && **arg != ' ' && **arg != '\"')
 		(*arg)++;
 	skip(arg, ' ');
 }

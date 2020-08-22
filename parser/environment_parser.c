@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:45:04 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 15:18:54 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/22 15:20:27 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*get_environment_with_quotes(char *arg, char **env, int begin_len)
 			res = ft_strjoin(res, s2);
 			free(s2);
 			arg += env_len2(arg);
-			if (*arg == '\'')
+			if (*arg == '\'' || *arg == ' ')
 				res = join_char(res, *arg);
 		}
 		free(tmp);
