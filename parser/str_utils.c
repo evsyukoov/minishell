@@ -6,11 +6,30 @@
 /*   By: ccarl <ccarl@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:31:10 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 14:46:47 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/22 15:28:19 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*init_home_path(char *tilda, char **arg)
+{
+	char	*full_path;
+	int		i;
+	int		j;
+
+	i = 0;
+	while ((*arg)[i] && (*arg)[i] != ' ')
+		i++;
+	full_path = (char*)malloc(i + 1 + ft_strlen(tilda));
+	ft_strlcpy(full_path, tilda, ft_strlen(tilda));
+	j = (int)ft_strlen(tilda) - 1;
+	while (**arg && **arg != ' ' && **arg != '\"')
+		full_path[j++] = *(*arg)++;
+	full_path[j] = '\0';
+	free(tilda);
+	return (full_path);
+}
 
 int		str_endswith(char *s, char *set)
 {

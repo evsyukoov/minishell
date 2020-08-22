@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment_parser.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <ccarl@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:45:04 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 14:37:03 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/22 15:18:54 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,8 @@ char	*replace_bash_symbols(char ***arg, char **env)
 	else if (***arg == '~' && ++(**arg))
 	{
 		res = ft_strdup(get_env_var("HOME", env));
+		if (***arg == '/')
+			res = init_home_path(res, *arg);
 		skip(*arg, ' ');
 	}
 	return (res);
