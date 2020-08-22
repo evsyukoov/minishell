@@ -68,8 +68,8 @@ int		arguments_counter(char *s)
 			flag = find_close_quote(&s, '\'', &args);
 		else if (*s == '\"')
 			flag = find_close_quote(&s, '\"', &args);
-		if ((*s == '\'' || *s == '\"') && *(s + 1) != ' ')
-			args++;
+		//if ((*s == '\'' || *s == '\"') && *(s + 1) != ' ')
+		//	args++;
 		while (*s && *s != ' ')
 			s++;
 		if (!flag)
