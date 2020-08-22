@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/21 15:36:12 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/22 13:12:41 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,13 @@
 int		launch(char **argv, char *envp[])
 {
 	int  status;
-
+	flag = 1;
 	status = 0;
 	lsh_child = fork();
-	//signal(SIGQUIT, &listener_ctrl_d);
 	if (lsh_child < 0)
 		perror("minishell");
 	else if (lsh_child == 0)
 	{
-		//signal(SIGQUIT, listener_ctrl_d);
 		if (execute(argv, envp) == -1) {
 			print_error_log("lsh: ", NULL, argv[0], "command not found");
 			exit(127);
@@ -33,10 +31,10 @@ int		launch(char **argv, char *envp[])
 	} 
 	else
 	{
+		signal(SIGQUIT, listener);
+		signal(SIGINT, listener);
 		waitpid(lsh_child, &status, WUNTRACED);
 
-		while (WIFEXITED(status) == 0)
-			waitpid(lsh_child, &status, WUNTRACED);
 	}
 	return (WEXITSTATUS(status));		//возвращает код последнего return или exit
 }
@@ -62,7 +60,7 @@ int 	print_error_log(char *lsh, char *command, char *argument, char *msg)
 int     cd(char **argv)
 {
 	if (chdir(argv[1]) != 0) {
-		print_error_log("lsh: ", "cd: ", argv[1], strerror(errno));
+		// print_error_log("lsh: ", "cd: ", argv[1], strerror(errno));
 		return (1);
 	}
     return (0);
@@ -98,7 +96,6 @@ int 	exit_program(char *arg)
 	{
 		if (is_contains_alpha(arg))
 		{
-			print_error_log("lsh: ", "exit: ", arg, "numeric argument required");
 			last_code = 255;
 			exit(255);
 		}
@@ -134,7 +131,7 @@ int    execution(char **argv, char **envp[])
 		return(export(argv[1], envp));
 	else if (ft_strcmp(argv[0], "exit") == 0)
 		exit_program(argv[1]);
-	return (launch(argv, *envp));
+		return (launch(argv, *envp));
 }
 
 t_args *get_argv(char **env)
@@ -146,10 +143,7 @@ t_args *get_argv(char **env)
 	if (ret < 0)
 		return (0);
 	if (ret == 0)
-	{
-		kill(shell_pid, SIGTERM);
 		exit(0);
-	}
 	if (*line == '\0')
 		return (0);
 	lst = create_list(line, env);
@@ -248,6 +242,10 @@ void    shell_loop(char *envp[])
 
     while (1)
    	{
+		signal(SIGQUIT, sighandler);
+		signal(SIGINT, sighandler);
+
+		flag = 0;
 		write(1, "minishell : ", 12);
 		//ft_putnbr_fd(last_code, 1);
 		args_lst = get_argv(envp);
@@ -260,4 +258,3 @@ void    shell_loop(char *envp[])
 		//	break ;
    }
 }
-
