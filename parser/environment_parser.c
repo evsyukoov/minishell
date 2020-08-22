@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:45:04 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 15:20:27 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/22 17:10:18 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_environment_string(char *arg, char **env, int begin_len)
 	if (!env_var)
 		res = ft_strdup("\0");
 	else
-		res = get_env_var(env_name, env);
+		res = env_var;
 	begin = get_begin_string(arg, begin_len);
 	if (begin)
 		res = ft_strjoin(begin, res);
@@ -44,19 +44,19 @@ char	*get_environment_with_quotes(char *arg, char **env, int begin_len)
 	arg += env_len2(arg);
 	while (*arg && *arg != '\"')
 	{
-		tmp = res;
 		if (*arg != '$' || is_dollar_symbol(arg))
 			res = join_char(res, *arg);
 		else
 		{
 			s2 = get_environment_string(arg, env, 0);
+			tmp = res;
 			res = ft_strjoin(res, s2);
 			free(s2);
+			free(tmp);
 			arg += env_len2(arg);
 			if (*arg == '\'' || *arg == ' ')
 				res = join_char(res, *arg);
 		}
-		free(tmp);
 		arg++;
 	}
 	return (res);
