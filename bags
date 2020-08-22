@@ -1,0 +1,3 @@
+command : export var=5 , leak function : export->insert_var
+command : wefwgwgwegewwegwgewgwg, leak_function : launch->fork()
+
