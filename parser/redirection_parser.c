@@ -3,69 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_parser.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <ccarl@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 18:10:41 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/21 19:20:44 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/22 21:44:56 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_args	*condition2(char **argv, char *arg, int i, t_args *old_node)
+void 	get_files(char **argv, char *arg, int arg_index, t_files **head)
 {
-	t_args *node;
-
-	node = NULL;
-	if (str_endswith(arg, ">") && arg[ft_strlen(arg) - 2] != '>')
-		node = create_new_node(case2(argv, i,
-		ft_strlen(argv[i]) - 1), old_node->flag,
-		argv[i + 1], REWRITE);
-	else if (arg[ft_strlen(arg) - 1] == '>' && arg[ft_strlen(arg) - 2] == '>'
-	&& arg[ft_strlen(arg) - 3] != '>')
-		node = create_new_node(case2(argv, i, ft_strlen(argv[i]) - 2),
-		old_node->flag, argv[i + 1], 1);
-	else if (str_startswith(arg, ">") && *(arg + 1) != '>')
-		node = create_new_node(case1(argv, i),
-		old_node->flag, arg + 1, 0);
-	else if (str_startswith(arg, ">") && *(arg + 1) == '>')
-		node = create_new_node(case1(argv, i),
-		old_node->flag, arg + 2, 1);
-	else if (*(ft_strchr(arg, '>') + 1) != '>'
-	&& *(ft_strchr(arg, '>') - 1) != '>')
-		node = create_new_node(case2(argv, i, last_arg_len(arg, '>')),
-		old_node->flag, find_file_name(arg), 0);
-	else
-		node = create_new_node(case2(argv, i, last_arg_len(arg, '>')),
-		old_node->flag, find_file_name(arg), 1);
-	return (node);
-}
-
-t_args	*analize_redirection(char **argv,
-char *arg, int arg_index, t_args *old_node)
-{
-	t_args *node;
+	t_files *node;
 
 	node = NULL;
 	if (ft_strlen(arg) == 1 && *arg == '>')
-		node = create_new_node(case1(argv, arg_index),
-		old_node->flag, argv[arg_index + 1], REWRITE);
+		node = new_redirection(argv[arg_index + 1], REWRITE);
 	else if (ft_strlen(arg) == 1 && *arg == '<')
-		node = create_new_node(case1(argv, arg_index),
-		old_node->flag, argv[arg_index + 1], REVERSE);
-	else if (str_endswith(arg, "<"))
-		node = create_new_node(case2(argv, arg_index,
-		ft_strlen(argv[arg_index]) - 1), old_node->flag,
-		argv[arg_index + 1], REVERSE);
-	else if (ft_strchr(arg, '<'))
-		node = create_new_node(case2(argv, arg_index, last_arg_len(arg, '<')),
-		old_node->flag, ft_strchr(arg, '<') + 1, REVERSE);
-	else if (ft_strlen(arg) == 2 && str_endswith(arg, ">"))
-		node = create_new_node(case1(argv, arg_index),
-		old_node->flag, argv[arg_index + 1], WRITE);
-	else
-		node = condition2(argv, arg, arg_index, old_node);
-	return (node);
+		node = new_redirection(argv[arg_index + 1], REVERSE);
+	else if (ft_strlen(arg) == 2 && *arg == '>' && *(arg + 1) == '>')
+		node = new_redirection(argv[arg_index + 1], WRITE);
+	push_redirect(head, node);
 }
 
 int		check_error_redirections(char **argv)
@@ -99,18 +57,30 @@ int		check_node_for_redirection(t_args *lst, t_args **head)
 {
 	int		i;
 	t_args	*new_node;
+	int flag;
+	char **arguments;
+	t_files *files;
 
 	i = 0;
+	flag = 0;
+	arguments = NULL;
+	files = NULL;
 	while (lst->args[i])
 	{
-		if (ft_strchr(lst->args[i], '>') || ft_strchr(lst->args[i], '<'))
+		if (ft_strchr(lst->args[i], '>') || ft_strchr(lst->args[i], '<') )
 		{
-			new_node = analize_redirection(lst->args, lst->args[i], i, lst);
-			push(head, new_node);
-			free_arguments(&lst->args);
-			return (1);
+			flag = 1;
+			if (!arguments)
+				arguments = get_commands(lst->args, i);
+			get_files(lst->args, lst->args[i], i, &files);
 		}
 		i++;
+	}
+	if (flag)
+	{
+		new_node = create_new_node(arguments, lst->flag, files);
+		push(head, new_node);
+		return (1);
 	}
 	return (0);
 }
@@ -126,11 +96,11 @@ t_args	*parse_redirections(t_args *lst)
 	{
 		tmp = lst;
 		if (check_error_redirections(lst->args))
-			return (parse_syntax_error());
+			return (NULL);
 		flag = check_node_for_redirection(lst, &head);
 		if (!flag)
 			push(&head, create_new_node(lst->args, lst->flag,
-			lst->file_path, lst->file_option));
+			lst->files));
 		lst = lst->next;
 		free(tmp);
 	}

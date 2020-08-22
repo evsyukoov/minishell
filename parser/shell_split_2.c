@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_split_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <ccarl@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 22:16:20 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 14:42:47 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/22 20:32:27 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ void		split_pipes(t_args **lst, char *arg_pipe, char **env)
 		{
 			if (j < num_of_args - 1)
 				push(lst, create_new_node(
-				shell_split(argv_pipes[j], env), PIPE, NULL, NONE));
+				shell_split(argv_pipes[j], env), PIPE, NULL));
 			else
 				push(lst, create_new_node(
-				shell_split(argv_pipes[j], env), COMMAND, NULL, NONE));
+				shell_split(argv_pipes[j], env), COMMAND, NULL));
 			j++;
 		}
 	}
@@ -80,17 +80,18 @@ t_args		*create_list(char *arg, char **env)
 			split_pipes(&lst, argv1[i], env);
 		else
 			push(&lst, create_new_node(
-			shell_split(argv1[i], env), COMMAND, NULL, NONE));
+			shell_split(argv1[i], env), COMMAND, NULL));
 		i++;
 	}
 	free_arguments(&argv1);
 	return (parse_redirections(lst));
+	//return (lst);
 }
 
-void		*parse_syntax_error(void)
+/*void		*parse_syntax_error(void)
 {
 	print_error_log(
 	"lsh: ", NULL, NULL, "syntax error near unexpected token '>'");
 	last_code = 258;
 	return (NULL);
-}
+}*/

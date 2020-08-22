@@ -20,7 +20,7 @@ int print_env(char *envp[], char **argv)
 	//добавил проверку на то, что после env нет аргументов
 	if (argv && argv[1])
 	{
-		print_error_log(NULL, "env: ", argv[1], "No such file or directory");
+		//print_error_log(NULL, "env: ", argv[1], "No such file or directory");
 		return (127);
 	}
 	while(envp[i])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:49:32 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 13:09:05 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/22 21:46:27 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,23 @@ char **realloc_env(char *envp[])
 	return(new_env);
 }
 
+void	free_arguments(char ***argv)
+{
+	int i;
+
+	i = 0;
+	if (*argv) {
+		while ((*argv)[i])
+			free((*argv)[i++]);
+		free(*argv);
+	}
+}
+
 void 	free_args_list(t_args **lst)
 {
 	t_args *tmp;
 	t_args *head;
+	t_files *tmp2;
 
 	head = *lst;
 	while (head)
@@ -51,7 +64,12 @@ void 	free_args_list(t_args **lst)
 		while ((head->args)[i])
 			free(head->args[i++]);
 		free(head->args);
-		free(head->file_path);
+		while (head->files)
+		{
+			tmp2 = head->files;
+			head->files = head->files->next;
+			free(tmp2);
+		}
 		head = head->next;
 		free(tmp);
 	}
@@ -61,8 +79,8 @@ int main(int argc, char *argv[], char *envp[])
 {
 	argc = 0;
 	argv = 0;
-	if(!(env_copy = realloc_env(envp)))
-		return (0);
-	shell_loop(env_copy);
+	//if(!(env_copy = realloc_env(envp)))
+	//	return (0);
+	shell_loop(envp);
 	return (last_code);
 }

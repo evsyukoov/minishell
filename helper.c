@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 18:04:08 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/15 19:21:16 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/22 20:41:20 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,17 @@ void 	print_arg_list(t_args *lst)
 	j = 0;
 	while (lst)
 	{
-		printf("Node number = %d, Node info = %s, File path : %s, File option : %d\n",
-				j, lst->flag == 0 ? "Command" : "Pipe", lst->file_path, lst->file_option);
+		printf("Node number = %d, Node info = %s\n",
+				j, lst->flag == 0 ? "Command" : "Pipe");
+		int i = 0;
+		printf("Files :   \n");
+		while (lst->files)
+		{
+			printf("file #%d = %s option = %d\n", i, lst->files->name, lst->files->type);
+			lst->files = lst->files->next;
+			i++;
+		}
+		printf("Argv :    \n");
    		print_argv(lst->args);
    		lst = lst->next;
    		j++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 13:32:11 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/22 21:55:40 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 
-int		launch(char **argv, char *envp[])
+/*int		launch(char **argv, char *envp[])
 {
 	int  status;
 	flag = 1;
@@ -133,7 +133,7 @@ int    execution(char **argv, char **envp[])
 	else if (ft_strcmp(argv[0], "exit") == 0)
 		exit_program(argv[1]);
 		return (launch(argv, *envp));
-}
+}*/
 
 t_args *get_argv(char **env)
 {
@@ -149,11 +149,11 @@ t_args *get_argv(char **env)
 		return (0);
 	lst = create_list(line, env);
 	free(line);
-	 //print_arg_list(lst);
+	 print_arg_list(lst);
 	return (lst);
 }
 
-int exe_one_command(t_args *args_lst, char **envp[])
+/*int exe_one_command(t_args *args_lst, char **envp[])
 {
 	int status; // код
 	int fd_out;
@@ -234,26 +234,27 @@ int parse_str(t_args *args_lst, char **envp[])
 		}
 	}
 	return(status);
-}
+}*/
 
 void    shell_loop(char *envp[])
 {
-	int status;
+	//int status;
     t_args *args_lst;
 
     while (1)
    	{
-		signal(SIGQUIT, sighandler);
-		signal(SIGINT, sighandler);
+		//signal(SIGQUIT, sighandler);
+		//signal(SIGINT, sighandler);
 
 		flag = 0;
 		write(1, "minishell : ", 12);
 		//ft_putnbr_fd(last_code, 1);
 		args_lst = get_argv(envp);
-		if (args_lst)
-			status = parse_str(args_lst, &envp);
-		last_code = status;
 		free_args_list(&args_lst);
+		//if (args_lst)
+		//	status = parse_str(args_lst, &envp);
+	//	last_code = status;
+		//free_args_list(&args_lst);
 		//write(1, "\n", 1);
 		//if (!status)
 		//	break ;

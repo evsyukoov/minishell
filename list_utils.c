@@ -6,25 +6,20 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 18:01:17 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/21 15:31:55 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/22 19:29:02 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_args 		*create_new_node(char **s, int flag, char *file_path, int file_option)
+t_args 		*create_new_node(char **s, int flag, t_files *files)
 {
 	t_args *node;
 
 	node = (t_args*)malloc(sizeof(t_args));
 	node->args = s;
 	node->flag = flag;
-	if (file_path)
-		node->file_path = ft_strdup(file_path);
-	else
-		node->file_path = NULL;
-	node->file_option = file_option;
-	node->next = NULL;
+	node->files = files;
 	return (node);
 }
 
