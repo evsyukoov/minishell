@@ -6,21 +6,23 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 15:01:18 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 13:12:13 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/22 13:18:53 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void 	listenerint signal_num)
+void 	listener(int signal_num)
 {
 	if (signal_num == SIGQUIT) {
 		write(1, "Quit  \n", 7);
 		kill(lsh_child, SIGQUIT);
+		last_code = 131;
 	}
 	if (signal_num == SIGINT) {
 			write(1, "\b\b\n", 6);
 			kill(lsh_child, SIGINT);
+			last_code = 130;
 	}
 }
 

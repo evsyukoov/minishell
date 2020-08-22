@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 13:12:41 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/22 13:32:11 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ int		launch(char **argv, char *envp[])
 		signal(SIGQUIT, listener);
 		signal(SIGINT, listener);
 		waitpid(lsh_child, &status, WUNTRACED);
-
 	}
+	if (WIFSIGNALED(status))
+		return (WTERMSIG(status));
 	return (WEXITSTATUS(status));		//возвращает код последнего return или exit
 }
 
@@ -105,7 +106,7 @@ int 	exit_program(char *arg)
 			if (last_code > 255)
 				exit(0);
 			else
-				exit(0);
+				exit(last_code);
 		}
 	}
 	else
