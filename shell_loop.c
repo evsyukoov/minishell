@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 00:43:18 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/22 12:45:52 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		launch(char **argv, char *envp[])
 		perror("minishell");
 	else if (lsh_child == 0)
 	{
-		if (execute(argv, envp) == -1) {
+			printf("sudaaaaaaaaaa\n");
 			print_error_log("lsh: ", NULL, argv[0], "command not found");
 			exit(127);
 		}
@@ -61,7 +61,7 @@ int 	print_error_log(char *lsh, char *command, char *argument, char *msg)
 int     cd(char **argv)
 {
 	if (chdir(argv[1]) != 0) {
-		print_error_log("lsh: ", "cd: ", argv[1], strerror(errno));
+		// print_error_log("lsh: ", "cd: ", argv[1], strerror(errno));
 		return (1);
 	}
     return (0);
@@ -97,7 +97,7 @@ int 	exit_program(char *arg)
 	{
 		if (is_contains_alpha(arg))
 		{
-			print_error_log("lsh: ", "exit: ", arg, "numeric argument required");
+			// print_error_log("lsh: ", "exit: ", arg, "numeric argument required");
 			last_code = 255;
 			exit(255);
 		}
@@ -133,7 +133,7 @@ int    execution(char **argv, char **envp[])
 		return(export(argv[1], envp));
 	else if (ft_strcmp(argv[0], "exit") == 0)
 		exit_program(argv[1]);
-	return (launch(argv, *envp));
+		return (launch(argv, *envp));
 }
 
 t_args *get_argv(char **env)
