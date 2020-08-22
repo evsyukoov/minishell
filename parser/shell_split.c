@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   shell_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: ccarl <ccarl@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 16:08:59 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/21 23:30:34 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/22 14:39:06 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char 	*join_char(char *arg, char c)
+char	*join_char(char *arg, char c)
 {
-	char *res;
-	int i;
+	char	*res;
+	int		i;
 
 	i = 0;
 	if (!(res = (char*)malloc(ft_strlen(arg) + 2)))
@@ -27,7 +27,7 @@ char 	*join_char(char *arg, char c)
 	return (res);
 }
 
-int 	is_dollar_symbol(char *arg)
+int		is_dollar_symbol(char *arg)
 {
 	if (*arg == '$' && (!ft_isalnum(*(arg + 1)) || *(arg + 1) == ' '))
 		return (1);
@@ -37,12 +37,12 @@ int 	is_dollar_symbol(char *arg)
 char	*init_arg(char **arg, char **env, t_split var)
 {
 	char *res;
-	
+
 	if (!(res = replace_bash_symbols(&arg, env)))
-		{
+	{
 		var.q_type = quote_type(*arg);
 		var.arg_len = argument_len(*arg, var.q_type);
-		if (!(res = (char *) malloc(var.arg_len + 1)))
+		if (!(res = (char *)malloc(var.arg_len + 1)))
 			return (0);
 		var.j = 0;
 		skip(arg, var.q_type);
@@ -54,7 +54,3 @@ char	*init_arg(char **arg, char **env, t_split var)
 	}
 	return (res);
 }
-
-
-
-
