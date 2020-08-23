@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment_parser.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:45:04 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 17:11:46 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/23 19:52:12 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,25 +64,25 @@ char	*get_environment_with_quotes(char *arg, char **env, int begin_len)
 	return (res);
 }
 
-char	*get_environment(char ***arg, char **env, int flag)
+char	*get_environment(char ***arg, char **env, int g_flag)
 {
 	int		i;
 	char	*res;
 
 	i = 0;
 	res = NULL;
-	if (flag)
+	if (g_flag)
 		i++;
-	while ((**arg)[i] && (((**arg)[i] != ' ' && flag == 0)
-	|| ((**arg)[i] != '\"' && flag == 1)))
+	while ((**arg)[i] && (((**arg)[i] != ' ' && g_flag == 0)
+	|| ((**arg)[i] != '\"' && g_flag == 1)))
 	{
-		if (!flag && (**arg)[i] == '$')
+		if (!g_flag && (**arg)[i] == '$')
 		{
 			res = get_environment_string(**arg + i, env, i);
 			**arg += i + env_len2(**arg + i);
 			break ;
 		}
-		else if (flag && (**arg)[i] == '$')
+		else if (g_flag && (**arg)[i] == '$')
 		{
 			res = get_environment_with_quotes(**arg + i, env, i - 1);
 			**arg += i + quotes_size(**arg + i) + 1;
@@ -96,15 +96,15 @@ char	*get_environment(char ***arg, char **env, int flag)
 char	*analize_env(char **arg, char **env)
 {
 	char	*res;
-	int		flag;
+	int		g_flag;
 
-	flag = 0;
+	g_flag = 0;
 	res = NULL;
 	if (**arg == '\'')
 		return (0);
 	if (**arg == '\"')
-		flag = 1;
-	if (!(res = get_environment(&arg, env, flag)))
+		g_flag = 1;
+	if (!(res = get_environment(&arg, env, g_flag)))
 		return (0);
 	return (res);
 }
@@ -116,7 +116,7 @@ char	*replace_bash_symbols(char ***arg, char **env)
 	res = NULL;
 	if (***arg == '$' && *(**arg + 1) == '?')
 	{
-		res = ft_itoa(last_code);
+		res = ft_itoa(g_last_code);
 		**arg += 2;
 		skip(*arg, ' ');
 	}

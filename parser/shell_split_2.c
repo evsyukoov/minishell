@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 22:16:20 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 15:51:32 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 19:52:12 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ t_args		*create_list(char *arg, char **env)
 	//return (lst);
 }
 
-void		*parse_syntax_error(int flag)
+void		*parse_syntax_error(int g_flag)
 {
-	if (flag)
+	if (g_flag)
 	print_error_log(
 	"lsh: ", NULL, NULL, "syntax error near unexpected token '>'");
 	else
 		print_error_log(
 				"lsh: ", NULL, NULL, "syntax error near unexpected token 'newline'");
-	last_code = 258;
+	g_last_code = 258;
 	return (NULL);
 }

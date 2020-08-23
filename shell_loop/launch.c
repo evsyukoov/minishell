@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/22 19:47:25 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/22 21:18:26 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 19:51:09 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int	launch(char **argv, char *envp[])
 	int	status;
 
 	status = 0;
-	lsh_child = fork();
-	if (lsh_child < 0)
+	g_lsh_child = fork();
+	if (g_lsh_child < 0)
 		perror("minishell");
-	else if (lsh_child == 0)
+	else if (g_lsh_child == 0)
 	{
 		if (execute(argv, envp) == -1)
 		{
@@ -44,7 +44,7 @@ int	launch(char **argv, char *envp[])
 	{
 		signal(SIGQUIT, listener);
 		signal(SIGINT, listener);
-		waitpid(lsh_child, &status, WUNTRACED);
+		waitpid(g_lsh_child, &status, WUNTRACED);
 	}
 	return (return_launch(status));
 }

@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:49:32 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 16:47:56 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 19:51:31 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,5 @@ int		main(int argc, char *argv[], char *envp[])
 	if (!(env_copy = realloc_env(envp)))
 		return (0);
 	shell_loop(env_copy);
-	return (last_code);
+	return (g_last_code);
 }

@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/19 15:01:18 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 20:03:26 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 19:51:09 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	listener(int signal_num)
 	if (signal_num == SIGQUIT)
 	{
 		write(1, "Quit  \n", 7);
-		kill(lsh_child, SIGQUIT);
+		kill(g_lsh_child, SIGQUIT);
 	}
 	if (signal_num == SIGINT)
 	{
 		write(1, "\b\b\n", 6);
-		kill(lsh_child, SIGINT);
+		kill(g_lsh_child, SIGINT);
 	}
 }
 
