@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/22 21:06:34 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/23 19:52:47 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 20:00:04 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,32 +31,31 @@
 # include <errno.h>
 # include <sys/wait.h>
 
-typedef struct 		s_names
+typedef struct		s_names
 {
-	char 			*name;
-	int 			type;
-	struct s_names  *next;
+	char			*name;
+	int				type;
+	struct s_names	*next;
 }					t_files;
 
-typedef struct 		s_args
+typedef struct		s_args
 {
-	char 			**args;
-	int 			flag;
-	t_files 		*files;
+	char			**args;
+	int				flag;
+	t_files			*files;
 	struct s_args	*next;
 }					t_args;
 
-
-typedef struct 		s_split
+typedef struct		s_split
 {
-	int 			args;
-	int 			i;
-	int 			j;
-	char 			q_type;
-	int 			arg_len;
+	int				args;
+	int				i;
+	int				j;
+	char			q_type;
+	int				arg_len;
 }					t_split;
 
-char			**env_copy;
+char			**g_env_copy;
 pid_t			g_lsh_child;
 int				g_last_code;
 int				g_flag;
@@ -66,7 +65,7 @@ int				cd(char **argv, char *envp[]);
 void			push(t_args **lst, t_args *new);
 void			print_arg_list(t_args *lst);
 char			**shell_split(char *arg, char **env);
-t_args 		*create_new_node(char **s, int g_flag, t_files *files);
+t_args			*create_new_node(char **s, int g_flag, t_files *files);
 void			free_arguments(char ***argv);
 void			print_argv(char **argv);
 t_args			*create_list(char *arg, char **env);
@@ -94,10 +93,6 @@ void			nothing(int signal_num);
 void			free_args_list(t_args **lst);
 void			*parse_syntax_error();
 void			skip(char **s, char del);
-char			**case1(char **argv, int arg_index);
-char			**case2(char **argv, int arg_index, size_t len);
-int				last_arg_len(char *arg, char redirection_type);
-char			*find_file_name(char *arg);
 char			*replace_bash_symbols(char ***arg, char **env);
 int				env_len2(char *arg);
 char			*init_env_name(char *arg);
@@ -122,5 +117,8 @@ t_files			*new_redirection(char *file_path, int file_option);
 void			push_redirect(t_files **lst, t_files *new);
 char			**get_commands(char **argv, int arg_index);
 t_files			*new_redirection(char *file_path, int file_option);
+char			*get_environment_with_quotes(char *arg,
+char **env, int begin_len);
+char			*get_environment_string(char *arg, char **env, int begin_len);
 
 #endif

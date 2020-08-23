@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/22 17:42:19 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 16:45:23 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 19:39:36 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ void	push_redirect(t_files **lst, t_files *new)
 	new->next = NULL;
 }
 
-void 	free_redirections(t_files **lst)
+void	free_redirections(t_files **lst)
 {
-	t_files *head;
-	t_files *tmp;
+	t_files	*head;
+	t_files	*tmp;
 
 	head = *lst;
 	while (head)
@@ -63,6 +63,3 @@ void 	free_redirections(t_files **lst)
 		free(tmp);
 	}
 }
-
-
-
