@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/22 21:06:34 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/23 16:45:00 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 17:55:41 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int				flag;
 int				reset;
 
 void			shell_loop(char *envp[]);
-int				cd(char **argv);
+int				cd(char **argv, char *envp[]);
 void			push(t_args **lst, t_args *new);
 void			print_arg_list(t_args *lst);
 char			**shell_split(char *arg, char **env);

@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 23:24:33 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/22 19:50:19 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 17:57:47 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,25 @@ int		exit_program(char *arg)
 		exit(0);
 }
 
-int		cd(char **argv)
+int		cd(char **argv, char *envp[])
 {
-	if (chdir(argv[1]) != 0)
+	char *path;
+	int flag;
+	
+	flag = 0;
+	path = argv[1];
+	if (!argv[1])
 	{
+		flag = 1;
+		path = get_env_var("HOME", envp);
+	}
+	if (chdir(path) != 0)
+	{
+			// free(path);
 		print_error_log("lsh: ", "cd: ", argv[1], strerror(errno));
 		return (1);
 	}
+		// free(path);
 	return (0);
 }
 
@@ -74,7 +86,7 @@ int		execution(char **argv, char **envp[])
 	char	wd[256];
 
 	if (ft_strcmp(argv[0], "cd") == 0)
-		return (cd(argv));
+		return (cd(argv, *envp));
 	else if (ft_strcmp(argv[0], "pwd") == 0)
 	{
 		ft_putendl_fd(getwd(wd), 1);

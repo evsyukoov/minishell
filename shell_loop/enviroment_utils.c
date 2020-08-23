@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 17:50:35 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/22 14:10:35 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 17:34:01 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int		print_env(char *envp[], char **argv)
 	i = 0;
 	if (argv && argv[1])
 	{
-		//print_error_log(NULL, "env: ", argv[1], "No such file or directory");
 		return (127);
 	}
 	while (envp[i])

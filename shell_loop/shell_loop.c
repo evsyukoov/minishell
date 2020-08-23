@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 21:01:59 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 17:06:14 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		print_error_log(char *lsh, char *command, char *argument, char *msg)
 {
 	if (lsh)
-		write(2, "lsh: ", 5);
+		write(2, lsh, ft_strlen(lsh));
 	if (command)
 		write(2, command, ft_strlen(command));
 	if (argument)
