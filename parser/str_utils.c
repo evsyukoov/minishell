@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 19:31:10 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 18:28:59 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 18:38:17 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*init_home_path(char *tilda, char **arg)
 		i++;
 	full_path = (char*)malloc(i + 1 + ft_strlen(tilda));
 	ft_strlcpy(full_path, tilda, ft_strlen(tilda) + 1);
-	j = (int)ft_strlen(tilda) - 1;
+	j = (int)ft_strlen(tilda);
 	while (**arg && **arg != ' ' && **arg != '\"')
 		full_path[j++] = *(*arg)++;
 	full_path[j] = '\0';
