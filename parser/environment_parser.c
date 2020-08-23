@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:45:04 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 17:10:18 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/23 15:15:17 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ char	*get_environment_with_quotes(char *arg, char **env, int begin_len)
 			free(s2);
 			free(tmp);
 			arg += env_len2(arg);
-			if (*arg == '\'' || *arg == ' ')
+			if (*arg != '\"')
 				res = join_char(res, *arg);
+			else
+				break ;
 		}
 		arg++;
 	}
@@ -83,7 +85,8 @@ char	*get_environment(char ***arg, char **env, int flag)
 		else if (flag && (**arg)[i] == '$')
 		{
 			res = get_environment_with_quotes(**arg + i, env, i - 1);
-			**arg += i + quotes_size(**arg + i);
+			**arg += i + quotes_size(**arg + i) + 1;
+			//printf("arg = %s", **arg);
 			break ;
 		}
 		i++;
