@@ -1,6 +1,6 @@
 CFLAGS = -Wall -Wextra -Werror
 
-NAME = lsh
+NAME = minishell
 INCLUDE  = include/
 SRCS =  main.c \
 		GNL/get_next_line.c \
