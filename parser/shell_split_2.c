@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_split_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 22:16:20 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 15:51:32 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 20:12:56 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,17 @@ void		split_pipes(t_args **lst, char *arg_pipe, char **env)
 	free_arguments(&argv_pipes);
 }
 
+int 		is_in_quotes(char *arg)
+{
+	while (*arg != ' ')
+	{
+		if (*arg == '\"')
+			return (1);
+		arg++;
+	}
+	return (0);
+}
+
 t_args		*create_list(char *arg, char **env)
 {
 	t_args	*lst;
@@ -85,7 +96,6 @@ t_args		*create_list(char *arg, char **env)
 	}
 	free_arguments(&argv1);
 	return (parse_redirections(lst));
-	//return (lst);
 }
 
 void		*parse_syntax_error(int flag)
