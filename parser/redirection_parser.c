@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 18:10:41 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 19:32:17 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 19:55:20 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ t_args	*parse_redirections(t_args *lst)
 {
 	t_args	*tmp;
 	t_args	*head;
-	int		flag;
+	int		g_flag;
 
 	head = NULL;
 	while (lst)
@@ -104,11 +104,11 @@ t_args	*parse_redirections(t_args *lst)
 		tmp = lst;
 		if (check_error_redirections(lst->args))
 			return (parse_syntax_error(1));
-		flag = check_node_for_redirection(lst, &head);
-		if (!flag)
+		g_flag = check_node_for_redirection(lst, &head);
+		if (!g_flag)
 			push(&head, create_new_node(lst->args, lst->flag,
 			lst->files));
-		else if (flag == 2)
+		else if (g_flag == 2)
 			return (parse_syntax_error(2));
 		else
 			free_arguments(&lst->args);

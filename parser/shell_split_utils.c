@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 22:44:33 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 19:24:02 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 19:55:20 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,23 +59,23 @@ int		find_close_quote(char **s, char quote, int *args)
 int		arguments_counter(char *s)
 {
 	int args;
-	int flag;
+	int g_flag;
 
 	args = 0;
-	flag = 0;
+	g_flag = 0;
 	skip(&s, ' ');
 	while (*s)
 	{
 		if (*s == '\'')
-			flag = find_close_quote(&s, '\'', &args);
+			g_flag = find_close_quote(&s, '\'', &args);
 		else if (*s == '\"')
-			flag = find_close_quote(&s, '\"', &args);
+			g_flag = find_close_quote(&s, '\"', &args);
 		while (*s && *s != ' ')
 			s++;
-		if (!flag)
+		if (!g_flag)
 			args++;
 		skip(&s, ' ');
-		flag = 0;
+		g_flag = 0;
 	}
 	return (args);
 }

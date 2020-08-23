@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 17:06:14 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 19:55:30 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,12 @@ void	shell_loop(char *envp[])
 	{
 		signal(SIGQUIT, sighandler);
 		signal(SIGINT, sighandler);
-		flag = 0;
+		g_flag = 0;
 		write(1, "minishell : ", 12);
 		args_lst = get_argv(envp);
 		if (args_lst)
 			status = parse_str(args_lst, &envp);
-		last_code = status;
+		g_last_code = status;
 		free_args_list(&args_lst);
 	}
 }

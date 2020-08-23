@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 23:24:33 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/23 19:03:32 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 19:55:30 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ int		exit_program(char *arg)
 	{
 		if (is_contains_alpha(arg))
 		{
-			last_code = 255;
+			g_last_code = 255;
 			exit(255);
 		}
 		else
 		{
-			last_code = ft_atoi(arg);
-			if (last_code > 255)
+			g_last_code = ft_atoi(arg);
+			if (g_last_code > 255)
 				exit(0);
 			else
-				exit(last_code);
+				exit(g_last_code);
 		}
 	}
 	else
@@ -49,13 +49,13 @@ int		exit_program(char *arg)
 int		cd(char **argv, char *envp[])
 {
 	char	*path;
-	int		flag;
+	int		g_flag;
 
-	flag = 0;
+	g_flag = 0;
 	path = argv[1];
 	if (!argv[1])
 	{
-		flag = 1;
+		g_flag = 1;
 		path = get_env_var("HOME", envp);
 	}
 	if (chdir(path) != 0)

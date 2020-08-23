@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/22 21:06:34 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/23 19:36:32 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 19:55:30 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,17 @@ typedef struct		s_split
 	int				arg_len;
 }					t_split;
 
-int				shell_pid;
-char			**env_copy;
-pid_t			lsh_child;
-int				last_code;
-int				flag;
-int				reset;
+char			**g_env_copy;
+pid_t			g_lsh_child;
+int				g_last_code;
+int				g_flag;
 
 void			shell_loop(char *envp[]);
 int				cd(char **argv, char *envp[]);
 void			push(t_args **lst, t_args *new);
 void			print_arg_list(t_args *lst);
 char			**shell_split(char *arg, char **env);
-t_args			*create_new_node(char **s, int flag, t_files *files);
+t_args			*create_new_node(char **s, int g_flag, t_files *files);
 void			free_arguments(char ***argv);
 void			print_argv(char **argv);
 t_args			*create_list(char *arg, char **env);
