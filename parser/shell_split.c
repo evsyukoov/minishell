@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   shell_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 16:08:59 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 19:17:17 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/23 15:49:50 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../include/minishell.h"
 
 char	*join_char(char *arg, char c)
 {
@@ -40,7 +40,7 @@ int		is_dollar_symbol(char *arg)
 
 char	*init_arg(char **arg, char **env, t_split var)
 {
-	char *res;
+	char	*res;
 
 	if (!(res = replace_bash_symbols(&arg, env)))
 	{

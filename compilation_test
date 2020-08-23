@@ -1,1 +1,0 @@
-gcc parser/*.c main.c shell_loop.c libft/libft.a helper.c list_utils.c GNL/*.c enviroment_utils.c

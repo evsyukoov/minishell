@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_list.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/22 17:42:19 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 15:42:21 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/23 16:45:23 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "../minishell.h"
-#include "redirections.h"
+#include "../include/minishell.h"
 
 t_files	*new_redirection(char *file_path, int file_option)
 {

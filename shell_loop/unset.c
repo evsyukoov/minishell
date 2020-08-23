@@ -1,43 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handler.c                                          :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/19 15:01:18 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 13:18:53 by mcaptain         ###   ########.fr       */
+/*   Created: 2020/08/16 17:54:23 by mcaptain          #+#    #+#             */
+/*   Updated: 2020/08/22 21:03:11 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void 	listener(int signal_num)
+int		delete_env(int position, char *envp[])
 {
-	if (signal_num == SIGQUIT) {
-		write(1, "Quit  \n", 7);
-		kill(lsh_child, SIGQUIT);
-		last_code = 131;
+	free(envp[position]);
+	envp[position] = envp[position + 1];
+	position++;
+	while (envp[position])
+	{
+		envp[position] = envp[position + 1];
+		position++;
 	}
-	if (signal_num == SIGINT) {
-			write(1, "\b\b\n", 6);
-			kill(lsh_child, SIGINT);
-			last_code = 130;
-	}
+	return (0);
 }
 
-void	sighandler(int sig_num)
+int		unset(char *name, char *envp[])
 {
-	if (sig_num == SIGINT)
+	int i;
+
+	i = 0;
+	while (envp[i])
 	{
-		write(1, "\b\b  \b\b\n", 7);
-		write(1, "minishell : ", 12);
-		
+		if (!(env_strcmp(name, envp[i])))
+			return (delete_env(i, envp));
+		i++;
 	}
-	if (sig_num == SIGQUIT)
-	{
-		write(1, "\b\b  \b\b", 7);
-	}
+	return (0);
 }
-
-

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_parser.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 18:10:41 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 16:47:13 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/23 15:51:35 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../include/minishell.h"
 
 int 	get_files(char **argv, char *arg, int arg_index, t_files **head)
 {

@@ -1,23 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   handler.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/21 20:05:40 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 21:28:35 by mcaptain         ###   ########.fr       */
+/*   Created: 2020/08/19 15:01:18 by ccarl             #+#    #+#             */
+/*   Updated: 2020/08/22 20:03:26 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strcmp(char *s1, char *s2)
+void	listener(int signal_num)
 {
-	while (*s1 == *s2 && *s1 && *s2)
+	if (signal_num == SIGQUIT)
 	{
-		s1++;
-		s2++;
+		write(1, "Quit  \n", 7);
+		kill(lsh_child, SIGQUIT);
 	}
-	return (*s1 - *s2);
+	if (signal_num == SIGINT)
+	{
+		write(1, "\b\b\n", 6);
+		kill(lsh_child, SIGINT);
+	}
+}
+
+void	sighandler(int sig_num)
+{
+	if (sig_num == SIGINT)
+	{
+		write(1, "\b\b  \b\b\n", 7);
+		write(1, "minishell : ", 12);
+	}
+	if (sig_num == SIGQUIT)
+	{
+		write(1, "\b\b  \b\b", 7);
+	}
 }

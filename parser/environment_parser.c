@@ -6,11 +6,11 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:45:04 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 15:18:20 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/23 17:11:46 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../include/minishell.h"
 
 char	*get_environment_string(char *arg, char **env, int begin_len)
 {
