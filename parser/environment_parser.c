@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:45:04 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 15:15:17 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/23 15:18:20 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ char	*get_environment(char ***arg, char **env, int flag)
 		{
 			res = get_environment_with_quotes(**arg + i, env, i - 1);
 			**arg += i + quotes_size(**arg + i) + 1;
-			//printf("arg = %s", **arg);
 			break ;
 		}
 		i++;
