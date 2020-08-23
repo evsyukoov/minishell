@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 t_args 		*create_new_node(char **s, int flag, t_files *files)
 {

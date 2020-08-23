@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/minishell.h"
+
 void	skip(char **s, char del)
 {
 	while (**s == del && **s)

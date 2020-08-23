@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 char		**shell_split(char *arg, char **env)
 {
@@ -88,10 +88,14 @@ t_args		*create_list(char *arg, char **env)
 	//return (lst);
 }
 
-/*void		*parse_syntax_error(void)
+void		*parse_syntax_error(int flag)
 {
+	if (flag)
 	print_error_log(
 	"lsh: ", NULL, NULL, "syntax error near unexpected token '>'");
+	else
+		print_error_log(
+				"lsh: ", NULL, NULL, "syntax error near unexpected token 'newline'");
 	last_code = 258;
 	return (NULL);
-}*/
+}
