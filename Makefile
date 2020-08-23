@@ -25,7 +25,7 @@ SRCS =  main.c \
 		parser/shell_split_utils.c \
 		parser/shell_split_utils_2.c \
 		parser/str_utils.c \
-
+		parser/environment_parser_2.c
 
 OBJS = $(SRCS:.c=.o)
 

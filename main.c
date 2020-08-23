@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:49:32 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 16:47:56 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 19:40:34 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ char	**realloc_env(char *envp[])
 	return (new_env);
 }
 
-void 	free_args_list(t_args **lst)
+void	free_args_list(t_args **lst)
 {
-	t_args *tmp;
-	t_args *head;
-	t_files *tmp2;
-	int i;
-	
+	t_args	*tmp;
+	t_args	*head;
+	t_files	*tmp2;
+	int		i;
+
 	head = *lst;
 	while (head)
 	{
@@ -53,6 +53,7 @@ void 	free_args_list(t_args **lst)
 		while (head->files)
 		{
 			tmp2 = head->files;
+			free(head->files->name);
 			head->files = head->files->next;
 			free(tmp2);
 		}

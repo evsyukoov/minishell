@@ -6,13 +6,13 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 18:01:17 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 15:51:43 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 19:33:52 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-t_args 		*create_new_node(char **s, int flag, t_files *files)
+t_args	*create_new_node(char **s, int flag, t_files *files)
 {
 	t_args *node;
 

@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 23:24:33 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/23 17:57:47 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 19:03:32 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ int		exit_program(char *arg)
 
 int		cd(char **argv, char *envp[])
 {
-	char *path;
-	int flag;
-	
+	char	*path;
+	int		flag;
+
 	flag = 0;
 	path = argv[1];
 	if (!argv[1])
@@ -60,11 +60,9 @@ int		cd(char **argv, char *envp[])
 	}
 	if (chdir(path) != 0)
 	{
-			// free(path);
 		print_error_log("lsh: ", "cd: ", argv[1], strerror(errno));
 		return (1);
 	}
-		// free(path);
 	return (0);
 }
 
