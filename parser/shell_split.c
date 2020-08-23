@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/13 16:08:59 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 21:24:12 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 15:49:50 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@ char	*join_char(char *arg, char c)
 	i = 0;
 	if (!(res = (char*)malloc(ft_strlen(arg) + 2)))
 		return (0);
-	while (*arg)
-		res[i++] = *arg++;
+	while (arg[i])
+	{
+		res[i] = arg[i];
+		i++;
+	}
 	res[i++] = c;
 	res[i] = '\0';
+	free(arg);
 	return (res);
 }
 

@@ -16,6 +16,7 @@ SRCS =  main.c \
 		shell_loop/parse_function.c \
 		shell_loop/pipe_dup.c \
 		shell_loop/launch.c \
+		parser/redirection_list.c \
 		parser/redirection_parser.c \
 		parser/redirection_parser_utils.c \
 		parser/environment_parser.c \

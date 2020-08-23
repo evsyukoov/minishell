@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:45:04 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 21:21:16 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 15:52:11 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*get_environment_string(char *arg, char **env, int begin_len)
 	if (!env_var)
 		res = ft_strdup("\0");
 	else
-		res = get_env_var(env_name, env);
+		res = env_var;
 	begin = get_begin_string(arg, begin_len);
 	if (begin)
 		res = ft_strjoin(begin, res);
@@ -44,19 +44,21 @@ char	*get_environment_with_quotes(char *arg, char **env, int begin_len)
 	arg += env_len2(arg);
 	while (*arg && *arg != '\"')
 	{
-		tmp = res;
 		if (*arg != '$' || is_dollar_symbol(arg))
 			res = join_char(res, *arg);
 		else
 		{
 			s2 = get_environment_string(arg, env, 0);
+			tmp = res;
 			res = ft_strjoin(res, s2);
 			free(s2);
+			free(tmp);
 			arg += env_len2(arg);
-			if (*arg == '\'')
+			if (*arg != '\"')
 				res = join_char(res, *arg);
+			else
+				break ;
 		}
-		free(tmp);
 		arg++;
 	}
 	return (res);
@@ -83,7 +85,7 @@ char	*get_environment(char ***arg, char **env, int flag)
 		else if (flag && (**arg)[i] == '$')
 		{
 			res = get_environment_with_quotes(**arg + i, env, i - 1);
-			**arg += i + quotes_size(**arg + i);
+			**arg += i + quotes_size(**arg + i) + 1;
 			break ;
 		}
 		i++;
@@ -125,6 +127,8 @@ char	*replace_bash_symbols(char ***arg, char **env)
 	else if (***arg == '~' && ++(**arg))
 	{
 		res = ft_strdup(get_env_var("HOME", env));
+		if (***arg == '/')
+			res = init_home_path(res, *arg);
 		skip(*arg, ' ');
 	}
 	return (res);

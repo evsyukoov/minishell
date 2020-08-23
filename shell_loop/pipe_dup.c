@@ -6,49 +6,52 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/22 19:52:29 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/22 20:40:07 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 16:44:03 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	read_from(t_args *args_lst, char **envp[])
+int	read_from(t_files *file)
 {
 	int	fd;
 
-	if ((fd = open(args_lst->file_path, O_RDONLY)) > 0)
-	{
+	if ((fd = open(file->name, O_RDONLY)) > 0)
 		dup2(fd, 0);
-		if (args_lst->args[0])
-			return (execution(args_lst->args, envp));
-		return (0);
-	}
-	else
-		return (print_error_log("lsh: ", NULL,
-		args_lst->file_path, "No such file or directory"));
+	return (fd);
 }
 
-int	write_to(t_args *args_lst, char **envp[])
+int	write_to(t_files *file)
 {
 	int	fd;
 
-	if (args_lst->file_option)
-		fd = open(args_lst->file_path, O_RDWR | O_APPEND | O_CREAT, 00644);
+	if (file->type)
+		fd = open(file->name, O_RDWR | O_APPEND | O_CREAT, 00644);
 	else
-		fd = open(args_lst->file_path, O_RDWR | O_TRUNC | O_CREAT, 00644);
-	dup2(fd, 1);
-	if (args_lst->args[0])
-		return (execution(args_lst->args, envp));
-	return (0);
+		fd = open(file->name, O_RDWR | O_TRUNC | O_CREAT, 00644);
+	if (fd > 0)	
+		dup2(fd, 1);
+	return (fd);
 }
 
 int	redirection(t_args *args_lst, char **envp[])
 {
-	if (args_lst->file_option == 2)
-		return (read_from(args_lst, envp));
-	else
-		return (write_to(args_lst, envp));
-	return (0);
+	int fd_read;
+	int fd_write;
+	t_files *tmp;
+
+	tmp = args_lst->files;
+	fd_read = 0;
+	fd_write = 0;
+	while(tmp)
+	{
+		if (tmp->type == 2)
+			fd_read  = (read_from(tmp));
+		else
+			fd_write = (write_to(tmp));
+		tmp = tmp->next;
+	}
+	return (execution(args_lst->args, envp));
 }
 
 int	exe_one_command(t_args *args_lst, char **envp[])
@@ -60,10 +63,10 @@ int	exe_one_command(t_args *args_lst, char **envp[])
 	status = 0;
 	fd_out = dup(1);
 	fd_in = dup(0);
-	if (args_lst->file_option == NONE)
-		status = execution(args_lst->args, envp);
-	else
+	if (args_lst->files)
 		status = redirection(args_lst, envp);
+	else
+		status = execution(args_lst->args, envp);
 	dup2(fd_out, 1);
 	dup2(fd_in, 0);
 	return (status);

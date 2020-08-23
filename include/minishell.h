@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/22 21:06:34 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/22 21:13:54 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 16:45:00 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,30 @@
 # include <errno.h>
 # include <sys/wait.h>
 
-typedef struct	s_args
+typedef struct 		s_names
 {
-	char			**args;
-	int				flag;
-	char			*file_path;
-	int				file_option;
-	struct s_args	*next;
-}				t_args;
+	char 			*name;
+	int 			type;
+	struct s_names  *next;
+}					t_files;
 
-typedef struct	s_split
+typedef struct 		s_args
 {
-	int				args;
-	int				i;
-	int				j;
-	char			q_type;
-	int				arg_len;
-}				t_split;
+	char 			**args;
+	int 			flag;
+	t_files 		*files;
+	struct s_args	*next;
+}					t_args;
+
+
+typedef struct 		s_split
+{
+	int 			args;
+	int 			i;
+	int 			j;
+	char 			q_type;
+	int 			arg_len;
+}					t_split;
 
 int				shell_pid;
 char			**env_copy;
@@ -61,8 +68,7 @@ int				cd(char **argv);
 void			push(t_args **lst, t_args *new);
 void			print_arg_list(t_args *lst);
 char			**shell_split(char *arg, char **env);
-t_args			*create_new_node(char **s, int flag,
-char *file_path, int file_option);
+t_args 		*create_new_node(char **s, int flag, t_files *files);
 void			free_arguments(char ***argv);
 void			print_argv(char **argv);
 t_args			*create_list(char *arg, char **env);
@@ -113,5 +119,10 @@ int				exe_one_command(t_args *args_lst, char **envp[]);
 int				print_error_log(char *lsh, char *command,
 char *argument, char *msg);
 int				launch(char **argv, char *envp[]);
+char			*init_home_path(char *tilda, char **arg);
+t_files			*new_redirection(char *file_path, int file_option);
+void			push_redirect(t_files **lst, t_files *new);
+char			**get_commands(char **argv, int arg_index);
+t_files			*new_redirection(char *file_path, int file_option);
 
 #endif

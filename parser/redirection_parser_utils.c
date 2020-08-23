@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-char	**case1(char **argv, int arg_index)
+char	**get_commands(char **argv, int arg_index)
 {
 	int		i;
 	char	**res;

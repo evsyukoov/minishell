@@ -6,13 +6,13 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 22:16:20 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 21:29:14 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 15:51:32 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**shell_split(char *arg, char **env)
+char		**shell_split(char *arg, char **env)
 {
 	t_split	var;
 	char	**res;
@@ -31,7 +31,7 @@ char	**shell_split(char *arg, char **env)
 	return (res);
 }
 
-int		number_of_arguments(char **argv)
+int			number_of_arguments(char **argv)
 {
 	int j;
 
@@ -41,7 +41,7 @@ int		number_of_arguments(char **argv)
 	return (j);
 }
 
-void	split_pipes(t_args **lst, char *arg_pipe, char **env)
+void		split_pipes(t_args **lst, char *arg_pipe, char **env)
 {
 	int		j;
 	char	**argv_pipes;
@@ -54,18 +54,18 @@ void	split_pipes(t_args **lst, char *arg_pipe, char **env)
 	{
 		{
 			if (j < num_of_args - 1)
-				push(lst, create_new_node(shell_split(argv_pipes[j],
-				env), PIPE, NULL, NONE));
+				push(lst, create_new_node(
+				shell_split(argv_pipes[j], env), PIPE, NULL));
 			else
-				push(lst, create_new_node(shell_split(argv_pipes[j],
-				env), COMMAND, NULL, NONE));
+				push(lst, create_new_node(
+				shell_split(argv_pipes[j], env), COMMAND, NULL));
 			j++;
 		}
 	}
 	free_arguments(&argv_pipes);
 }
 
-t_args	*create_list(char *arg, char **env)
+t_args		*create_list(char *arg, char **env)
 {
 	t_args	*lst;
 	char	**argv1;
@@ -79,18 +79,19 @@ t_args	*create_list(char *arg, char **env)
 		if (ft_strchr(argv1[i], '|'))
 			split_pipes(&lst, argv1[i], env);
 		else
-			push(&lst, create_new_node(shell_split(argv1[i],
-			env), COMMAND, NULL, NONE));
+			push(&lst, create_new_node(
+			shell_split(argv1[i], env), COMMAND, NULL));
 		i++;
 	}
 	free_arguments(&argv1);
 	return (parse_redirections(lst));
+	//return (lst);
 }
 
-void	*parse_syntax_error(void)
+/*void		*parse_syntax_error(void)
 {
-	print_error_log("lsh: ", NULL,
-	NULL, "syntax error near unexpected token '>'");
+	print_error_log(
+	"lsh: ", NULL, NULL, "syntax error near unexpected token '>'");
 	last_code = 258;
 	return (NULL);
-}
+}*/

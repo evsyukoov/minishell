@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 22:48:58 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/22 21:28:03 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/23 15:50:42 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	skip_env(char **arg)
 {
-	while (**arg && **arg != ' ')
+	while (**arg && **arg != ' ' && **arg != '\"')
 		(*arg)++;
 	skip(arg, ' ');
 }
@@ -25,9 +25,7 @@ int		env_len2(char *arg)
 
 	i = 0;
 	while (arg[i] && arg[i] != ' ' && arg[i] != '\'' && arg[i] != '\"')
-	{
 		i++;
-	}
 	return (i);
 }
 
