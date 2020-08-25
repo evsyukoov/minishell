@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 20:30:07 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/25 20:30:07 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/25 21:53:38 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,17 @@ t_node	*get_last(t_node *node)
 int 	lst_size(t_str *str)
 {
 	int i;
+	char *tmp;
 
 	i = 0;
 	while (str)
 	{
+		tmp = str->string;
+		while (tmp && *tmp)
+		{
+			tmp++;
+			i++;
+		}
 		str = str->next;
 		i++;
 	}
@@ -52,13 +59,19 @@ int 	argv_size(t_node *node)
 	return (i);
 }
 
-void 	add_to_str(t_str **head, char c)
+void 	add_to_str(t_str **head, char c, char *string)
 {
 	t_str *str;
 	t_str *last;
 
 	str = (t_str*)malloc(sizeof(t_str));
-	str->curr = c;
+	if (c)
+	{
+		str->curr = c;
+		str->string = NULL;
+	}
+	else if (string)
+		str->string = string;
 	str->next = 0;
 	if (!(*head))
 	{
@@ -100,7 +113,7 @@ char 	**node_to_argv(t_node **head)
 	size = argv_size(*head);
 	i = 0;
 	res = (char**)malloc(sizeof(char*) * (size + 1));
-	while (i < size)
+	while (*head)
 	{
 		tmp = (*head);
 		res[i++] = (*head)->str;
@@ -116,14 +129,19 @@ char 	*list_to_str(t_str **str)
 	char	*res;
 	int		i;
 	t_str	*tmp;
-
+	char *st;
 
 	res = (char*)malloc(lst_size(*str) + 1);
 	i = 0;
 	while (*str)
 	{
 		tmp = *str;
-		res[i++] = (*str)->curr;
+		st = (*str)->string;
+		if (st)
+			while (*st)
+				res[i++] = *st++;
+		else
+			res[i++] = (*str)->curr;
 		(*str) = (*str)->next;
 		free(tmp);
 	}
