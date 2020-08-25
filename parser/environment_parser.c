@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment_parser.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:45:04 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 19:58:35 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/24 14:52:09 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,25 @@ char	*get_environment_string(char *arg, char **env, int begin_len)
 	return (res);
 }
 
-char	*get_environment(char ***arg, char **env, int g_flag)
+char	*get_environment(char ***arg, char **env, int flag)
 {
 	int		i;
 	char	*res;
 
 	i = 0;
 	res = NULL;
-	if (g_flag)
+	if (flag)
 		i++;
-	while ((**arg)[i] && (((**arg)[i] != ' ' && g_flag == 0)
-	|| ((**arg)[i] != '\"' && g_flag == 1)))
+	while ((**arg)[i] && (((**arg)[i] != ' ' && flag == 0)
+	|| ((**arg)[i] != '\"' && flag == 1)))
 	{
-		if (!g_flag && (**arg)[i] == '$')
+		if (!flag && (**arg)[i] == '$')
 		{
 			res = get_environment_string(**arg + i, env, i);
 			**arg += i + env_len2(**arg + i);
 			break ;
 		}
-		else if (g_flag && (**arg)[i] == '$')
+		else if (flag && (**arg)[i] == '$')
 		{
 			res = get_environment_with_quotes(**arg + i, env, i - 1);
 			**arg += i + quotes_size(**arg + i) + 1;
@@ -66,15 +66,15 @@ char	*get_environment(char ***arg, char **env, int g_flag)
 char	*analize_env(char **arg, char **env)
 {
 	char	*res;
-	int		g_flag;
+	int		flag;
 
-	g_flag = 0;
+	flag = 0;
 	res = NULL;
 	if (**arg == '\'')
 		return (0);
 	if (**arg == '\"')
-		g_flag = 1;
-	if (!(res = get_environment(&arg, env, g_flag)))
+		flag = 1;
+	if (!(res = get_environment(&arg, env, flag)))
 		return (0);
 	return (res);
 }

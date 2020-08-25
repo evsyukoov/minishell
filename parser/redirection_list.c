@@ -48,18 +48,3 @@ void	push_redirect(t_files **lst, t_files *new)
 	last->next = new;
 	new->next = NULL;
 }
-
-void	free_redirections(t_files **lst)
-{
-	t_files	*head;
-	t_files	*tmp;
-
-	head = *lst;
-	while (head)
-	{
-		tmp = head;
-		free(head->name);
-		head = head->next;
-		free(tmp);
-	}
-}

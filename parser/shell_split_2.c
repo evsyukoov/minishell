@@ -6,8 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 22:16:20 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 19:58:17 by mcaptain         ###   ########.fr       */
-/*   Updated: 2020/08/23 20:12:56 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/24 17:17:19 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +65,6 @@ void		split_pipes(t_args **lst, char *arg_pipe, char **env)
 	free_arguments(&argv_pipes);
 }
 
-int 		is_in_quotes(char *arg)
-{
-	while (*arg != ' ')
-	{
-		if (*arg == '\"')
-			return (1);
-		arg++;
-	}
-	return (0);
-}
-
 t_args		*create_list(char *arg, char **env)
 {
 	t_args	*lst;
@@ -86,6 +74,7 @@ t_args		*create_list(char *arg, char **env)
 	i = 0;
 	lst = NULL;
 	argv1 = ft_split(arg, ';');
+	print_argv(argv1);
 	while (argv1[i])
 	{
 		if (ft_strchr(argv1[i], '|'))
@@ -99,14 +88,20 @@ t_args		*create_list(char *arg, char **env)
 	return (parse_redirections(lst));
 }
 
-void		*parse_syntax_error(int g_flag)
+void		*parse_syntax_error(int flag)
 {
-	if (g_flag)
+	if (flag == 3)
 		print_error_log(
 	"lsh: ", NULL, NULL, "syntax error near unexpected token '>'");
-	else
+	else if (flag == 2)
 		print_error_log("lsh: ", NULL,
 		NULL, "syntax error near unexpected token 'newline'");
+	else if (flag == 4)
+		print_error_log("lsh: ", NULL,
+						NULL, "syntax error near unexpected token '<'");
+	else if (flag == 5)
+		print_error_log("lsh: ", NULL,
+						NULL, "syntax error near unexpected token ';'");
 	g_last_code = 258;
 	return (NULL);
 }

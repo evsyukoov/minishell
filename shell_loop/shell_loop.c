@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 19:57:26 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/24 18:17:04 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_args	*get_argv(char **env)
 	if (*line == '\0')
 		return (0);
 	lst = create_list(line, env);
+	//print_arg_list(lst);
 	free(line);
 	return (lst);
 }
@@ -99,12 +100,13 @@ void	shell_loop(char *envp[])
 	{
 		signal(SIGQUIT, sighandler);
 		signal(SIGINT, sighandler);
-		g_flag = 0;
 		write(1, "minishell : ", 12);
 		args_lst = get_argv(envp);
 		if (args_lst)
+		{
 			status = parse_str(args_lst, &envp);
-		g_last_code = status;
+			g_last_code = status;
+		}
 		free_args_list(&args_lst);
 	}
 }
