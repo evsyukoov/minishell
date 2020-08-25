@@ -12,13 +12,13 @@
 
 #include "../include/minishell.h"
 
-t_args	*create_new_node(char **s, int g_flag, t_files *files)
+t_args	*create_new_node(char **s, int flag, t_files *files)
 {
 	t_args *node;
 
 	node = (t_args*)malloc(sizeof(t_args));
 	node->args = s;
-	node->flag = g_flag;
+	node->flag = flag;
 	node->files = files;
 	return (node);
 }
@@ -27,6 +27,18 @@ t_args	*lstlast(t_args *lst)
 {
 	while (lst->next)
 		lst = lst->next;
+	return (lst);
+}
+
+t_args *get_node(t_args *lst, int index)
+{
+	int i = 0;
+
+	while (i < index && lst)
+	{
+		lst = lst->next;
+		i++;
+	}
 	return (lst);
 }
 

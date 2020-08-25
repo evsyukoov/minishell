@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 22:16:20 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/24 17:17:19 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/25 15:56:11 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void		split_pipes(t_args **lst, char *arg_pipe, char **env)
 	int		num_of_args;
 
 	j = 0;
-	argv_pipes = ft_split(arg_pipe, '|');
+	argv_pipes = split(arg_pipe, '|');
 	num_of_args = number_of_arguments(argv_pipes);
 	while (argv_pipes[j])
 	{
@@ -65,6 +65,25 @@ void		split_pipes(t_args **lst, char *arg_pipe, char **env)
 	free_arguments(&argv_pipes);
 }
 
+int 		is_pipe(char *s)
+{
+	char q_type;
+
+	while (*s)
+	{
+		q_type = quote_type(s);
+		while (q_type)
+		{
+			skip_quotes(&s, q_type);
+			q_type = quote_type(s);
+		}
+		if (*s == '|')
+			return (1);
+		s++;
+	}
+	return (0);
+}
+
 t_args		*create_list(char *arg, char **env)
 {
 	t_args	*lst;
@@ -73,11 +92,10 @@ t_args		*create_list(char *arg, char **env)
 
 	i = 0;
 	lst = NULL;
-	argv1 = ft_split(arg, ';');
-	print_argv(argv1);
+	argv1 = split(arg, ';');
 	while (argv1[i])
 	{
-		if (ft_strchr(argv1[i], '|'))
+		if (is_pipe(argv1[i]))
 			split_pipes(&lst, argv1[i], env);
 		else
 			push(&lst, create_new_node(

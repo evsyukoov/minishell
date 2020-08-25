@@ -3,7 +3,7 @@ project(Cub C)
 
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
-link_directories(/Users/denis/Desktop/2/libft)
+link_directories(/Users/ccarl/Desktop/Shell2/libft)
 add_executable(minishell main.c
         GNL/get_next_line.c
         GNL/get_next_line_utils.c
@@ -21,7 +21,7 @@ add_executable(minishell main.c
         parser/environment_parser.c
         parser/environment_parser_2.c
         parser/list_utils.c
-        parser/split.c
+        parser/split_nodes.c
         parser/str_utils.c
         parser/redirection_list.c
         parser/redirection_parser.c
@@ -30,5 +30,6 @@ add_executable(minishell main.c
         parser/shell_split_2.c
         parser/shell_split_utils.c
         parser/shell_split_utils_2.c
-        helper.c)
+        helper.c
+        parser/split_nodes.c)
 target_link_libraries(minishell ft)

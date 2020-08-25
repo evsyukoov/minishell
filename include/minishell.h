@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/22 21:06:34 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/24 18:22:44 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/25 15:03:47 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,5 +123,9 @@ int begin_len);
 int					check(t_args *lst);
 int					check_error_redirections(char **argv, int i);
 void 	print_arg_list(t_args *lst);
+char			**split(char *s, char c);
+t_args 			*get_node(t_args *lst, int index);
+int				word_counter(char *s, char delimetr);
+int 			skip_quotes(char **s, char q_type);
 
 #endif
