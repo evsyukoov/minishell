@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 22:16:20 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/25 17:38:17 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/25 17:40:32 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ t_args		*split_pipes(t_args **lst, char *arg_pipe, char **env)
 		{
 			if (j < num_of_args - 1)
 				push(lst, create_new_node(
-				shell_split(argv_pipes[j], env), PIPE, NULL));
+				split_arg(argv_pipes[j], env), PIPE, NULL));
 			else
 				push(lst, create_new_node(
-						shell_split(argv_pipes[j], env), COMMAND, NULL));
+						split_arg(argv_pipes[j], env), COMMAND, NULL));
 			j++;
 		}
 	}
@@ -127,7 +127,7 @@ t_args		*create_list(char *arg, char **env)
 		}
 		else
 			push(&lst, create_new_node(
-			shell_split(argv1[i], env), COMMAND, NULL));
+			split_arg(argv1[i], env), COMMAND, NULL));
 		i++;
 	}
 	if (is_pipe_end(arg))
@@ -149,7 +149,7 @@ void		*parse_syntax_error(int flag)
 						NULL, "syntax error near unexpected token '<'");
 	else if (flag == 5)
 		print_error_log("lsh: ", NULL,
-						NULL, "syntax error near unexpected token ';'");
+						NULL, "syntax error near unexpected token ';;'");
 	else if (flag == 6)
 		print_error_log("lsh: ", NULL,
 						NULL, "syntax error near unexpected token '|'");

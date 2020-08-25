@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 18:01:17 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 19:58:09 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/25 15:56:11 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,6 @@ t_args	*lstlast(t_args *lst)
 {
 	while (lst->next)
 		lst = lst->next;
-	return (lst);
-}
-
-t_args *get_node(t_args *lst, int index)
-{
-	int i = 0;
-
-	while (i < index && lst)
-	{
-		lst = lst->next;
-		i++;
-	}
 	return (lst);
 }
 

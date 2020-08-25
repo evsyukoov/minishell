@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 22:44:33 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/24 14:52:09 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/25 17:59:38 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		argument_len(char *s, char quote)
 	{
 		if (*s == quote)
 		{
-			while (*s && *s == quote)
+			if (*s && *s == quote)
 				s++;
 			while (*s && *s != quote)
 			{
