@@ -30,32 +30,3 @@ char	*init_home_path(char *tilda, char **arg)
 	free(tilda);
 	return (full_path);
 }
-
-int		str_endswith(char *s, char *set)
-{
-	char *s_end;
-	char *set_end;
-
-	s_end = s + ft_strlen(s);
-	set_end = set + ft_strlen(set);
-	while (s_end != s && *s_end == *set_end && set_end != set)
-	{
-		s_end--;
-		set_end--;
-	}
-	if (set_end == set && *set == *s_end)
-		return (1);
-	return (0);
-}
-
-int		str_startswith(char *s, char *set)
-{
-	while (*s && *set)
-	{
-		if (*s != *set)
-			return (0);
-		s++;
-		set++;
-	}
-	return (1);
-}

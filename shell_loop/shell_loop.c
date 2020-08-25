@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../include/minishell.h"
 
 int		print_error_log(char *lsh, char *command, char *argument, char *msg)
 {
