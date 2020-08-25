@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 23:24:33 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/23 20:00:30 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/25 23:37:38 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int		execution(char **argv, char **envp[])
 	}
 	else if (ft_strcmp(argv[0], "unset") == 0)
 		return (unset(argv[1], *envp));
+	else if (ft_strcmp(argv[0], "echo") == 0)
+		return (echo(&argv[1]));
 	else if (ft_strcmp(argv[0], "env") == 0)
 		return (print_env(*envp, argv));
 	else if (ft_strcmp(argv[0], "export") == 0)
