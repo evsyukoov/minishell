@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment_parser_2.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 21:45:04 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 19:32:53 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/24 18:22:44 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,34 @@ char	*lines26(char *arg, char **env, char *res)
 		arg++;
 	}
 	return (res);
+}
+
+int		check(t_args *lst)
+{
+	int		i;
+	t_args	*begin;
+	int		flag;
+
+	begin = lst;
+	while (lst)
+	{
+		i = 0;
+		while (lst->args[i])
+		{
+			if (ft_strchr(lst->args[i], '>') || ft_strchr(lst->args[i], '<'))
+			{
+				if ((flag = check_error_redirections(lst->args, i)))
+				{
+					parse_syntax_error(flag);
+					free_args_list(&begin);
+					return (0);
+				}
+			}
+			i++;
+		}
+		lst = lst->next;
+	}
+	return (1);
 }
 
 char	*get_environment_with_quotes(char *arg, char **env, int begin_len)

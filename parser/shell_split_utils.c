@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_split_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 22:44:33 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 19:59:00 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/24 14:52:09 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,23 +59,23 @@ int		find_close_quote(char **s, char quote, int *args)
 int		arguments_counter(char *s)
 {
 	int args;
-	int g_flag;
+	int flag;
 
 	args = 0;
-	g_flag = 0;
+	flag = 0;
 	skip(&s, ' ');
 	while (*s)
 	{
 		if (*s == '\'')
-			g_flag = find_close_quote(&s, '\'', &args);
+			flag = find_close_quote(&s, '\'', &args);
 		else if (*s == '\"')
-			g_flag = find_close_quote(&s, '\"', &args);
+			flag = find_close_quote(&s, '\"', &args);
 		while (*s && *s != ' ')
 			s++;
-		if (!g_flag)
+		if (!flag)
 			args++;
 		skip(&s, ' ');
-		g_flag = 0;
+		flag = 0;
 	}
 	return (args);
 }

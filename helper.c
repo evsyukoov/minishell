@@ -1,31 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   enviroment_utils2.c                                :+:      :+:    :+:   */
+/*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 18:04:08 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 15:49:04 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/15 19:21:16 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+//функции-помощники для отладки
 
-int		free_list(char **all_path)
+#include "include/minishell.h"
+
+void 	print_argv(char **argv)
 {
 	int i;
 
 	i = 0;
-	while (all_path[i])
-		free(all_path[i++]);
-	free(all_path);
-	return (0);
+	while (argv[i])
+		printf("%s\n", argv[i++]);
 }
 
-int		free_all(char **all_path, char *path)
+void 	print_arg_list(t_args *lst)
 {
-	free(path);
-	free_list(all_path);
-	return (1);
+	int j;
+
+	j = 0;
+	while (lst)
+	{
+		printf("Node number = %d, Node info = %s\n",
+				j, lst->flag == 0 ? "Command" : "Pipe");
+   		print_argv(lst->args);
+   		lst = lst->next;
+   		j++;
+	}
 }
+

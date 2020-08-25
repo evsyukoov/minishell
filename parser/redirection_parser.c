@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_parser.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 18:10:41 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 19:58:32 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/24 18:15:54 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int		get_files(char **argv, char *arg, int arg_index, t_files **head)
 	t_files *node;
 
 	node = NULL;
-	if (!argv[arg_index + 1])
-		return (0);
 	if (ft_strlen(arg) == 1 && *arg == '>')
 		node = new_redirection(argv[arg_index + 1], REWRITE);
 	else if (ft_strlen(arg) == 1 && *arg == '<')
@@ -30,30 +28,16 @@ int		get_files(char **argv, char *arg, int arg_index, t_files **head)
 	return (1);
 }
 
-int		check_error_redirections(char **argv)
+int		check_error_redirections(char **argv, int i)
 {
-	int i;
-	int j;
-	int count1;
-
-	i = 0;
-	while (argv[i])
-	{
-		j = 0;
-		count1 = 0;
-		if (argv[i + 1] && !ft_strcmp(argv[i], ">") &&
-			(!ft_strcmp(argv[i + 1], ">") || !ft_strcmp(argv[i + 1], ">>")))
-			return (1);
-		while (argv[i][j])
-		{
-			if (argv[i][j] == '>' || argv[i][j] == '<')
-				count1++;
-			if (count1 > 2)
-				return (1);
-			j++;
-		}
-		i++;
-	}
+	if (!argv[i + 1])
+		return (2);
+	if (ft_strlen(argv[i]) == 3 && *argv[i] == '>' && *(argv[i] + 1) == '>'
+	&& *(argv[i] + 2) == '>')
+		return (3);
+	else if (ft_strlen(argv[i]) == 2 && *argv[i] == '>'
+	&& *(argv[i] + 1) == '<')
+		return (4);
 	return (0);
 }
 
@@ -69,7 +53,6 @@ int		another26line(char ***arguments, t_args *lst, int i, t_files **files)
 int		check_node_for_redirection(t_args *lst, t_args **head)
 {
 	int		i;
-	t_args	*new_node;
 	char	**arguments;
 	t_files	*files;
 
@@ -79,14 +62,15 @@ int		check_node_for_redirection(t_args *lst, t_args **head)
 	while (lst->args[i])
 	{
 		if (ft_strchr(lst->args[i], '>') || ft_strchr(lst->args[i], '<'))
+		{
 			if (another26line(&arguments, lst, i, &files))
 				return (2);
+		}
 		i++;
 	}
 	if (files)
 	{
-		new_node = create_new_node(arguments, lst->flag, files);
-		push(head, new_node);
+		push(head, create_new_node(arguments, lst->flag, files));
 		return (1);
 	}
 	return (0);
@@ -96,20 +80,18 @@ t_args	*parse_redirections(t_args *lst)
 {
 	t_args	*tmp;
 	t_args	*head;
-	int		g_flag;
+	int		flag;
 
 	head = NULL;
+	if (!check(lst))
+		return (NULL);
 	while (lst)
 	{
 		tmp = lst;
-		if (check_error_redirections(lst->args))
-			return (parse_syntax_error(1));
-		g_flag = check_node_for_redirection(lst, &head);
-		if (!g_flag)
+		flag = check_node_for_redirection(lst, &head);
+		if (!flag)
 			push(&head, create_new_node(lst->args, lst->flag,
 			lst->files));
-		else if (g_flag == 2)
-			return (parse_syntax_error(2));
 		else
 			free_arguments(&lst->args);
 		lst = lst->next;
