@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split.c                                            :+:      :+:    :+:   */
+/*   split_nodes.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:00:38 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/25 15:01:00 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/25 17:29:58 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 
 int 	parse_error(char type)
 {
-	//parse_syntax_error(flag);
+	int flag;
+
+	if (type == ';')
+		flag = 5;
+	else if (type == '|')
+		flag = 6;
+	parse_syntax_error(flag);
 	return (-1);
 }
 
@@ -79,7 +85,7 @@ int		word_counter(char *s, char delimetr)
 		if (*s == delimetr)
 		{
 			if (*(s + 1) == delimetr)
-				return (parse_error(q_type));
+				return (parse_error(delimetr));
 			words++;
 		}
 		else if(!*(s + 1))

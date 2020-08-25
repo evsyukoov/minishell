@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/22 21:06:34 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/25 15:03:47 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/25 15:56:11 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void				push(t_args **lst, t_args *new);
 void				print_arg_list(t_args *lst);
 char				**shell_split(char *arg, char **env);
 t_args				*create_new_node(char **s, int g_flag, t_files *files);
-void				free_arguments(char ***argv);
+void				*free_arguments(char ***argv);
 void				print_argv(char **argv);
 t_args				*create_list(char *arg, char **env);
 int					execute(char **argv, char *envp[]);

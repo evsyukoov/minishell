@@ -66,7 +66,7 @@ int		cd(char **argv, char *envp[])
 	return (0);
 }
 
-void	free_arguments(char ***argv)
+void	*free_arguments(char ***argv)
 {
 	int i;
 
@@ -77,6 +77,7 @@ void	free_arguments(char ***argv)
 			free((*argv)[i++]);
 		free(*argv);
 	}
+	return (0);
 }
 
 int		execution(char **argv, char **envp[])
