@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 22:44:33 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/26 01:26:39 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/26 21:47:38 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,74 +18,58 @@ void	skip(char **s, char del)
 		(*s)++;
 }
 
-int		argument_len(char *s, char quote)
-{
-	int len;
-
-	len = 0;
-	while (*s && *s != ' ')
-	{
-		if (*s == quote)
-		{
-			while (*s && *s == quote)
-				s++;
-			while (*s && *s != quote)
-			{
-				s++;
-				len++;
-			}
-			if (*s == quote)
-				break ;
-		}
-		else
-		{
-			s++;
-			len++;
-		}
-	}
-	return (len);
-}
-
-int		find_close_quote(char **s, char quote, int *args)
-{
-	while (**s && **s == quote)
-		(*s)++;
-	while (**s && **s != quote)
-		(*s)++;
-	(*args)++;
-	return (1);
-}
-
-int		arguments_counter(char *s)
-{
-	int args;
-	int flag;
-
-	args = 0;
-	flag = 0;
-	skip(&s, ' ');
-	while (*s)
-	{
-		if (*s == '\'')
-			flag = find_close_quote(&s, '\'', &args);
-		else if (*s == '\"')
-			flag = find_close_quote(&s, '\"', &args);
-		while (*s && *s != ' ')
-			s++;
-		if (!flag)
-			args++;
-		skip(&s, ' ');
-		flag = 0;
-	}
-	return (args);
-}
-
 char	quote_type(char *arg)
 {
-	if (*arg == '\"')
+	if (*arg == '\"' && *(arg - 1) != '\\')
 		return ('\"');
-	else if (*arg == '\'')
+	else if (*arg == '\'' && *(arg - 1) != '\\')
 		return ('\'');
 	else
 		return ('\0');
+}
+
+int		env_len2(char *arg)
+{
+	int i;
+
+	i = 0;
+	while (arg[i] && arg[i] != ' ' && arg[i] != '\'' && arg[i] != '\"'
+		   && arg[i] != '\\' && arg[i] != '$' && arg[i] != '=')
+		i++;
+	return (i);
+}
+
+char	*init_env_name(char *arg)
+{
+	char	*name;
+	int		i;
+	int len;
+
+	arg += 1;
+	len = env_len2(arg);
+	name = (char*)malloc(sizeof(char) * (len + 1));
+	i = 0;
+	while (i < len)
+		name[i++] = *arg++;
+	name[i] = '\0';
+	return (name);
+}
+
+char	*init_home_path(char *tilda, char **arg)
+{
+	char	*full_path;
+	int		i;
+	int		j;
+
+	i = 0;
+	while ((*arg)[i] && (*arg)[i] != ' ')
+		i++;
+	full_path = (char*)malloc(i + 1 + ft_strlen(tilda));
+	ft_strlcpy(full_path, tilda, ft_strlen(tilda) + 1);
+	j = (int)ft_strlen(tilda);
+	while (**arg && **arg != ' ' && **arg != '\"')
+		full_path[j++] = *(*arg)++;
+	full_path[j] = '\0';
+	free(tilda);
+	return (full_path);
 }

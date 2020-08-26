@@ -5,7 +5,6 @@ INCLUDE  = include/
 SRCS =  main.c \
 		GNL/get_next_line.c \
 		GNL/get_next_line_utils.c \
-		parser/list_utils.c \
 		shell_loop/shell_loop.c \
 		shell_loop/execute.c \
 		shell_loop/export.c \
@@ -17,17 +16,16 @@ SRCS =  main.c \
 		shell_loop/parse_function.c \
 		shell_loop/pipe_dup.c \
 		shell_loop/launch.c \
+		parser/list_utils.c \
+		parser/parser_lists.c \
 		parser/redirection_list.c \
 		parser/redirection_parser.c \
 		parser/redirection_parser_utils.c \
-		parser/environment_parser.c \
 		parser/shell_split.c \
-		parser/shell_split_2.c \
 		parser/shell_split_utils.c \
-		parser/shell_split_utils_2.c \
-		parser/str_utils.c \
 		parser/split_nodes.c \
-		parser/environment_parser_2.c
+		parser/parsing.c \
+		helper.c
 
 OBJS = $(SRCS:.c=.o)
 

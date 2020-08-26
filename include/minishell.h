@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/22 21:06:34 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/26 02:06:52 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/26 21:46:14 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@
 # define REVERSE 2
 # define COMMAND 0
 # define PIPE 1
+# include "get_next_line.h"
 # include "libft.h"
 # include <zconf.h>
 # include <stdio.h>
-# include "get_next_line.h"
 # include <string.h>
 # include <sys/types.h>
 # include <fcntl.h>
@@ -30,6 +30,20 @@
 # include <signal.h>
 # include <errno.h>
 # include <sys/wait.h>
+
+typedef struct 		s_str
+{
+	char 			curr;
+	char 			*string;
+	struct s_str	*next;
+}					t_str;
+
+typedef struct 		s_argv
+{
+	char 			*str;
+	struct s_argv	*next;
+}					t_node;
+
 
 typedef struct		s_names
 {
@@ -59,16 +73,15 @@ char			**g_env_copy;
 pid_t			g_lsh_child;
 int				g_last_code;
 
-void				shell_loop(char *envp[]);
+void				shell_loop();
 int					cd(char **argv, char *envp[]);
 void				push(t_args **lst, t_args *new);
 void				print_arg_list(t_args *lst);
-char				**shell_split(char *arg, char **env);
 t_args				*create_new_node(char **s, int g_flag, t_files *files);
 void				*free_arguments(char ***argv);
 void				print_argv(char **argv);
-t_args				*create_list(char *arg, char **env);
-int					execute(char **argv, char *envp[]);
+t_args				*create_list(char *arg);
+int					execute(char **argv);
 int					str_endswith(char *s, char *set);
 t_args				*parse_redirections(t_args *lst);
 char				*get_env_var(char *name, char *envp[]);
@@ -95,22 +108,14 @@ void				skip(char **s, char del);
 char				*replace_bash_symbols(char ***arg, char **env);
 int					env_len2(char *arg);
 char				*init_env_name(char *arg);
-char				*get_begin_string(char *current_ptr, int len);
-int					quotes_size(char *arg);
-char				*join_char(char *arg, char c);
-int					is_dollar_symbol(char *arg);
-void				skip_env(char **arg);
-char				*init_arg(char **arg, char **env, t_split var);
-int					arguments_counter(char *s);
 char				quote_type(char *arg);
-int					argument_len(char *s, char quote);
 void				sighandler(int sig_num);
 int					free_list(char **all_path);
 int					free_all(char **all_path, char *path);
 int					exe_one_command(t_args *args_lst, char **envp[]);
 int					print_error_log(char *lsh, char *command,
 char *argument, char *msg);
-int					launch(char **argv, char *envp[]);
+//int					launch(char **argv, char *envp[]);
 char				*init_home_path(char *tilda, char **arg);
 t_files				*new_redirection(char *file_path, int file_option);
 void				push_redirect(t_files **lst, t_files *new);
@@ -128,23 +133,11 @@ t_args 			*get_node(t_args *lst, int index);
 int				word_counter(char *s, char delimetr);
 int 			skip_quotes(char **s, char q_type);
 int				echo (char *argv[]);
-int				isEnvValid(char c);
-
-//3 новых функции
-
-// Принимает строчку начиная с доллара то есть $PWD
-// Возвращает "$" если стоит не читаемый символ после доллара
-// NULL если не найдено значение в окружении
-// и строчку с аргументом если найденная такая переменная
-// все возвращается стардапом, чтобы удобнее было чистить
-char			*envRet(char *str, char *envp[]);
-// Также принимает строчку начиная с доллара
-// возвращает 0 если первый символ не доллар
-// 1 если символ доллар но после него нечитаемые символы
-// 2 если сразу после доллара стоит цифра
-// далее длину переменной вместе с долларом 
-int				envLen(char *str);
-// вовзращает 1 если символ допустимый и 0 если нет
-int				isEnvValid(char c);
+void 			add_to_list(t_node **head, char *str);
+void			add_to_str(t_str **head, char c, char *string);
+char			*list_to_str(t_str **str);
+char			**node_to_argv(t_node **head);
+char 			**split_arg(char *s);
+int				launch(char **argv);
 
 #endif

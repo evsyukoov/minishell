@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   launch.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/22 19:47:25 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/23 19:58:24 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/26 20:30:46 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	return_launch(int status)
 	return (WEXITSTATUS(status));
 }
 
-int	launch(char **argv, char *envp[])
+int	launch(char **argv)
 {
 	int	status;
 
@@ -34,7 +34,7 @@ int	launch(char **argv, char *envp[])
 		perror("minishell");
 	else if (g_lsh_child == 0)
 	{
-		if (execute(argv, envp) == -1)
+		if (execute(argv) == -1)
 		{
 			print_error_log("lsh: ", NULL, argv[0], "command not found");
 			exit(127);

@@ -18,18 +18,15 @@ add_executable(minishell main.c
         shell_loop/shell_loop.c
         shell_loop/unset.c
         libft/ft_strcmp.c
-        parser/environment_parser.c
-        parser/environment_parser_2.c
         parser/list_utils.c
         parser/split_nodes.c
-        parser/str_utils.c
         parser/redirection_list.c
         parser/redirection_parser.c
         parser/redirection_parser_utils.c
         parser/shell_split.c
-        parser/shell_split_2.c
         parser/shell_split_utils.c
-        parser/shell_split_utils_2.c
         helper.c
-        parser/split_nodes.c)
+        parser/split_nodes.c
+        parser/parsing.c
+        parser/parser_lists.c)
 target_link_libraries(minishell ft)

@@ -68,6 +68,6 @@ int		main(int argc, char *argv[], char *envp[])
 	argv = 0;
 	if (!(g_env_copy = realloc_env(envp)))
 		return (0);
-	shell_loop(g_env_copy);
+	shell_loop();
 	return (g_last_code);
 }
