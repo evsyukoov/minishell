@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 22:44:33 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/26 18:45:22 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/26 21:17:04 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,50 @@ char	quote_type(char *arg)
 		return ('\'');
 	else
 		return ('\0');
+}
+
+int		env_len2(char *arg)
+{
+	int i;
+
+	i = 0;
+	while (arg[i] && arg[i] != ' ' && arg[i] != '\'' && arg[i] != '\"'
+		   && arg[i] != '\\' && arg[i] != '$' && arg[i] != '=')
+		i++;
+	return (i);
+}
+
+char	*init_env_name(char *arg)
+{
+	char	*name;
+	int		i;
+	int len;
+
+	arg += 1;
+	len = env_len2(arg);
+	name = (char*)malloc(sizeof(char) * (len + 1));
+	i = 0;
+	while (i < len)
+		name[i++] = *arg++;
+	name[i] = '\0';
+	return (name);
+}
+
+char	*init_home_path(char *tilda, char **arg)
+{
+	char	*full_path;
+	int		i;
+	int		j;
+
+	i = 0;
+	while ((*arg)[i] && (*arg)[i] != ' ')
+		i++;
+	full_path = (char*)malloc(i + 1 + ft_strlen(tilda));
+	ft_strlcpy(full_path, tilda, ft_strlen(tilda) + 1);
+	j = (int)ft_strlen(tilda);
+	while (**arg && **arg != ' ' && **arg != '\"')
+		full_path[j++] = *(*arg)++;
+	full_path[j] = '\0';
+	free(tilda);
+	return (full_path);
 }

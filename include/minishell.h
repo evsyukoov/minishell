@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/22 21:06:34 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/26 20:07:42 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/26 20:31:22 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void				shell_loop();
 int					cd(char **argv, char *envp[]);
 void				push(t_args **lst, t_args *new);
 void				print_arg_list(t_args *lst);
-char				**shell_split(char *arg, char **env);
 t_args				*create_new_node(char **s, int g_flag, t_files *files);
 void				*free_arguments(char ***argv);
 void				print_argv(char **argv);
@@ -109,15 +108,7 @@ void				skip(char **s, char del);
 char				*replace_bash_symbols(char ***arg, char **env);
 int					env_len2(char *arg);
 char				*init_env_name(char *arg);
-char				*get_begin_string(char *current_ptr, int len);
-int					quotes_size(char *arg);
-char				*join_char(char *arg, char c);
-int					is_dollar_symbol(char *arg);
-void				skip_env(char **arg);
-char				*init_arg(char **arg, char **env, t_split var);
-int					arguments_counter(char *s);
 char				quote_type(char *arg);
-int					argument_len(char *s, char quote);
 void				sighandler(int sig_num);
 int					free_list(char **all_path);
 int					free_all(char **all_path, char *path);

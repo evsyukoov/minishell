@@ -1,60 +1,139 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_split.c                                      :+:      :+:    :+:   */
+/*   shell_split_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/13 16:08:59 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 15:49:50 by mcaptain         ###   ########.fr       */
+/*   Created: 2020/08/21 22:16:20 by ccarl             #+#    #+#             */
+/*   Updated: 2020/08/26 20:49:08 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*join_char(char *arg, char c)
+int			number_of_arguments(char **argv)
 {
-	char	*res;
-	int		i;
+	int j;
 
-	i = 0;
-	if (!(res = (char*)malloc(ft_strlen(arg) + 2)))
-		return (0);
-	while (arg[i])
-	{
-		res[i] = arg[i];
-		i++;
-	}
-	res[i++] = c;
-	res[i] = '\0';
-	free(arg);
-	return (res);
+	j = 0;
+	while (argv[j])
+		j++;
+	return (j);
 }
 
-int		is_dollar_symbol(char *arg)
+t_args		*split_pipes(t_args **lst, char *arg_pipe)
 {
-	if (*arg == '$' && (!ft_isalnum(*(arg + 1)) || *(arg + 1) == ' '))
+	int		j;
+	char	**argv_pipes;
+	int		num_of_args;
+
+	j = 0;
+	argv_pipes = split(arg_pipe, '|');
+	if (!argv_pipes)
+		return (0);
+	num_of_args = number_of_arguments(argv_pipes);
+	while (argv_pipes[j])
+	{
+		{
+			if (j < num_of_args - 1)
+				push(lst, create_new_node(
+				split_arg(argv_pipes[j]), PIPE, NULL));
+			else
+				push(lst, create_new_node(
+						split_arg(argv_pipes[j]), COMMAND, NULL));
+			j++;
+		}
+	}
+	free_arguments(&argv_pipes);
+	return (*lst);
+}
+
+
+int 		is_pipe(char *s)
+{
+	char q_type;
+
+	while (*s)
+	{
+		q_type = quote_type(s);
+		while (q_type)
+		{
+			skip_quotes(&s, q_type);
+			q_type = quote_type(s);
+		}
+		if (*s == '|')
+			return (1);
+		s++;
+	}
+	return (0);
+}
+
+int 		is_pipe_end(char *arg)
+{
+	int end;
+
+	end = (int)ft_strlen(arg) - 1;
+	while (arg[end] == ' ' && arg[end] != *arg)
+		end--;
+	if (arg[end] == '|')
 		return (1);
 	return (0);
 }
 
-char	*init_arg(char **arg, char **env, t_split var)
+void 		change_option(t_args *lst)
 {
-	char	*res;
+	while (lst->next)
+		lst = lst->next;
+	lst->flag = PIPE;
+}
 
-	if (!(res = replace_bash_symbols(&arg, env)))
+t_args		*create_list(char *arg)
+{
+	t_args	*lst;
+	char	**argv1;
+	int		i;
+
+	i = 0;
+	lst = NULL;
+	argv1 = split(arg, ';');
+	if (!argv1)
+		return (0);
+	while (argv1[i])
 	{
-		var.q_type = quote_type(*arg);
-		var.arg_len = argument_len(*arg, var.q_type);
-		if (!(res = (char *)malloc(var.arg_len + 1)))
-			return (0);
-		var.j = 0;
-		skip(arg, var.q_type);
-		while (var.j < var.arg_len && **arg)
-			res[var.j++] = *(*arg)++;
-		res[var.j] = '\0';
-		skip(arg, var.q_type);
-		skip(arg, ' ');
+		if (is_pipe(argv1[i]))
+		{
+			if (!split_pipes(&lst, argv1[i]))
+				return (free_arguments(&argv1));
+		}
+		else
+			push(&lst, create_new_node(
+			split_arg(argv1[i]), COMMAND, NULL));
+		i++;
 	}
-	return (res);
+	if (is_pipe_end(arg))
+		change_option(lst);
+	free_arguments(&argv1);
+	return (parse_redirections(lst));
+}
+
+void		*parse_syntax_error(int flag)
+{
+	if (flag == 3)
+		print_error_log(
+	"lsh: ", NULL, NULL, "syntax error near unexpected token '>'");
+	else if (flag == 2)
+		print_error_log("lsh: ", NULL,
+		NULL, "syntax error near unexpected token 'newline'");
+	else if (flag == 4)
+		print_error_log("lsh: ", NULL,
+						NULL, "syntax error near unexpected token '<'");
+	else if (flag == 5)
+		print_error_log("lsh: ", NULL,
+						NULL, "syntax error near unexpected token ';;'");
+	else if (flag == 6)
+		print_error_log("lsh: ", NULL,
+						NULL, "syntax error near unexpected token '|'");
+	g_last_code = 258;
+	return (NULL);
 }

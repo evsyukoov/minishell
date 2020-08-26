@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 18:40:29 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/26 20:37:13 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/26 20:49:49 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,4 +220,32 @@ char 	**split_arg(char *s)
 		skip(&s, ' ');
 	}
 	return (node_to_argv(&node));
+}
+
+int		check(t_args *lst)
+{
+	int		i;
+	t_args	*begin;
+	int		flag;
+
+	begin = lst;
+	while (lst)
+	{
+		i = 0;
+		while (lst->args[i])
+		{
+			if (ft_strchr(lst->args[i], '>') || ft_strchr(lst->args[i], '<'))
+			{
+				if ((flag = check_error_redirections(lst->args, i)))
+				{
+					parse_syntax_error(flag);
+					free_args_list(&begin);
+					return (0);
+				}
+			}
+			i++;
+		}
+		lst = lst->next;
+	}
+	return (1);
 }

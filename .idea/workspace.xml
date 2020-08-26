@@ -30,25 +30,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d3f3b3d-67a6-47c1-8ca8-129defb1b877" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/test" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/helper.c" beforeDir="false" afterPath="$PROJECT_DIR$/helper.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file1" beforeDir="false" afterPath="$PROJECT_DIR$/file1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/minishell.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libft/libft.a" beforeDir="false" afterPath="$PROJECT_DIR$/libft/libft.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/minishell" beforeDir="false" afterPath="$PROJECT_DIR$/minishell" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/parser_lists.c" beforeDir="false" afterPath="$PROJECT_DIR$/parser/parser_lists.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/environment_parser.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/environment_parser_2.c" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/parser/parsing.c" beforeDir="false" afterPath="$PROJECT_DIR$/parser/parsing.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/shell_split_2.c" beforeDir="false" afterPath="$PROJECT_DIR$/parser/shell_split_2.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/shell_split.c" beforeDir="false" afterPath="$PROJECT_DIR$/parser/shell_split.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/shell_split_2.c" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/parser/shell_split_utils.c" beforeDir="false" afterPath="$PROJECT_DIR$/parser/shell_split_utils.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/shell_split_utils_2.c" beforeDir="false" afterPath="$PROJECT_DIR$/parser/shell_split_utils_2.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/split_nodes.c" beforeDir="false" afterPath="$PROJECT_DIR$/parser/split_nodes.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shell_loop/execute.c" beforeDir="false" afterPath="$PROJECT_DIR$/shell_loop/execute.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shell_loop/launch.c" beforeDir="false" afterPath="$PROJECT_DIR$/shell_loop/launch.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shell_loop/parse_function.c" beforeDir="false" afterPath="$PROJECT_DIR$/shell_loop/parse_function.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shell_loop/shell_loop.c" beforeDir="false" afterPath="$PROJECT_DIR$/shell_loop/shell_loop.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/shell_split_utils_2.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/str_utils.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test" beforeDir="false" afterPath="$PROJECT_DIR$/test" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +98,7 @@
       <workItem from="1598351634258" duration="729000" />
       <workItem from="1598356712830" duration="10171000" />
       <workItem from="1598376926268" duration="7539000" />
-      <workItem from="1598443615146" duration="18681000" />
+      <workItem from="1598443615146" duration="19815000" />
     </task>
     <servers />
   </component>
@@ -132,26 +130,26 @@
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="424" height="466" key="DebuggerActiveHint/0.0.2560.1440@0.0.2560.1440" timestamp="1598380296594" />
-    <state width="2518" height="326" key="GridCell.Tab.0.bottom" timestamp="1598465298639">
+    <state width="2518" height="2" key="GridCell.Tab.0.bottom" timestamp="1598466208439">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state width="2518" height="452" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1598444622928" />
-    <state width="2518" height="326" key="GridCell.Tab.0.bottom/0.23.2560.1337@0.23.2560.1337" timestamp="1598465298639" />
-    <state width="2518" height="326" key="GridCell.Tab.0.center" timestamp="1598465298638">
+    <state width="2518" height="2" key="GridCell.Tab.0.bottom/0.23.2560.1337@0.23.2560.1337" timestamp="1598466208439" />
+    <state width="2518" height="2" key="GridCell.Tab.0.center" timestamp="1598466208438">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state width="2518" height="452" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1598444622927" />
-    <state width="2518" height="326" key="GridCell.Tab.0.center/0.23.2560.1337@0.23.2560.1337" timestamp="1598465298638" />
-    <state width="2518" height="326" key="GridCell.Tab.0.left" timestamp="1598465298638">
+    <state width="2518" height="2" key="GridCell.Tab.0.center/0.23.2560.1337@0.23.2560.1337" timestamp="1598466208438" />
+    <state width="2518" height="2" key="GridCell.Tab.0.left" timestamp="1598466208438">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state width="2518" height="452" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1598444622926" />
-    <state width="2518" height="326" key="GridCell.Tab.0.left/0.23.2560.1337@0.23.2560.1337" timestamp="1598465298638" />
-    <state width="2518" height="326" key="GridCell.Tab.0.right" timestamp="1598465298639">
+    <state width="2518" height="2" key="GridCell.Tab.0.left/0.23.2560.1337@0.23.2560.1337" timestamp="1598466208438" />
+    <state width="2518" height="2" key="GridCell.Tab.0.right" timestamp="1598466208439">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state width="2518" height="452" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1598444622928" />
-    <state width="2518" height="326" key="GridCell.Tab.0.right/0.23.2560.1337@0.23.2560.1337" timestamp="1598465298639" />
+    <state width="2518" height="2" key="GridCell.Tab.0.right/0.23.2560.1337@0.23.2560.1337" timestamp="1598466208439" />
     <state width="2518" height="108" key="GridCell.Tab.1.bottom" timestamp="1598458009991">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
