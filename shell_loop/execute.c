@@ -76,11 +76,11 @@ int		norminette_path(char **argv, char *envp[], char *path)
 	return (-1);
 }
 
-int		execute(char **argv, char *envp[])
+int		execute(char **argv)
 {
 	char	*path;
 
-	if ((path = pathfinder(envp)))
-		return (norminette_path(argv, envp, path));
+	if ((path = pathfinder(g_env_copy)))
+		return (norminette_path(argv, g_env_copy, path));
 	return (-1);
 }

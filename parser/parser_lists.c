@@ -130,6 +130,7 @@ char 	*list_to_str(t_str **str)
 	int		i;
 	t_str	*tmp;
 	char *st;
+	char *st_tmp;
 
 	res = (char*)malloc(lst_size(*str) + 1);
 	i = 0;
@@ -138,8 +139,12 @@ char 	*list_to_str(t_str **str)
 		tmp = *str;
 		st = (*str)->string;
 		if (st)
+		{
+			st_tmp = st;
 			while (*st)
 				res[i++] = *st++;
+			free(st_tmp);
+		}
 		else
 			res[i++] = (*str)->curr;
 		(*str) = (*str)->next;

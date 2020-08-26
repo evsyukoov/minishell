@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 15:00:38 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/25 17:29:58 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/26 19:23:01 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int 	parse_error(char type)
 {
 	int flag;
 
+	flag = 0;
 	if (type == ';')
 		flag = 5;
 	else if (type == '|')
@@ -37,6 +38,11 @@ int 	skip_quotes(char **s, char q_type)
 		{
 			(*s)++;
 			len++;
+			if (**s == q_type && *(*s - 1) == '\\')
+			{
+				(*s)++;
+				len++;
+			}
 		}
 		(*s)++;
 		len++;
@@ -44,53 +50,53 @@ int 	skip_quotes(char **s, char q_type)
 	return (len);
 }
 
-int		word_len(char *s, char delimetr)
+int		word_len(char *str, char delimetr)
 {
 	int len;
 	char q_type;
 
 	len = 0;
-	while (*s && *s != delimetr)
+	while (*str && *str != delimetr)
 	{
-		q_type = quote_type(s);
+		q_type = quote_type(str);
 		while (q_type)
 		{
-			len += skip_quotes(&s, q_type);
-			q_type = quote_type(s);
+			len += skip_quotes(&str, q_type);
+			q_type = quote_type(str);
 		}
-		if (*s == delimetr)
+		if (*str == delimetr)
 			return (len);
-		s++;
+		str++;
 		len++;
 	}
 	return (len);
 }
 
-int		word_counter(char *s, char delimetr)
+int		word_counter(char *str, char delimetr)
 {
 	int words;
 	char q_type;
 
 	words = 0;
-	if (*s == delimetr)
-		return (parse_error(*s));
-	while (*s)
+	if (*str == delimetr)
+		return (parse_error(*str));
+	while (*str)
 	{
-		q_type = quote_type(s);
+		q_type = quote_type(str);
 		while (q_type)
 		{
-			skip_quotes(&s, q_type);
-			q_type = quote_type(s);
+			skip_quotes(&str, q_type);
+			q_type = quote_type(str);
 		}
-		if (*s == delimetr)
+		if (*str == delimetr)
 		{
-			if (*(s + 1) == delimetr)
+			if (*(str + 1) == delimetr)
 				return (parse_error(delimetr));
 			words++;
 		}
-		else if(!*(s + 1))
+		else if(!*(str + 1))
 			words++;
-		s++;
+		str++;
 	}
 	return (words);
 }

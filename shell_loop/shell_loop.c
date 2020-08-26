@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/24 18:17:04 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/26 21:10:18 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,13 @@ int		print_error_log(char *lsh, char *command, char *argument, char *msg)
 	return (1);
 }
 
-t_args	*get_argv(char **env)
+t_args	*get_argv()
 {
 	char	*line;
 	t_args	*lst;
 	int		ret;
 
+	line = NULL;
 	ret = get_next_line(0, &line);
 	if (ret < 0)
 		return (0);
@@ -41,8 +42,8 @@ t_args	*get_argv(char **env)
 		exit(0);
 	if (*line == '\0')
 		return (0);
-	lst = create_list(line, env);
-	print_arg_list(lst);
+	lst = create_list(line);
+	//print_arg_list(lst);
 	free(line);
 	return (lst);
 }
@@ -91,21 +92,22 @@ int		parse_str(t_args *args_lst, char **envp[])
 	return (status);
 }
 
-void	shell_loop(char *envp[])
+void	shell_loop()
 {
-	//int		status;
+	int		status;
 	t_args	*args_lst;
 
+	args_lst = NULL;
 	while (1)
 	{
 		signal(SIGQUIT, sighandler);
 		signal(SIGINT, sighandler);
 		write(1, "minishell : ", 12);
-		args_lst = get_argv(envp);
+		args_lst = get_argv();
 		if (args_lst)
 		{
-		//	status = parse_str(args_lst, &envp);
-			//g_last_code = status;
+			status = parse_str(args_lst, &g_env_copy);
+			g_last_code = status;
 		}
 		free_args_list(&args_lst);
 	}

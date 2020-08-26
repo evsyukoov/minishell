@@ -31,5 +31,6 @@ add_executable(minishell main.c
         parser/shell_split_utils.c
         parser/shell_split_utils_2.c
         helper.c
-        parser/split_nodes.c)
+        parser/split_nodes.c parser/parsing.c
+        parser/parser_lists.c)
 target_link_libraries(minishell ft)

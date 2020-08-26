@@ -99,5 +99,5 @@ int		execution(char **argv, char **envp[])
 		return (export(argv[1], envp));
 	else if (ft_strcmp(argv[0], "exit") == 0)
 		exit_program(argv[1]);
-	return (launch(argv, *envp));
+	return (launch(argv));
 }

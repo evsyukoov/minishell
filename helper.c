@@ -32,6 +32,11 @@ void 	print_arg_list(t_args *lst)
 	{
 		printf("Node number = %d, Node info = %s\n",
 				j, lst->flag == 0 ? "Command" : "Pipe");
+		while (lst->files)
+		{
+			printf("file name = %s, file option = %d\n", lst->files->name, lst->files->type);
+			lst->files = lst->files->next;
+		}
    		print_argv(lst->args);
    		lst = lst->next;
    		j++;

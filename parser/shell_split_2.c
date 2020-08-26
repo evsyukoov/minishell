@@ -6,30 +6,11 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 22:16:20 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/25 17:40:32 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/26 20:49:08 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
-
-char		**shell_split(char *arg, char **env)
-{
-	t_split	var;
-	char	**res;
-
-	var.args = arguments_counter(arg);
-	var.i = 0;
-	if (!(res = (char **)malloc(sizeof(char *) * (var.args + 1))))
-		return (0);
-	skip(&arg, ' ');
-	while (var.i < var.args)
-	{
-		res[var.i] = init_arg(&arg, env, var);
-		var.i++;
-	}
-	res[var.i] = NULL;
-	return (res);
-}
 
 int			number_of_arguments(char **argv)
 {
@@ -41,7 +22,7 @@ int			number_of_arguments(char **argv)
 	return (j);
 }
 
-t_args		*split_pipes(t_args **lst, char *arg_pipe, char **env)
+t_args		*split_pipes(t_args **lst, char *arg_pipe)
 {
 	int		j;
 	char	**argv_pipes;
@@ -57,10 +38,10 @@ t_args		*split_pipes(t_args **lst, char *arg_pipe, char **env)
 		{
 			if (j < num_of_args - 1)
 				push(lst, create_new_node(
-				split_arg(argv_pipes[j], env), PIPE, NULL));
+				split_arg(argv_pipes[j]), PIPE, NULL));
 			else
 				push(lst, create_new_node(
-						split_arg(argv_pipes[j], env), COMMAND, NULL));
+						split_arg(argv_pipes[j]), COMMAND, NULL));
 			j++;
 		}
 	}
@@ -107,7 +88,7 @@ void 		change_option(t_args *lst)
 	lst->flag = PIPE;
 }
 
-t_args		*create_list(char *arg, char **env)
+t_args		*create_list(char *arg)
 {
 	t_args	*lst;
 	char	**argv1;
@@ -122,12 +103,12 @@ t_args		*create_list(char *arg, char **env)
 	{
 		if (is_pipe(argv1[i]))
 		{
-			if (!split_pipes(&lst, argv1[i], env))
+			if (!split_pipes(&lst, argv1[i]))
 				return (free_arguments(&argv1));
 		}
 		else
 			push(&lst, create_new_node(
-			split_arg(argv1[i], env), COMMAND, NULL));
+			split_arg(argv1[i]), COMMAND, NULL));
 		i++;
 	}
 	if (is_pipe_end(arg))
