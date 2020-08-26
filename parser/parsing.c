@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 18:40:29 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/26 20:49:49 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/26 21:58:43 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,14 @@ void 	push_envir(char *s, t_str **head)
 {
 	char *name;
 	char *envir;
+	char *env_var;
 
 	name = init_env_name(s);
-	envir = ft_strdup(get_env_var(name, g_env_copy));
+	env_var = get_env_var(name, g_env_copy);
+	if (env_var)
+		envir = ft_strdup(env_var);
+	else
+		return ;
 	if (envir)
 		add_to_str(head, 0, envir);
 	free(name);
