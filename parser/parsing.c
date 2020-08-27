@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/25 18:40:29 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/26 21:58:43 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/27 15:37:41 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,11 +191,156 @@ char	*parse_home_path(char *s, t_str **head)
 	return (s);
 }
 
-char 	**split_arg(char *s)
+int 	is_redirections(char *s)
+{
+	if (*s == '>' || *s == '<')
+		return (1);
+	return (0);
+}
+
+int		check_for_newline_error(char *s)
+{
+	while (*s && *s == ' ')
+		s++;
+	if (!*s)
+		return (0);
+	return (1);
+}
+
+char 	*count_redirections(char *s, int *count, char type)
+{
+	while (*s == type)
+	{
+		s++;
+		(*count)++;
+	}
+	return (s);
+}
+
+int 	type_of_redirection(char **s)
+{
+	int count;
+
+	count = 0;
+	*s = count_redirections(*s, &count, '>');
+	if (!check_for_newline_error(*s))
+		return ((int)parse_syntax_error(2));
+	if (count > 2)
+		return ((int)parse_syntax_error(3));
+	if (count == 2)
+		return (WRITE);
+	if (count == 1)
+		return (REWRITE);
+	count = 0;
+	*s = count_redirections(*s, &count, '<');
+	if (!check_for_newline_error(*s))
+		return ((int)parse_syntax_error(2));
+	if (count > 1)
+		return ((int)parse_syntax_error(4));
+	if (count == 1)
+		return (REVERSE);
+}
+
+void 	free_files(t_files **files)
+{
+	t_files *tmp;
+
+	while (*files)
+	{
+		tmp = *files;
+		free((*files)->name);
+		*files = (*files)->next;
+		free(tmp);
+	}
+}
+
+void 	free_nodes(t_node **head)
+{
+	t_node *tmp;
+
+	while (*head)
+	{
+		tmp = *head;
+		free((*head)->str);
+		*head = (*head)->next;
+		free(tmp);
+	}
+}
+
+char 	*parse_redirect(char *s, t_files **files)
+{
+	t_str *str;
+	int flag;
+
+	str = NULL;
+	flag = type_of_redirection(&s);
+	if (!flag)
+	{
+		free_files(files);
+		return (0);
+	}
+	skip(&s,' ');
+	while (*s && *s != ' ' && *s != '>' && *s != '<')
+		s = parsing(s, &str);
+	push_redirect(files, new_redirection(list_to_str(&str), flag));
+	return (s);
+}
+
+char 	*wait_for_next_redirect(char *s)
+{
+	skip (&s, ' ');
+	while (*s && !is_redirections(s))
+		s++;
+	return (s);
+}
+
+char 	*parsing(char *s, t_str **str)
+{
+	if (*s == '~')
+		s = parse_home_path(s, str);
+	if (*s == '\"' && *(s - 1) != '\\')
+		parse_double_quotes(str, &s);
+	if (*s == '\'' && *(s - 1) != '\\')
+		parse_simple_quotes(str, &s);
+	if (*s == '\\')
+		s = analize_slash(s, str, 0);
+	if (*s == '$')
+		s = parse_dollar(s, str);
+	if (!is_spec_symbols(s) && *s && *s != ' ' && !is_redirections(s))
+	{
+		add_to_str(str, *s, NULL);
+		s++;
+	}
+	return (s);
+}
+
+int		redirection_parser_loop(char **s, t_files **files, t_str *str, t_node **node)
+{
+	int flag;
+
+	flag = 0;
+	if (is_redirections(*s) && ++flag)
+	{
+		if (str)
+			add_to_list(node, list_to_str(&str));
+		while (**s)
+		{
+			if (!(*s = parse_redirect(*s, files)))
+			{
+				free_nodes(node);
+				return (-1);
+			}
+			*s = wait_for_next_redirect(*s);
+		}
+	}
+	return (flag);
+}
+
+char 	**split_arg(char *s, t_files **files)
 {
 	t_node	*node;
 	t_str	*str;
-	char 	*string;
+	int		flag;
 
 	node = NULL;
 	skip(&s, ' ');
@@ -204,24 +349,14 @@ char 	**split_arg(char *s)
 		str = NULL;
 		while (*s && *s != ' ')
 		{
-			if (*s == '~')
-				s = parse_home_path(s, &str);
-			if (*s == '\"' && *(s - 1) != '\\')
-				parse_double_quotes(&str, &s);
-			if (*s == '\'' && *(s - 1) != '\\')
-				parse_simple_quotes(&str, &s);
-			if (*s == '\\')
-				s = analize_slash(s, &str, 0);
-			if (*s == '$')
-				s = parse_dollar(s, &str);
-			if (!is_spec_symbols(s) && *s && *s != ' ')
-			{
-				add_to_str(&str, *s, NULL);
-				s++;
-			}
+			flag = redirection_parser_loop(&s, files, str, &node);
+			if (flag == -1)
+				return (0);
+			if (flag)
+				return (node_to_argv(&node));
+			s = parsing(s, &str);
 		}
-		string = list_to_str(&str);
-		add_to_list(&node, string);
+		add_to_list(&node, list_to_str(&str));
 		skip(&s, ' ');
 	}
 	return (node_to_argv(&node));

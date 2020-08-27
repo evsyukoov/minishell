@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shell_split_2.c                                    :+:      :+:    :+:   */
+/*   shell_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 22:16:20 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/26 20:49:08 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/27 16:04:01 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,30 @@ int			number_of_arguments(char **argv)
 	return (j);
 }
 
-t_args		*split_pipes(t_args **lst, char *arg_pipe)
+t_args		*split_pipes(t_args **lst, char *arg_pipe, t_files **files)
 {
 	int		j;
 	char	**argv_pipes;
 	int		num_of_args;
+	char 	**splited;
+	int		flag;
 
 	j = 0;
+	flag = PIPE;
 	argv_pipes = split(arg_pipe, '|');
 	if (!argv_pipes)
 		return (0);
 	num_of_args = number_of_arguments(argv_pipes);
 	while (argv_pipes[j])
 	{
-		{
-			if (j < num_of_args - 1)
-				push(lst, create_new_node(
-				split_arg(argv_pipes[j]), PIPE, NULL));
-			else
-				push(lst, create_new_node(
-						split_arg(argv_pipes[j]), COMMAND, NULL));
-			j++;
-		}
+		*files = NULL;
+		if (j == num_of_args - 1)
+			flag = COMMAND;
+		splited = split_arg(argv_pipes[j], files);
+		if (!splited)
+			return (free_arguments(&argv_pipes));
+		push(lst, create_new_node(splited, flag, *files));
+		j++;
 	}
 	free_arguments(&argv_pipes);
 	return (*lst);
@@ -93,6 +95,8 @@ t_args		*create_list(char *arg)
 	t_args	*lst;
 	char	**argv1;
 	int		i;
+	t_files *files;
+	char 	**splited;
 
 	i = 0;
 	lst = NULL;
@@ -101,20 +105,25 @@ t_args		*create_list(char *arg)
 		return (0);
 	while (argv1[i])
 	{
+		files = NULL;
 		if (is_pipe(argv1[i]))
 		{
-			if (!split_pipes(&lst, argv1[i]))
+			if (!split_pipes(&lst, argv1[i], &files))
 				return (free_arguments(&argv1));
 		}
 		else
-			push(&lst, create_new_node(
-			split_arg(argv1[i]), COMMAND, NULL));
+		{
+			splited = split_arg(argv1[i], &files);
+			if (!splited)
+				return (free_arguments(&argv1));
+			push(&lst, create_new_node(splited, COMMAND, files));
+		}
 		i++;
 	}
 	if (is_pipe_end(arg))
 		change_option(lst);
 	free_arguments(&argv1);
-	return (parse_redirections(lst));
+	return (lst);
 }
 
 void		*parse_syntax_error(int flag)

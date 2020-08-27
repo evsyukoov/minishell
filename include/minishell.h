@@ -6,16 +6,16 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/22 21:06:34 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/26 20:31:22 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/27 15:07:03 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_MINISHELL_H
 # define FT_MINISHELL_H
 # define NONE -1
-# define REWRITE 0
-# define WRITE 1
-# define REVERSE 2
+# define REWRITE 1
+# define WRITE 2
+# define REVERSE 3
 # define COMMAND 0
 # define PIPE 1
 # include "get_next_line.h"
@@ -136,7 +136,8 @@ void 			add_to_list(t_node **head, char *str);
 void			add_to_str(t_str **head, char c, char *string);
 char			*list_to_str(t_str **str);
 char			**node_to_argv(t_node **head);
-char 			**split_arg(char *s);
+char			**split_arg(char *s, t_files **files);
 int				launch(char **argv);
+char			*parsing(char *s, t_str **str);
 
 #endif

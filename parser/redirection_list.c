@@ -19,7 +19,7 @@ t_files	*new_redirection(char *file_path, int file_option)
 	node = (t_files*)malloc(sizeof(t_files));
 	node->name = file_path;
 	if (file_path)
-		node->name = ft_strdup(file_path);
+		node->name = file_path;
 	else
 		node->name = NULL;
 	node->type = file_option;

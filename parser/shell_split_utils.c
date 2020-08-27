@@ -33,8 +33,7 @@ int		env_len2(char *arg)
 	int i;
 
 	i = 0;
-	while (arg[i] && arg[i] != ' ' && arg[i] != '\'' && arg[i] != '\"'
-		   && arg[i] != '\\' && arg[i] != '$' && arg[i] != '=' && arg[i] != ';' && arg[i] != '|')
+	while (arg[i] && arg[i] != ' ' && ft_isalnum(arg[i]))
 		i++;
 	return (i);
 }
