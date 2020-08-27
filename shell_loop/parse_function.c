@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 23:24:33 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/27 21:09:47 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/27 22:34:30 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		is_contains_alpha(char *arg)
 int		exit_program(char **argv)
 {
 	write(1, "exit\n", 5);
-	if (argv[2])
+	if (argv[2] && number_of_arguments(argv) >= 3)
 	{
 		print_error_log("lsh: ", "exit: ", NULL, "too many arguments");
 		return (1);
