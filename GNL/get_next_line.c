@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 19:00:30 by denis             #+#    #+#             */
-/*   Updated: 2020/08/27 22:21:31 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/28 01:24:51 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,16 @@ int		get_next_line(int fd, char **line)
 		return (-1);
 	if (flag == 1)
 		return (1);
-	while ((count = read(fd, buff, BUFFER_SIZE)) > 0)
-	{
+	while ((count = read(fd, buff, BUFFER_SIZE)) >= 0)
+	{	
+		write(1, "  \b\b", 4);
+		if (count == 0 && (*line == NULL || **line == 0))
+			return (0);
 		buff[count] = '\0';
 		if (!(*line = ft_strjoin_gnl(*line, buff)))
 			return (-1);
 		if (find_pos(buff))
-			return (init_balance(buff, find_pos(buff), &balance));
+			return (init_balance(buff, find_pos(buff), &balance));	
 	}
 	balance = NULL;
 	if (!(*line))

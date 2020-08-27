@@ -1,5 +1,13 @@
 minishell : echo $PATH/
+MacBook-Air-mac:minishell mac$ echo $PATH/
+/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin/
 
 minishell : echo $PATH_
 
+MacBook-Air-mac:minishell mac$ echo $PATH_
+
+
 minishell : echo $PATH.
+
+MacBook-Air-mac:minishell mac$ echo $PATH.
+/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/Apple/usr/bin.

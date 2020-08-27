@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 18:02:47 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/23 20:28:20 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/28 00:35:17 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ char	*get_name(char *arg)
 	int	i;
 
 	i = 0;
-	if (!(ft_isdigit(arg[0])) && arg[0] != ' ')
+	if (!(ft_isdigit(arg[0])) && (ft_isalpha(arg[0]) || arg[0] == '_'))
 	{
 		while (arg[i] != '=')
 		{
-			if (arg[i] == ' ' || !arg[i])
+			if (!(ft_isalpha(arg[0]) || ft_isdigit(arg[0]) || arg[0] == '_') || !arg[i])
 				return (NULL);
 			i++;
 		}
@@ -112,6 +112,7 @@ int		export(char *arg, char **envp[])
 				return (0);
 			}
 		}
+		free (name);
 	}
 	return (1);
 }

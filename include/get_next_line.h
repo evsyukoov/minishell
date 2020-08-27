@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 17:18:51 by denis             #+#    #+#             */
-/*   Updated: 2020/08/27 21:57:27 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/28 01:02:30 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "../libft/libft.h"
+
 # define BUFFER_SIZE 100
 
 int		get_next_line(int fd, char **line);
