@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_loop.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/27 18:25:49 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/26 22:46:08 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ void	shell_loop()
 	args_lst = NULL;
 	while (1)
 	{
-		signal(SIGQUIT, sighandler);
-		signal(SIGINT, sighandler);
+		// signal(SIGQUIT, sighandler);
+		// signal(SIGINT, sighandler);
 		write(1, "minishell : ", 12);
 		args_lst = get_argv();
 		if (args_lst)

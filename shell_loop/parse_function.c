@@ -6,7 +6,7 @@
 /*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 23:24:33 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/23 20:00:30 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/26 23:16:56 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,21 @@ void	*free_arguments(char ***argv)
 
 int		execution(char **argv, char **envp[])
 {
-	char	wd[256];
+	char	*wd;
 
+	wd = NULL;
 	if (ft_strcmp(argv[0], "cd") == 0)
 		return (cd(argv, *envp));
 	else if (ft_strcmp(argv[0], "pwd") == 0)
 	{
-		ft_putendl_fd(getwd(wd), 1);
+		ft_putendl_fd((wd = getcwd(wd, 0)), 1);
+		free(wd);	
 		return (0);
 	}
 	else if (ft_strcmp(argv[0], "unset") == 0)
 		return (unset(argv[1], *envp));
+	else if (ft_strcmp(argv[0], "echo") == 0)
+		return (echo(&argv[1]));
 	else if (ft_strcmp(argv[0], "env") == 0)
 		return (print_env(*envp, argv));
 	else if (ft_strcmp(argv[0], "export") == 0)

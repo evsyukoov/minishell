@@ -1,0 +1,5 @@
+minishell : echo $PATH/
+
+minishell : echo $PATH_
+
+minishell : echo $PATH.

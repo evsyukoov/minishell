@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/22 21:06:34 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/27 17:50:11 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/26 21:46:14 by mcaptain         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ char			**split(char *s, char c);
 t_args 			*get_node(t_args *lst, int index);
 int				word_counter(char *s, char delimetr);
 int 			skip_quotes(char **s, char q_type);
+int				echo (char *argv[]);
 void 			add_to_list(t_node **head, char *str);
 void			add_to_str(t_str **head, char c, char *string);
 char			*list_to_str(t_str **str);

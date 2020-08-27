@@ -12,6 +12,7 @@ SRCS =  main.c \
 		shell_loop/enviroment_utils.c \
 		shell_loop/enviroment_utils2.c \
 		shell_loop/handler.c \
+		shell_loop/echo.c \
 		shell_loop/parse_function.c \
 		shell_loop/pipe_dup.c \
 		shell_loop/launch.c \
@@ -26,7 +27,7 @@ SRCS =  main.c \
 		parser/redirection_list.c \
 		parser/redirections.c \
 		parser/redirections_2.c \
-		parser/shell_split.c \CopyCopy
+		parser/shell_split.c \
 		parser/shell_split_utils.c \
 		parser/split_nodes.c \
 		parser/split_nodes_utils.c \
