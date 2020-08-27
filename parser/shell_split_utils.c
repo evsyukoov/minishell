@@ -42,7 +42,7 @@ char	*init_env_name(char *arg)
 {
 	char	*name;
 	int		i;
-	int len;
+	int		len;
 
 	arg += 1;
 	len = env_len2(arg);

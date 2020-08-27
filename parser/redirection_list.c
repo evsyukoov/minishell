@@ -17,7 +17,6 @@ t_files	*new_redirection(char *file_path, int file_option)
 	t_files *node;
 
 	node = (t_files*)malloc(sizeof(t_files));
-	node->name = file_path;
 	if (file_path)
 		node->name = file_path;
 	else
