@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 23:24:33 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/27 21:09:15 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/27 21:09:47 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,25 @@ int		is_contains_alpha(char *arg)
 	return (0);
 }
 
-int		exit_program(char *arg)
+int		exit_program(char **argv)
 {
 	write(1, "exit\n", 5);
-	if (arg + 1)
+	if (argv[2])
 	{
 		print_error_log("lsh: ", "exit: ", NULL, "too many arguments");
 		return (1);
 	}
-	if (arg)
+	if (argv[1])
 	{
-		if (is_contains_alpha(arg))
+		if (is_contains_alpha(argv[1]))
 		{
 			g_last_code = 255;
-			print_error_log("lsh: ", "exit: ", arg, "numeric argument required");
+			print_error_log("lsh: ", "exit: ", argv[1], "numeric argument required");
 			exit(255);
 		}
 		else
 		{
-			g_last_code = ft_atoi(arg);
+			g_last_code = ft_atoi(argv[1]);
 			if (g_last_code > 255)
 				exit(0);
 			else
@@ -108,6 +108,6 @@ int		execution(char **argv, char **envp[])
 	else if (ft_strcmp(argv[0], "export") == 0)
 		return (export(argv[1], envp));
 	else if (ft_strcmp(argv[0], "exit") == 0)
-		return (exit_program(argv[1]));
+		return (exit_program(argv));
 	return (launch(argv));
 }

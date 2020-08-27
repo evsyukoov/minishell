@@ -16,3 +16,4 @@ echo abc"'$HOME\$?\"\"$PWD'"abc > file1
 echo abc"'$HOME\$?\"\"\\$PWD'$HOME"abc > file1
 echo "$HOME$PWD" > file1
 echo "$HOfME;$PWD" > file2
+echo "$HOME\$PWD\"\'$HOME             aaas $?"'abc $HOME$PWD   abcf' > file2

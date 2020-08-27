@@ -29,8 +29,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6d3f3b3d-67a6-47c1-8ca8-129defb1b877" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shell_loop/parse_function.c" beforeDir="false" afterPath="$PROJECT_DIR$/shell_loop/parse_function.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shell_loop/shell_loop.c" beforeDir="false" afterPath="$PROJECT_DIR$/shell_loop/shell_loop.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test" beforeDir="false" afterPath="$PROJECT_DIR$/test" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +90,7 @@
       <workItem from="1598524212301" duration="12109000" />
       <workItem from="1598539080218" duration="3705000" />
       <workItem from="1598545727591" duration="27000" />
-      <workItem from="1598545971276" duration="3487000" />
+      <workItem from="1598545971276" duration="4249000" />
     </task>
     <servers />
   </component>
