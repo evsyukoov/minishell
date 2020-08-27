@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:20:27 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/26 22:49:23 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/27 18:25:49 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_args	*get_argv()
 		return (0);
 	}
 	lst = create_list(line);
-	print_arg_list(lst);
+	//print_arg_list(lst);
 	free(line);
 	return (lst);
 }
@@ -97,7 +97,7 @@ int		parse_str(t_args *args_lst, char **envp[])
 
 void	shell_loop()
 {
-	//int		status;
+	int		status;
 	t_args	*args_lst;
 
 	args_lst = NULL;
@@ -107,11 +107,11 @@ void	shell_loop()
 		signal(SIGINT, sighandler);
 		write(1, "minishell : ", 12);
 		args_lst = get_argv();
-		//if (args_lst)
-		//{
-			//status = parse_str(args_lst, &g_env_copy);
-		//	g_last_code = status;
-		//}
+		if (args_lst)
+		{
+			status = parse_str(args_lst, &g_env_copy);
+			g_last_code = status;
+		}
 		free_args_list(&args_lst);
 	}
 }

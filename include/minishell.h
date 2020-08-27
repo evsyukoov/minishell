@@ -6,7 +6,7 @@
 /*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/22 21:06:34 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/27 15:07:03 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/27 17:50:11 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,27 @@ char			**node_to_argv(t_node **head);
 char			**split_arg(char *s, t_files **files);
 int				launch(char **argv);
 char			*parsing(char *s, t_str **str);
+t_str			*get_last_char(t_str *lst);
+int 			lst_size(t_str *str);
+t_node			*get_last(t_node *node);
+int				argv_size(t_node *node);
+int				type_of_redirection(char **s);
+int				is_redirections(char *s);
+char			*wait_for_next_redirect(char *s);
+void 			free_files(t_files **files);
+char			*parse_redirect(char *s, t_files **files);
+void			free_nodes(t_node **head);
+int				redirection_parser_loop(char **s, t_files **files, t_str *str, t_node **node);
+int 	is_spec_symbols(char *s);
+void 	push_envir(char *s, t_str **head);
+char 	*parse_dollar(char *s, t_str **head);
+char	*parse_home_path(char *s, t_str **head);
+void 	parse_double_quotes(t_str **head, char **s);
+void 	parse_simple_quotes(t_str **head, char **s);
+char 	*analize_slash(char *s, t_str **head, int flag);
+int			number_of_arguments(char **argv);
+int 		is_pipe(char *s);
+int 		is_pipe_end(char *arg);
+void 		change_option(t_args *lst);
 
 #endif

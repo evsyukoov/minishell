@@ -15,15 +15,21 @@ SRCS =  main.c \
 		shell_loop/parse_function.c \
 		shell_loop/pipe_dup.c \
 		shell_loop/launch.c \
+		parser/free.c \
 		parser/list_utils.c \
+		parser/parse_quotes.c \
+		parser/parse_slash.c \
+		parser/parse_spec.c \
 		parser/parser_lists.c \
+		parser/parser_lists_2.c \
+		parser/parsing.c \
 		parser/redirection_list.c \
-		parser/redirection_parser.c \
-		parser/redirection_parser_utils.c \
-		parser/shell_split.c \
+		parser/redirections.c \
+		parser/redirections_2.c \
+		parser/shell_split.c \CopyCopy
 		parser/shell_split_utils.c \
 		parser/split_nodes.c \
-		parser/parsing.c \
+		parser/split_nodes_utils.c \
 		helper.c
 
 OBJS = $(SRCS:.c=.o)

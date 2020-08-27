@@ -25,7 +25,7 @@ int	write_to(t_files *file, int fd)
 {
 	if (fd > 0)
 		close(fd);
-	if (file->type)
+	if (file->type == 2)
 		fd = open(file->name, O_RDWR | O_APPEND | O_CREAT, 00644);
 	else
 		fd = open(file->name, O_RDWR | O_TRUNC | O_CREAT, 00644);
@@ -45,7 +45,7 @@ int	redirection(t_args *args_lst, char **envp[])
 	fd_write = 0;
 	while (tmp)
 	{
-		if (tmp->type == 2)
+		if (tmp->type == 3)
 		{
 			if ((fd_read = read_from(tmp, fd_read)) < 0)
 				return ((print_error_log("minishell: ",

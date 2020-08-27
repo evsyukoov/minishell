@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:49:32 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/23 20:00:22 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/27 16:36:55 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 char	**realloc_env(char *envp[])
 {
-	char	**new_env;
 	char	*buf;
 	int		i;
 
-	new_env = malloc(sizeof(char *) * (env_len(envp) + 1));
+	g_env_copy = malloc(sizeof(char *) * (env_len(envp) + 1));
 	i = 0;
-	if (!new_env)
+	if (!g_env_copy)
 		return (NULL);
 	while (envp[i])
 	{
@@ -28,38 +27,11 @@ char	**realloc_env(char *envp[])
 		if (!buf)
 			return (NULL);
 		ft_strlcpy(buf, envp[i], 1 + ft_strlen(envp[i]));
-		new_env[i] = buf;
+		g_env_copy[i] = buf;
 		i++;
 	}
-	new_env[i] = 0;
-	return (new_env);
-}
-
-void	free_args_list(t_args **lst)
-{
-	t_args	*tmp;
-	t_args	*head;
-	t_files	*tmp2;
-	int		i;
-
-	head = *lst;
-	while (head)
-	{
-		i = 0;
-		tmp = head;
-		while ((head->args)[i])
-			free(head->args[i++]);
-		free(head->args);
-		while (head->files)
-		{
-			tmp2 = head->files;
-			free(head->files->name);
-			head->files = head->files->next;
-			free(tmp2);
-		}
-		head = head->next;
-		free(tmp);
-	}
+	g_env_copy[i] = 0;
+	return (g_env_copy);
 }
 
 int		main(int argc, char *argv[], char *envp[])
@@ -69,5 +41,6 @@ int		main(int argc, char *argv[], char *envp[])
 	if (!(g_env_copy = realloc_env(envp)))
 		return (0);
 	shell_loop();
+	free_arguments(&g_env_copy);
 	return (g_last_code);
 }
