@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_function.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/17 23:24:33 by mcaptain          #+#    #+#             */
-/*   Updated: 2020/08/26 23:16:56 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/27 21:09:15 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,17 @@ int		is_contains_alpha(char *arg)
 int		exit_program(char *arg)
 {
 	write(1, "exit\n", 5);
+	if (arg + 1)
+	{
+		print_error_log("lsh: ", "exit: ", NULL, "too many arguments");
+		return (1);
+	}
 	if (arg)
 	{
 		if (is_contains_alpha(arg))
 		{
 			g_last_code = 255;
+			print_error_log("lsh: ", "exit: ", arg, "numeric argument required");
 			exit(255);
 		}
 		else
@@ -102,6 +108,6 @@ int		execution(char **argv, char **envp[])
 	else if (ft_strcmp(argv[0], "export") == 0)
 		return (export(argv[1], envp));
 	else if (ft_strcmp(argv[0], "exit") == 0)
-		exit_program(argv[1]);
+		return (exit_program(argv[1]));
 	return (launch(argv));
 }

@@ -28,27 +28,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d3f3b3d-67a6-47c1-8ca8-129defb1b877" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/$?HOME&quot;\'" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ls" beforeDir="false" afterPath="$PROJECT_DIR$/ls" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minishell.dSYM/Contents/Info.plist" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/minishell.dSYM/Contents/Resources/DWARF/minishell" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/environment_parser.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/environment_parser.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/environment_parser_2.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/shell_split.c" beforeDir="false" afterPath="$PROJECT_DIR$/parser/shell_split.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/shell_split_2.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/shell_split_utils_2.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/shell_split_utils_2.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/str_utils.o" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shell_loop/echo.c" beforeDir="false" afterPath="$PROJECT_DIR$/shell_loop/echo.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shell_loop/parse_function.c" beforeDir="false" afterPath="$PROJECT_DIR$/shell_loop/parse_function.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/shell_loop/shell_loop.c" beforeDir="false" afterPath="$PROJECT_DIR$/shell_loop/shell_loop.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test" beforeDir="false" afterPath="$PROJECT_DIR$/test" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +91,7 @@
       <workItem from="1598524212301" duration="12109000" />
       <workItem from="1598539080218" duration="3705000" />
       <workItem from="1598545727591" duration="27000" />
-      <workItem from="1598545971276" duration="2606000" />
+      <workItem from="1598545971276" duration="3487000" />
     </task>
     <servers />
   </component>
@@ -138,11 +120,11 @@
     </state>
     <state x="744" y="382" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1440@0.0.2560.1440" timestamp="1598545737788" />
     <state x="744" y="378" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.2560.1337@0.23.2560.1337" timestamp="1598544623351" />
-    <state x="1045" y="515" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598543775337">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state x="1045" y="501" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598551326619">
+      <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state x="1045" y="515" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1440@0.0.2560.1440" timestamp="1598543775337" />
-    <state x="1045" y="501" key="#com.intellij.fileTypes.FileTypeChooser/0.23.2560.1337@0.23.2560.1337" timestamp="1598536133961" />
+    <state x="1045" y="501" key="#com.intellij.fileTypes.FileTypeChooser/0.23.2560.1337@0.23.2560.1337" timestamp="1598551326619" />
     <state x="1018" y="474" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1598545386085">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
@@ -160,26 +142,26 @@
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="57" y="0" width="2360" height="1240" key="DiffContextDialog/0.0.2560.1440@0.0.2560.1440" timestamp="1598543901103" />
-    <state width="2518" height="281" key="GridCell.Tab.0.bottom" timestamp="1598550292252">
+    <state width="2518" height="281" key="GridCell.Tab.0.bottom" timestamp="1598551534072">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state width="2518" height="313" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1598545706875" />
-    <state width="2518" height="281" key="GridCell.Tab.0.bottom/0.23.2560.1337@0.23.2560.1337" timestamp="1598550292252" />
-    <state width="2518" height="281" key="GridCell.Tab.0.center" timestamp="1598550292251">
+    <state width="2518" height="281" key="GridCell.Tab.0.bottom/0.23.2560.1337@0.23.2560.1337" timestamp="1598551534072" />
+    <state width="2518" height="281" key="GridCell.Tab.0.center" timestamp="1598551534072">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state width="2518" height="313" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1598545706874" />
-    <state width="2518" height="281" key="GridCell.Tab.0.center/0.23.2560.1337@0.23.2560.1337" timestamp="1598550292251" />
-    <state width="2518" height="281" key="GridCell.Tab.0.left" timestamp="1598550292250">
+    <state width="2518" height="281" key="GridCell.Tab.0.center/0.23.2560.1337@0.23.2560.1337" timestamp="1598551534072" />
+    <state width="2518" height="281" key="GridCell.Tab.0.left" timestamp="1598551534071">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state width="2518" height="313" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1598545706874" />
-    <state width="2518" height="281" key="GridCell.Tab.0.left/0.23.2560.1337@0.23.2560.1337" timestamp="1598550292250" />
-    <state width="2518" height="281" key="GridCell.Tab.0.right" timestamp="1598550292252">
+    <state width="2518" height="281" key="GridCell.Tab.0.left/0.23.2560.1337@0.23.2560.1337" timestamp="1598551534071" />
+    <state width="2518" height="281" key="GridCell.Tab.0.right" timestamp="1598551534072">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state width="2518" height="313" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1598545706875" />
-    <state width="2518" height="281" key="GridCell.Tab.0.right/0.23.2560.1337@0.23.2560.1337" timestamp="1598550292252" />
+    <state width="2518" height="281" key="GridCell.Tab.0.right/0.23.2560.1337@0.23.2560.1337" timestamp="1598551534072" />
     <state width="2518" height="121" key="GridCell.Tab.1.bottom" timestamp="1598538616786">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
