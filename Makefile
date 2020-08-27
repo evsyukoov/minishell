@@ -31,7 +31,6 @@ SRCS =  main.c \
 		parser/shell_split_utils.c \
 		parser/split_nodes.c \
 		parser/split_nodes_utils.c \
-		helper.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -28,13 +28,13 @@ void	push_envir(char *s, t_str **head)
 
 	name = init_env_name(s);
 	env_var = get_env_var(name, g_env_copy);
+	free(name);
 	if (env_var)
 		envir = ft_strdup(env_var);
 	else
 		return ;
 	if (envir)
 		add_to_str(head, 0, envir);
-	free(name);
 }
 
 char	*parse_dollar(char *s, t_str **head)

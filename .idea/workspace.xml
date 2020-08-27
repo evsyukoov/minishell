@@ -19,9 +19,7 @@
     <select />
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
-    <generated>
-      <config projectName="Cub" targetName="minishell" />
-    </generated>
+    <generated />
   </component>
   <component name="CMakeSettings">
     <configurations>
@@ -29,7 +27,29 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6d3f3b3d-67a6-47c1-8ca8-129defb1b877" name="Default Changelist" comment="" />
+    <list default="true" id="6d3f3b3d-67a6-47c1-8ca8-129defb1b877" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/$?HOME&quot;\'" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vscode/settings.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ls" beforeDir="false" afterPath="$PROJECT_DIR$/ls" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minishell.dSYM/Contents/Info.plist" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/minishell.dSYM/Contents/Resources/DWARF/minishell" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/environment_parser.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/environment_parser.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/environment_parser_2.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/shell_split.c" beforeDir="false" afterPath="$PROJECT_DIR$/parser/shell_split.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/shell_split_2.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/shell_split_utils_2.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/shell_split_utils_2.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/parser/str_utils.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/shell_loop/echo.c" beforeDir="false" afterPath="$PROJECT_DIR$/shell_loop/echo.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shell_loop/shell_loop.c" beforeDir="false" afterPath="$PROJECT_DIR$/shell_loop/shell_loop.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test" beforeDir="false" afterPath="$PROJECT_DIR$/test" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,7 +86,7 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="minishell" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" WORKING_DIR="file://$PROJECT_DIR$" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cub" TARGET_NAME="minishell" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cub" RUN_TARGET_NAME="minishell">
+    <configuration name="minishell" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" WORKING_DIR="file://$PROJECT_DIR$" PASS_PARENT_ENVS_2="true" PROJECT_NAME="minishelll" TARGET_NAME="minishell" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="minishelll" RUN_TARGET_NAME="minishell">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -88,6 +108,8 @@
       <workItem from="1598443615146" duration="24045000" />
       <workItem from="1598524212301" duration="12109000" />
       <workItem from="1598539080218" duration="3705000" />
+      <workItem from="1598545727591" duration="27000" />
+      <workItem from="1598545971276" duration="2606000" />
     </task>
     <servers />
   </component>
@@ -111,47 +133,53 @@
       <screen x="0" y="23" width="2560" height="1337" />
     </state>
     <state x="1142" y="328" width="939" height="493" key="#Notifications/0.23.2560.1337@0.23.2560.1337" timestamp="1598543245165" />
-    <state x="744" y="382" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598382112912">
+    <state x="744" y="382" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1598545737788">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state x="744" y="382" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1440@0.0.2560.1440" timestamp="1598382112912" />
-    <state x="1045" y="515" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598542377215">
+    <state x="744" y="382" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1440@0.0.2560.1440" timestamp="1598545737788" />
+    <state x="744" y="378" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.23.2560.1337@0.23.2560.1337" timestamp="1598544623351" />
+    <state x="1045" y="515" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1598543775337">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state x="1045" y="515" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1440@0.0.2560.1440" timestamp="1598542377215" />
+    <state x="1045" y="515" key="#com.intellij.fileTypes.FileTypeChooser/0.0.2560.1440@0.0.2560.1440" timestamp="1598543775337" />
     <state x="1045" y="501" key="#com.intellij.fileTypes.FileTypeChooser/0.23.2560.1337@0.23.2560.1337" timestamp="1598536133961" />
-    <state x="1018" y="474" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1598542433296">
+    <state x="1018" y="474" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1598545386085">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state x="1018" y="474" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1440@0.0.2560.1440" timestamp="1598542433296" />
+    <state x="1018" y="474" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1440@0.0.2560.1440" timestamp="1598545386085" />
+    <state x="1018" y="463" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.23.2560.1337@0.23.2560.1337" timestamp="1598545217116" />
+    <state x="1045" y="450" key="#minishell" timestamp="1598546213860">
+      <screen x="0" y="23" width="2560" height="1337" />
+    </state>
+    <state x="1045" y="450" key="#minishell/0.23.2560.1337@0.23.2560.1337" timestamp="1598546213860" />
     <state width="424" height="466" key="DebuggerActiveHint" timestamp="1598380296594">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state width="424" height="466" key="DebuggerActiveHint/0.0.2560.1440@0.0.2560.1440" timestamp="1598380296594" />
-    <state x="57" y="0" width="2360" height="1240" key="DiffContextDialog" timestamp="1598543550227">
+    <state x="57" y="0" width="2360" height="1240" key="DiffContextDialog" timestamp="1598543901103">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state x="57" y="0" width="2360" height="1240" key="DiffContextDialog/0.0.2560.1440@0.0.2560.1440" timestamp="1598543550227" />
-    <state width="2518" height="313" key="GridCell.Tab.0.bottom" timestamp="1598542386547">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state x="57" y="0" width="2360" height="1240" key="DiffContextDialog/0.0.2560.1440@0.0.2560.1440" timestamp="1598543901103" />
+    <state width="2518" height="281" key="GridCell.Tab.0.bottom" timestamp="1598550292252">
+      <screen x="0" y="23" width="2560" height="1337" />
     </state>
-    <state width="2518" height="313" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1598542386547" />
-    <state width="2518" height="121" key="GridCell.Tab.0.bottom/0.23.2560.1337@0.23.2560.1337" timestamp="1598538616785" />
-    <state width="2518" height="313" key="GridCell.Tab.0.center" timestamp="1598542386546">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="2518" height="313" key="GridCell.Tab.0.bottom/0.0.2560.1440@0.0.2560.1440" timestamp="1598545706875" />
+    <state width="2518" height="281" key="GridCell.Tab.0.bottom/0.23.2560.1337@0.23.2560.1337" timestamp="1598550292252" />
+    <state width="2518" height="281" key="GridCell.Tab.0.center" timestamp="1598550292251">
+      <screen x="0" y="23" width="2560" height="1337" />
     </state>
-    <state width="2518" height="313" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1598542386546" />
-    <state width="2518" height="121" key="GridCell.Tab.0.center/0.23.2560.1337@0.23.2560.1337" timestamp="1598538616785" />
-    <state width="2518" height="313" key="GridCell.Tab.0.left" timestamp="1598542386545">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="2518" height="313" key="GridCell.Tab.0.center/0.0.2560.1440@0.0.2560.1440" timestamp="1598545706874" />
+    <state width="2518" height="281" key="GridCell.Tab.0.center/0.23.2560.1337@0.23.2560.1337" timestamp="1598550292251" />
+    <state width="2518" height="281" key="GridCell.Tab.0.left" timestamp="1598550292250">
+      <screen x="0" y="23" width="2560" height="1337" />
     </state>
-    <state width="2518" height="313" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1598542386545" />
-    <state width="2518" height="121" key="GridCell.Tab.0.left/0.23.2560.1337@0.23.2560.1337" timestamp="1598538616785" />
-    <state width="2518" height="313" key="GridCell.Tab.0.right" timestamp="1598542386546">
-      <screen x="0" y="0" width="2560" height="1440" />
+    <state width="2518" height="313" key="GridCell.Tab.0.left/0.0.2560.1440@0.0.2560.1440" timestamp="1598545706874" />
+    <state width="2518" height="281" key="GridCell.Tab.0.left/0.23.2560.1337@0.23.2560.1337" timestamp="1598550292250" />
+    <state width="2518" height="281" key="GridCell.Tab.0.right" timestamp="1598550292252">
+      <screen x="0" y="23" width="2560" height="1337" />
     </state>
-    <state width="2518" height="313" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1598542386546" />
-    <state width="2518" height="121" key="GridCell.Tab.0.right/0.23.2560.1337@0.23.2560.1337" timestamp="1598538616785" />
+    <state width="2518" height="313" key="GridCell.Tab.0.right/0.0.2560.1440@0.0.2560.1440" timestamp="1598545706875" />
+    <state width="2518" height="281" key="GridCell.Tab.0.right/0.23.2560.1337@0.23.2560.1337" timestamp="1598550292252" />
     <state width="2518" height="121" key="GridCell.Tab.1.bottom" timestamp="1598538616786">
       <screen x="0" y="23" width="2560" height="1337" />
     </state>

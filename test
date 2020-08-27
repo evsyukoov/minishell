@@ -3,6 +3,7 @@
 echo "abc cde"'a$?sd'"asas""as$?as""a            b"'a                b'"efwf        ;wefewfew""\""|echo "abc cde"'a$?sd'"asas""as$?as""a            b"'a                b'"efwf        ;wefewfew""\""
 echo "'$?'"
 echo '\$?'
+echo VAR $var
 echo "$HOME \"\'\"\\$PWD";echo "$HOME \"\'\"\\$PWD";echo "$HOME \"\'\"\\$PWD";echo "$HOME \"\'\"\\$PWD";echo "$HOME \"\'\"\\$PWD";echo "$HOME \"\'\"\\$PWD"
 echo \'\"\'\$HOME        $PWD     \$HOME"abc  ;   ; $? | \"   ";echo \'\"\'\$HOME      1    abc  $? ''   \$HOME"abc   ;;   $?  \"   "
 echo simple test wow"simple test        wow"simple test wow

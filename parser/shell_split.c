@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/21 22:16:20 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/26 21:45:30 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/27 18:55:44 by ccarl            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ t_args	*create_list(char *arg)
 
 	i = 0;
 	lst = NULL;
+	files = NULL;
 	argv1 = split(arg, ';');
 	if (!argv1)
 		return (0);

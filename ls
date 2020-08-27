@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo ";abc         abc;|"     ;      echo "$HOME"       ;           echo "\$HOME;"
+echo ";abc         abc;|"     ;      echo "\$HOME abc"  $?     ;           echo "\\$HOME;"
 echo "abc cde"'a$?sd'"asas""as$?as""a            b"'a                b'"efwf        ;wefewfew""\""|echo "abc cde"'a$?sd'"asas""as$?as""a            b"'a                b'"efwf        ;wefewfew""\""
 echo "'$?'"
 echo '\$?'
@@ -8,10 +10,8 @@ echo \'\"\'\$HOME        $PWD     \$HOME"abc  ;   ; $? | \"   ";echo \'\"\'\$HOM
 echo simple test wow"simple test        wow"simple test wow
 echo simple test wow "'simple test    ;|;    wow'" simple test wow        ;         echo simple test wow "'simple test    ;|;    wow'" simple test wow
 echo a"abc abc          abc" 1
-echo simple test wow "'simple test    ;|;    wow'" simple test wow > file1
-echo "abc cde"'a$?sd'"asas""as$?as""a            b"'a                b'"efwf        ;wefewfew""\"" > file2
-echo "$HOME \"\'\"\\$PWD";echo "$HOME \"\'\"\\$PWD" > file1
-echo abc"'$HOME\$?\"\"$PWD'"abc > file1
-echo abc"'$HOME\$?\"\"\\$PWD'$HOME"abc > file1
-echo "$HOME$PWD" > file1
-echo "$HOfME;$PWD" > file2
+echo simple test wow "'simple test    ;|;    wow'" simple test wow
+echo "abc cde"'a$?sd'"asas""as$?as""a            b"'a                b'"efwf        ;wefewfew""\""
+echo "$HOME \"\'\"\\$PWD";echo "$HOME \"\'\"\\$PWD"
+echo abc"'$HOME\$?\"\"$PWD'"abc
+echo abc"'$HOME\$?\"\"\\$PWD'$HOME"abc
