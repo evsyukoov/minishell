@@ -19,7 +19,9 @@
     <select />
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
-    <generated />
+    <generated>
+      <config projectName="Cub" targetName="minishell" />
+    </generated>
   </component>
   <component name="CMakeSettings">
     <configurations>
@@ -29,15 +31,7 @@
   <component name="ChangeListManager">
     <list default="true" id="6d3f3b3d-67a6-47c1-8ca8-129defb1b877" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GNL/get_next_line.c" beforeDir="false" afterPath="$PROJECT_DIR$/GNL/get_next_line.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GNL/get_next_line.h" beforeDir="false" afterPath="$PROJECT_DIR$/GNL/get_next_line.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/file2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/get_next_line.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/get_next_line.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libft/libft.a" beforeDir="false" afterPath="$PROJECT_DIR$/libft/libft.a" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minishell" beforeDir="false" afterPath="$PROJECT_DIR$/minishell" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shell_loop/parse_function.c" beforeDir="false" afterPath="$PROJECT_DIR$/shell_loop/parse_function.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/shell_loop/shell_loop.c" beforeDir="false" afterPath="$PROJECT_DIR$/shell_loop/shell_loop.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/shell_loop/export.c" beforeDir="false" afterPath="$PROJECT_DIR$/shell_loop/export.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +69,7 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="minishell" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" WORKING_DIR="file://$PROJECT_DIR$" PASS_PARENT_ENVS_2="true" PROJECT_NAME="minishelll" TARGET_NAME="minishell" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="minishelll" RUN_TARGET_NAME="minishell">
+    <configuration name="minishell" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" WORKING_DIR="file://$PROJECT_DIR$" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Cub" TARGET_NAME="minishell" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Cub" RUN_TARGET_NAME="minishell">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -99,6 +93,7 @@
       <workItem from="1598539080218" duration="3705000" />
       <workItem from="1598545727591" duration="27000" />
       <workItem from="1598545971276" duration="7691000" />
+      <workItem from="1598613062182" duration="315000" />
     </task>
     <servers />
   </component>

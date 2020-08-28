@@ -95,6 +95,7 @@ int		export(char *arg, char **envp[])
 	char	*value;
 	char	**buf;
 
+	buf = *envp;
 	if (!arg)
 	{
 		print_env(*envp, NULL);
@@ -106,9 +107,9 @@ int		export(char *arg, char **envp[])
 		{
 			if (rewrite_var(name, value, *envp))
 				return (0);
-			if ((buf = insert_var(name, value, *envp)))
+			if ((*envp = insert_var(name, value, *envp)))
 			{
-				*envp = buf;
+				free(buf);
 				return (0);
 			}
 		}
