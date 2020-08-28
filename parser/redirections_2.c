@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ccarl <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: denis <denis@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/27 17:41:59 by ccarl             #+#    #+#             */
-/*   Updated: 2020/08/27 18:03:40 by ccarl            ###   ########.fr       */
+/*   Updated: 2020/08/28 15:03:10 by denis            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*parse_redirect(char *s, t_files **files)
 {
-	t_str *str;
-	int flag;
+	t_str	*str;
+	int		flag;
 
 	str = NULL;
 	flag = type_of_redirection(&s);
@@ -32,7 +32,8 @@ char	*parse_redirect(char *s, t_files **files)
 	return (s);
 }
 
-int		redirection_parser_loop(char **s, t_files **files, t_str *str, t_node **node)
+int		redirection_parser_loop(
+char **s, t_files **files, t_str *str, t_node **node)
 {
 	int flag;
 
@@ -53,4 +54,3 @@ int		redirection_parser_loop(char **s, t_files **files, t_str *str, t_node **nod
 	}
 	return (flag);
 }
-
