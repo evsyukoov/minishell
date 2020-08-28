@@ -35,6 +35,7 @@ t_args	*get_argv()
 	int		ret;
 
 	line = NULL;
+	lst = NULL;
 	ret = get_next_line(0, &line);
 	if (ret < 0)
 		return (0);
@@ -99,8 +100,8 @@ void	shell_loop()
 	args_lst = NULL;
 	while (1)
 	{
-		// signal(SIGQUIT, sighandler);
-		// signal(SIGINT, sighandler);
+		signal(SIGQUIT, sighandler);
+		signal(SIGINT, sighandler);
 		write(1, "minishell : ", 12);
 		args_lst = get_argv();
 		if (args_lst)

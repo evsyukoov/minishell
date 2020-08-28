@@ -17,6 +17,11 @@ char	*get_name(char *arg)
 	int	i;
 
 	i = 0;
+	if (ft_isdigit(arg[0]))
+	{
+		print_error_log("lsh: ", "export: ", arg, "not a valid identifier");
+		return (NULL);
+	}
 	if (!(ft_isdigit(arg[0])) && (ft_isalpha(arg[0]) || arg[0] == '_'))
 	{
 		while (arg[i] != '=')
