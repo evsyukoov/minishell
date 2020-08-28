@@ -26,7 +26,7 @@ int		is_pipe(char *s)
 {
 	char q_type;
 
-	while (*s)
+	while (s && *s)
 	{
 		q_type = quote_type(s);
 		while (q_type)
@@ -36,7 +36,8 @@ int		is_pipe(char *s)
 		}
 		if (*s == '|')
 			return (1);
-		s++;
+		if (*s != 0)
+			s++;
 	}
 	return (0);
 }

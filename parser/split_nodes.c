@@ -64,7 +64,7 @@ int		word_len(char *str, char delimetr)
 			len += skip_quotes(&str, q_type);
 			q_type = quote_type(str);
 		}
-		if (*str == delimetr)
+		if (*str == delimetr || !*str)
 			return (len);
 		str++;
 		len++;
@@ -82,21 +82,18 @@ int		word_counter(char *str, char delimetr)
 		return (parse_error(*str));
 	while (*str)
 	{
-		q_type = quote_type(str);
-		while (q_type)
-		{
+		while ((q_type = quote_type(str)) != 0)
 			skip_quotes(&str, q_type);
-			q_type = quote_type(str);
-		}
-		if (*str == delimetr)
+		if (!*str)
+			return (words + 1);
+		if (*str == delimetr && ++words)
 		{
 			if (*(str + 1) == delimetr)
 				return (parse_error(delimetr));
-			words++;
 		}
 		else if (!*(str + 1))
 			words++;
-		str++;
+		*str == '\0' ? str : str++;
 	}
 	return (words);
 }
