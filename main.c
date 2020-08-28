@@ -14,7 +14,6 @@
 
 char	**realloc_env(char *envp[])
 {
-	char	*buf;
 	int		i;
 
 	g_env_copy = malloc(sizeof(char *) * (env_len(envp) + 1));
@@ -23,11 +22,8 @@ char	**realloc_env(char *envp[])
 		return (NULL);
 	while (envp[i])
 	{
-		buf = malloc(ft_strlen(envp[i]) + 1);
-		if (!buf)
-			return (NULL);
-		ft_strlcpy(buf, envp[i], 1 + ft_strlen(envp[i]));
-		g_env_copy[i] = buf;
+		if (!(g_env_copy[i] = ft_strdup(envp[i])))
+			return (0);
 		i++;
 	}
 	g_env_copy[i] = 0;
