@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: denis <denis@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 19:00:16 by denis             #+#    #+#             */
-/*   Updated: 2020/08/28 01:21:20 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/28 15:05:56 by denis            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
+
 char	*ft_strjoin_gnl(char *s1, char *s2)
 {
 	char	*res;

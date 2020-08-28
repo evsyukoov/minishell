@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mcaptain <mcaptain@msk-school21.ru>        +#+  +:+       +#+        */
+/*   By: denis <denis@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/06 19:00:30 by denis             #+#    #+#             */
-/*   Updated: 2020/08/28 01:24:51 by mcaptain         ###   ########.fr       */
+/*   Updated: 2020/08/28 15:09:09 by denis            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,15 @@ char	*init_line(char *s2)
 	return (res);
 }
 
+int		finish_gnl(char **line, int count)
+{
+	if (!(*line))
+		*line = allocate_empty_line("\0");
+	if (count < 0)
+		return (-1);
+	return (0);
+}
+
 int		get_next_line(int fd, char **line)
 {
 	int			count;
@@ -62,7 +71,7 @@ int		get_next_line(int fd, char **line)
 	if (flag == 1)
 		return (1);
 	while ((count = read(fd, buff, BUFFER_SIZE)) >= 0)
-	{	
+	{
 		write(1, "  \b\b", 4);
 		if (count == 0 && (*line == NULL || **line == 0))
 			return (0);
@@ -70,12 +79,8 @@ int		get_next_line(int fd, char **line)
 		if (!(*line = ft_strjoin_gnl(*line, buff)))
 			return (-1);
 		if (find_pos(buff))
-			return (init_balance(buff, find_pos(buff), &balance));	
+			return (init_balance(buff, find_pos(buff), &balance));
 	}
 	balance = NULL;
-	if (!(*line))
-		*line = allocate_empty_line("\0");
-	if (count < 0)
-		return (-1);
-	return (0);
+	return (finish_gnl(line, count));
 }
